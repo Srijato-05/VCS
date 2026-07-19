@@ -1,21 +1,34 @@
 package com.draftflow.core;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class NetworkSyncException extends DraftFlowException {
+public class NetworkSyncException extends IOException {
+    private final List<String> suggestions;
+
     public NetworkSyncException(String message) {
-        super("NETWORK_SYNC_FAILURE", message);
+        super(message);
+        this.suggestions = new ArrayList<>();
     }
 
     public NetworkSyncException(String message, Throwable cause) {
-        super("NETWORK_SYNC_FAILURE", message, cause);
+        super(message, cause);
+        this.suggestions = new ArrayList<>();
     }
 
     public NetworkSyncException(String message, List<String> suggestions) {
-        super("NETWORK_SYNC_FAILURE", message, suggestions);
+        super(message);
+        this.suggestions = suggestions != null ? new ArrayList<>(suggestions) : new ArrayList<>();
     }
 
     public NetworkSyncException(String message, List<String> suggestions, Throwable cause) {
-        super("NETWORK_SYNC_FAILURE", message, suggestions, cause);
+        super(message, cause);
+        this.suggestions = suggestions != null ? new ArrayList<>(suggestions) : new ArrayList<>();
+    }
+
+    public List<String> getSuggestions() {
+        return Collections.unmodifiableList(suggestions);
     }
 }

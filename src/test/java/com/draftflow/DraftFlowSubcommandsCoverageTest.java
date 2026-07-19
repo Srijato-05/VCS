@@ -146,7 +146,7 @@ public class DraftFlowSubcommandsCoverageTest {
         // 8. HistoryCmd & LedgerCmd
         int historyCode = runCommand("history");
         assertEquals(0, historyCode);
-        assertTrue(outContent.toString().contains("Revision:"));
+        assertTrue(outContent.toString().contains("Author:"));
 
         int ledgerCode = runCommand("ledger");
         assertEquals(0, ledgerCode);

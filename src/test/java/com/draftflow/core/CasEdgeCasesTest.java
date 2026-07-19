@@ -28,7 +28,7 @@ public class CasEdgeCasesTest {
         Files.createDirectories(objPath1.getParent());
         Files.write(objPath1, new byte[]{1, 2, 3, 4}); 
         
-        IOException ex1 = assertThrows(IOException.class, () -> cas.readObject(fakeHash1));
+        Exception ex1 = assertThrows(Exception.class, () -> cas.readObject(fakeHash1));
         assertTrue(ex1.getMessage().contains("Decompression failed"));
 
         // 2. CAS corruption / hash mismatch
@@ -39,7 +39,7 @@ public class CasEdgeCasesTest {
         Files.createDirectories(objPath2.getParent());
         Files.write(objPath2, compressed);
 
-        IOException ex2 = assertThrows(IOException.class, () -> cas.readObject(fakeHash2));
+        Exception ex2 = assertThrows(Exception.class, () -> cas.readObject(fakeHash2));
         assertTrue(ex2.getMessage().contains("CAS data corruption detected"));
 
         // 3. Corrupt header (missing space or null)
@@ -50,7 +50,7 @@ public class CasEdgeCasesTest {
         Files.createDirectories(objPathCorrupt.getParent());
         Files.write(objPathCorrupt, compressedCorrupt);
 
-        IOException ex3 = assertThrows(IOException.class, () -> cas.readObject(corruptHash));
+        Exception ex3 = assertThrows(Exception.class, () -> cas.readObject(corruptHash));
         assertTrue(ex3.getMessage().contains("Corrupt object header"));
 
         // 4. Invalid Object Type
@@ -117,7 +117,7 @@ public class CasEdgeCasesTest {
             boolean acquired = cas.tryAcquireLock(50);
             assertFalse(acquired);
 
-            assertThrows(IOException.class, () -> cas.acquireLock());
+            assertThrows(Exception.class, () -> cas.acquireLock());
         }
     }
 

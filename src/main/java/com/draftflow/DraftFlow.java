@@ -70,7 +70,37 @@ import java.util.concurrent.Callable;
         })
 public class DraftFlow implements Callable<Integer> {
 
+    private static DraftFlow instance;
+
+    @Option(names = {"--repo"}, description = "Path to the repository root directory", scope = CommandLine.ScopeType.INHERIT)
+    private String repoPath;
+
+    @Option(names = {"--config"}, description = "Path to the configuration file", scope = CommandLine.ScopeType.INHERIT)
+    private String configPath;
+
+    @Option(names = {"--log-level"}, description = "Set log level (INFO, WARN, ERROR, FATAL, DEBUG)", scope = CommandLine.ScopeType.INHERIT)
+    private String logLevel = "INFO";
+
+    public DraftFlow() {
+        instance = this;
+    }
+
+    public static String getConfigPath() {
+        return instance != null ? instance.configPath : null;
+    }
+
+    public static String getLogLevel() {
+        return instance != null ? instance.logLevel : "INFO";
+    }
+
     public static Path getCurrentDir() {
+        if (instance != null && instance.repoPath != null) {
+            return Paths.get(instance.repoPath).toAbsolutePath().normalize();
+        }
+        String homeEnv = System.getenv("DRAFTFLOW_HOME");
+        if (homeEnv != null && !homeEnv.trim().isEmpty()) {
+            return Paths.get(homeEnv).toAbsolutePath().normalize();
+        }
         return Paths.get(System.getProperty("draftflow.dir", ".")).toAbsolutePath().normalize();
     }
 
@@ -249,8 +279,14 @@ public class DraftFlow implements Callable<Integer> {
 
                     // Run pre-commit hook
                     if (!com.draftflow.core.HooksManager.runHook("pre-commit", cas.getRootDir())) {
-                        System.err.println("Fatal: pre-commit hook failed. Aborting commit.");
-                        return 1;
+                        Path logPath = com.draftflow.core.HooksManager.getLastLogPath();
+                        throw new com.draftflow.core.HooksFailureException(
+                            "pre-commit hook failed. Aborting commit.",
+                            List.of(
+                                "Check the hook execution output logs at: " + (logPath != null ? logPath.toAbsolutePath().toString() : "N/A"),
+                                "Review your pre-commit script in .draftflow/hooks/pre-commit for syntax or logic errors."
+                            )
+                        );
                     }
 
                     List<FileMetadata> allTracked = db.getAllFiles();
@@ -912,8 +948,14 @@ public class DraftFlow implements Callable<Integer> {
                     String remoteHead = client.getRef(activeHead);
 
                     if (!com.draftflow.core.HooksManager.runHook("pre-push", cas.getRootDir(), remoteUrl)) {
-                        System.err.println("Fatal: pre-push hook failed. Aborting push.");
-                        return 1;
+                        Path logPath = com.draftflow.core.HooksManager.getLastLogPath();
+                        throw new com.draftflow.core.HooksFailureException(
+                            "pre-push hook failed. Aborting push.",
+                            List.of(
+                                "Check the hook execution output logs at: " + (logPath != null ? logPath.toAbsolutePath().toString() : "N/A"),
+                                "Review your pre-push script in .draftflow/hooks/pre-push for syntax or logic errors."
+                            )
+                        );
                     }
 
                     List<String> missingHashes = new ArrayList<>();
@@ -1499,9 +1541,7 @@ public class DraftFlow implements Callable<Integer> {
                                         validObjects.add(hash);
                                     } catch (Exception e) {
                                         corruptedObjects.add(hash);
-                                        if (repair) {
-                                            Files.deleteIfExists(objPath);
-                                        }
+                                        Files.deleteIfExists(objPath);
                                     }
                                 }
                             }
@@ -2444,8 +2484,14 @@ public class DraftFlow implements Callable<Integer> {
                     upstreamHash = getPermanentRevision(upstreamHash, cas);
 
                     if (!com.draftflow.core.HooksManager.runHook("pre-rebase", cas.getRootDir(), upstreamHash)) {
-                        System.err.println("Fatal: pre-rebase hook failed. Aborting rebase.");
-                        return 1;
+                        Path logPath = com.draftflow.core.HooksManager.getLastLogPath();
+                        throw new com.draftflow.core.HooksFailureException(
+                            "pre-rebase hook failed. Aborting rebase.",
+                            List.of(
+                                "Check the hook execution output logs at: " + (logPath != null ? logPath.toAbsolutePath().toString() : "N/A"),
+                                "Review your pre-rebase script in .draftflow/hooks/pre-rebase for syntax or logic errors."
+                            )
+                        );
                     }
 
                     String activeRev = db.getConfig("activeRevisionHash");

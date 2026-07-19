@@ -73,6 +73,7 @@ public class WorkspaceManagerEdgeCasesTest {
 
             Path destDir = tempDir.resolve("file.txt");
             Files.createDirectories(destDir);
+            Files.writeString(destDir.resolve("keep.txt"), "prevent deletion");
 
             WorkspaceManager wm = new WorkspaceManager(cas, db);
 

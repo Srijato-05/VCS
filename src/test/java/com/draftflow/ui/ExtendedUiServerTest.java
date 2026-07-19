@@ -83,6 +83,7 @@ public class ExtendedUiServerTest {
             HttpRequest updateProfileReq = HttpRequest.newBuilder()
                     .uri(URI.create("http://localhost:" + port + "/api/auth/profile"))
                     .header("Content-Type", "application/json")
+                    .header("X-User-Email", "test@vcs.dev")
                     .POST(HttpRequest.BodyPublishers.ofString(updateProfileJson))
                     .build();
             HttpResponse<String> updateProfileResponse = client.send(updateProfileReq, HttpResponse.BodyHandlers.ofString());

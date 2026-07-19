@@ -32,6 +32,47 @@ DraftFlow is a self-contained version control system designed around immutable s
 
 ---
 
+## Quick-Start & Portability Guide
+
+### Prerequisites
+- **Java**: Minimum Java 11 is required (recommended JDK 24 or newer).
+
+### Building
+To build a fully self-contained fat JAR containing all runtime dependencies, execute the build script:
+```powershell
+.\build-fat-jar.ps1
+```
+This compiles the classes and packages them with H2, Gson, and Picocli into `target/draftflow.jar`.
+
+### Launching the CLI
+Launch scripts are provided in the repository root for seamless execution:
+- **Windows**: Use `draftflow.bat <command>` (e.g., `draftflow.bat status`).
+- **macOS / Linux**: Use `./draftflow <command>` (e.g., `./draftflow status`).
+
+Alternatively, call the JAR directly:
+```bash
+java -jar target/draftflow.jar <command>
+```
+
+### Environment Overrides
+DraftFlow supports environment variables and global CLI flags to adapt to any environment:
+- **Workspace Override**: Set `--repo <path>` or `DRAFTFLOW_HOME=<path>` env variable.
+- **Config Override**: Set `--config <path>` to override the default `.draftflow/config.json` location.
+- **Log Level Override**: Set `--log-level <level>` (DEBUG, INFO, WARN, ERROR, FATAL) to filter diagnostic messages.
+- **Log Directory Override**: Set `DRAFTFLOW_LOG_DIR=<path>` env variable.
+
+### Containerization
+Run DraftFlow within Docker out-of-the-box:
+```bash
+# Build the Docker image
+docker build -t draftflow .
+
+# Run inside a container, mounting your repository directory as a volume
+docker run -it -v /my/repo:/repo draftflow status
+```
+
+---
+
 ## Overall Architecture
 
 DraftFlow is divided into three cooperating layers:

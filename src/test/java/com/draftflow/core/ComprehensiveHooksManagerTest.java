@@ -73,4 +73,29 @@ public class ComprehensiveHooksManagerTest {
         assertFalse(HooksManager.runHook("pre-commit", null));
         assertFalse(HooksManager.runHook("pre-commit", tempDir.resolve("nonexistent")));
     }
+
+    @Test
+    public void testHookLoggingAndThreadLocal() throws IOException {
+        Path hooksDir = tempDir.resolve(".draftflow").resolve("hooks");
+        Files.createDirectories(hooksDir);
+
+        boolean isWin = System.getProperty("os.name").toLowerCase().contains("win");
+        String hookName = "pre-commit";
+        if (isWin) {
+            Path hookFile = hooksDir.resolve("pre-commit.bat");
+            Files.writeString(hookFile, "@echo off\necho Test Hook Log Output\nexit /b 0");
+        } else {
+            Path hookFile = hooksDir.resolve("pre-commit");
+            Files.writeString(hookFile, "#!/bin/sh\necho Test Hook Log Output\nexit 0");
+            hookFile.toFile().setExecutable(true);
+        }
+
+        assertTrue(HooksManager.runHook(hookName, tempDir));
+        Path logFile = HooksManager.getLastLogPath();
+        assertNotNull(logFile, "Log path should be populated via ThreadLocal");
+        assertTrue(Files.exists(logFile), "Log file should exist on disk");
+        
+        String logContent = Files.readString(logFile);
+        assertTrue(logContent.contains("Test Hook Log Output"), "Log file content should contain echoed text");
+    }
 }

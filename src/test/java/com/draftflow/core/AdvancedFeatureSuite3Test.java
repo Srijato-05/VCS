@@ -161,8 +161,8 @@ public class AdvancedFeatureSuite3Test {
 
         DraftFlow.SaveCmd saveFail = new DraftFlow.SaveCmd();
         setField(saveFail, "message", "Failing hook commit");
-        // Save must return non-zero exit code due to failing pre-commit hook
-        assertEquals(1, saveFail.call());
+        // Save must throw HooksFailureException due to failing pre-commit hook
+        assertThrows(com.draftflow.core.HooksFailureException.class, () -> saveFail.call());
 
         // 2. Test successful hook
         Files.writeString(preCommitFile, isWin ? "@echo off\nexit /b 0\n" : "#!/bin/sh\nexit 0\n");

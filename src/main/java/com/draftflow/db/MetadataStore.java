@@ -84,9 +84,8 @@ public class MetadataStore implements AutoCloseable {
         }
         throw new IllegalStateException("Unreachable");
     }
-
     private boolean isDatabaseFileLocked(Path path) {
-        if (!Files.exists(path)) {
+        if (!Files.exists(path) || Files.isDirectory(path)) {
             return false;
         }
         try (java.nio.channels.FileChannel channel = java.nio.channels.FileChannel.open(path, 

@@ -133,18 +133,27 @@ public class AdvancedCoverageTest {
         assertEquals(500, responseTraceErr2.statusCode());
 
         // --- Test GET Trace (No commits on detached) ---
-        db.removeConfig("activeRevisionHash");
+        try (MetadataStore tempDb = new MetadataStore(dbPath)) {
+            tempDb.open();
+            tempDb.removeConfig("activeRevisionHash");
+            tempDb.commit();
+        }
         HttpResponse<String> responseTraceErr3 = client.send(
                 HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/trace?file=hello.txt")).GET().build(),
                 HttpResponse.BodyHandlers.ofString()
         );
         assertEquals(500, responseTraceErr3.statusCode());
-        db.setConfig("activeRevisionHash", revHash);
-        db.commit();
+        try (MetadataStore tempDb = new MetadataStore(dbPath)) {
+            tempDb.open();
+            tempDb.setConfig("activeRevisionHash", revHash);
+            tempDb.commit();
+        }
 
         // --- Test ActionHandler ---
         // Close the database to release the file lock for the command line action execution
-        db.close();
+        try {
+            db.close();
+        } catch (Exception ignored) {}
 
         // 1. GET method (Not Allowed)
         HttpResponse<String> responseActionGet = client.send(

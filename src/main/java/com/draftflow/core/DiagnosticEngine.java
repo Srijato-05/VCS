@@ -12,7 +12,11 @@ import java.util.List;
 public class DiagnosticEngine {
 
     public enum LogLevel {
-        INFO, WARN, ERROR, FATAL, DEBUG
+        DEBUG(0), INFO(1), WARN(2), ERROR(3), FATAL(4);
+
+        private final int priority;
+        LogLevel(int priority) { this.priority = priority; }
+        public int getPriority() { return priority; }
     }
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -44,11 +48,33 @@ public class DiagnosticEngine {
                     System.err.println(cyan + "  " + (i + 1) + ". " + suggestions.get(i) + reset);
                 }
             }
+        } else if (e instanceof CASCorruptException) {
+            CASCorruptException cce = (CASCorruptException) e;
+            System.err.println(red + bold + "[DIAGNOSTIC] Error Code: CAS_CORRUPTION" + reset);
+            System.err.println(bold + "EXPLANATION: " + cce.getMessage() + reset);
+            List<String> suggestions = cce.getSuggestions();
+            if (!suggestions.isEmpty()) {
+                System.err.println(yellow + bold + "SUGGESTED ACTIONS:" + reset);
+                for (int i = 0; i < suggestions.size(); i++) {
+                    System.err.println(cyan + "  " + (i + 1) + ". " + suggestions.get(i) + reset);
+                }
+            }
+        } else if (e instanceof NetworkSyncException) {
+            NetworkSyncException nse = (NetworkSyncException) e;
+            System.err.println(red + bold + "[DIAGNOSTIC] Error Code: NETWORK_SYNC_FAILURE" + reset);
+            System.err.println(bold + "EXPLANATION: " + nse.getMessage() + reset);
+            List<String> suggestions = nse.getSuggestions();
+            if (!suggestions.isEmpty()) {
+                System.err.println(yellow + bold + "SUGGESTED ACTIONS:" + reset);
+                for (int i = 0; i < suggestions.size(); i++) {
+                    System.err.println(cyan + "  " + (i + 1) + ". " + suggestions.get(i) + reset);
+                }
+            }
         } else {
             String msg = e.getMessage() != null ? e.getMessage() : "";
-            if (msg.contains("Database may be already in use") || msg.contains("Lock owned by") || e.getClass().getName().contains("JdbcSQLNonTransientConnectionException")) {
+            if (msg.contains("Database may be already in use") || msg.contains("Lock owned by") || msg.contains("index.lock already held") || e.getClass().getName().contains("JdbcSQLNonTransientConnectionException")) {
                 System.err.println(red + bold + "[DIAGNOSTIC] H2 Database Lock Contention Detected!" + reset);
-                System.err.println(bold + "EXPLANATION: Another DraftFlow instance or the web dashboard server is actively holding the database lock." + reset);
+                System.err.println(bold + "EXPLANATION: Lock Contention: Another process may be running a DraftFlow operation" + reset);
                 System.err.println(yellow + bold + "SUGGESTED ACTIONS:" + reset);
                 System.err.println(cyan + "  1. If the DraftFlow GUI dashboard is running, please close/terminate the dashboard server." + reset);
                 System.err.println(cyan + "  2. Check for other background terminal processes running DraftFlow commands in this workspace." + reset);
@@ -61,15 +87,15 @@ public class DiagnosticEngine {
                 System.err.println(cyan + "  2. Copy your local public key (found in '.draftflow/id_ecdsa.pub') and add it to the remote server using:" + reset);
                 System.err.println(cyan + "     draftflow keys --add \"<YOUR_PUBLIC_KEY>\"" + reset);
                 System.err.println(cyan + "  3. Verify that your local private key '.draftflow/id_ecdsa' is intact." + reset);
-            } else if (e instanceof java.util.zip.DataFormatException || msg.contains("corrupt") || msg.contains("header")) {
+            } else if (e instanceof java.util.zip.DataFormatException || msg.contains("corrupt") || msg.contains("checksum failed") || msg.contains("header")) {
                 System.err.println(red + bold + "[DIAGNOSTIC] CAS Object Store Corruption Detected!" + reset);
-                System.err.println(bold + "EXPLANATION: A stored commit, tree, or blob object has corrupted zlib headers or size mismatches." + reset);
+                System.err.println(bold + "EXPLANATION: Data Corruption: A stored object failed checksum verification" + reset);
                 System.err.println(yellow + bold + "SUGGESTED ACTIONS:" + reset);
                 System.err.println(cyan + "  1. Run 'draftflow verify' to scan for corrupted files in '.draftflow/objects/'." + reset);
                 System.err.println(cyan + "  2. Use 'draftflow verify --repair' to automatically prune corrupt references and restore to the last stable state." + reset);
             } else if (e instanceof java.io.SyncFailedException || msg.contains("Access is denied") || msg.contains("Permission denied")) {
                 System.err.println(red + bold + "[DIAGNOSTIC] Filesystem Access/Permissions Failure!" + reset);
-                System.err.println(bold + "EXPLANATION: DraftFlow does not have read/write permissions for the current workspace or CAS store." + reset);
+                System.err.println(bold + "EXPLANATION: Permissions Issue: Please verify that you have read/write access to the current directory." + reset);
                 System.err.println(yellow + bold + "SUGGESTED ACTIONS:" + reset);
                 System.err.println(cyan + "  1. Ensure you have read/write access to the current directory." + reset);
                 System.err.println(cyan + "  2. On Windows, run the terminal as Administrator if the folder is system-protected." + reset);
@@ -77,6 +103,7 @@ public class DiagnosticEngine {
                 System.err.println(red + bold + "[DIAGNOSTIC] General System Error Occurred." + reset);
                 System.err.println("Error Type: " + e.getClass().getName());
                 System.err.println("Error Message: " + e.getMessage());
+                System.err.println("Troubleshooting: Ensure you have enough disk space and that no other application is locking the database files.");
                 System.err.println("Please check the detailed trace in '.draftflow/diagnostics.log'.");
             }
         }
@@ -93,7 +120,32 @@ public class DiagnosticEngine {
 
     private static synchronized void logToFile(LogLevel level, String context, String message, Throwable e, Path rootDir) {
         if (rootDir == null) return;
-        Path logPath = rootDir.resolve(".draftflow").resolve("diagnostics.log");
+
+        // Log level filtering
+        String configLogLevel = "INFO";
+        try {
+            configLogLevel = com.draftflow.DraftFlow.getLogLevel();
+        } catch (Throwable ignored) {}
+        if (configLogLevel == null) {
+            configLogLevel = "INFO";
+        }
+        LogLevel threshold = LogLevel.INFO;
+        try {
+            threshold = LogLevel.valueOf(configLogLevel.toUpperCase());
+        } catch (Exception ignored) {}
+
+        if (level.getPriority() < threshold.getPriority()) {
+            return;
+        }
+
+        Path logPath;
+        String logDirEnv = System.getenv("DRAFTFLOW_LOG_DIR");
+        if (logDirEnv != null && !logDirEnv.trim().isEmpty()) {
+            logPath = java.nio.file.Paths.get(logDirEnv).resolve("diagnostics.log");
+        } else {
+            logPath = rootDir.resolve(".draftflow").resolve("diagnostics.log");
+        }
+
         try {
             if (!Files.exists(logPath.getParent())) {
                 Files.createDirectories(logPath.getParent());

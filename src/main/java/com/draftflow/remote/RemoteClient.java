@@ -74,7 +74,6 @@ public class RemoteClient {
     private interface NetworkCall<T> {
         T execute() throws IOException, InterruptedException;
     }
-
     private <T> T executeWithRetry(NetworkCall<T> call) throws IOException, InterruptedException {
         int maxRetries = 3;
         int delay = 100; // ms
@@ -83,6 +82,9 @@ public class RemoteClient {
                 return call.execute();
             } catch (IOException e) {
                 if (attempt == maxRetries) {
+                    if (e instanceof NetworkSyncException) {
+                        throw (NetworkSyncException) e;
+                    }
                     throw new NetworkSyncException("Failed to synchronize with remote server '" + remoteUrl + "' after " + maxRetries + " attempts.", 
                         java.util.List.of("Check your internet connection or remote host availability.", "Verify that the remote server URL is correct: " + remoteUrl), e);
                 }
@@ -93,7 +95,6 @@ public class RemoteClient {
         throw new NetworkSyncException("Unexpected exhaustion of retries while contacting: " + remoteUrl, 
             java.util.List.of("Check remote server logs and ensure it is responding."));
     }
-
     private void checkStatusCode(HttpResponse<?> response, String errorMessage) throws NetworkSyncException {
         if (response.statusCode() < 200 || response.statusCode() >= 300) {
             if (response.statusCode() == 401 || response.statusCode() == 403) {

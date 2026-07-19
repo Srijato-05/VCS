@@ -168,17 +168,24 @@ public class CAS {
     }
 
     public DraftFlowConfig getConfig() {
-        Path configPath = draftFlowDir.resolve("config.json");
+        String customConfigPath = null;
+        try {
+            customConfigPath = com.draftflow.DraftFlow.getConfigPath();
+        } catch (Throwable ignored) {}
+
+        Path configPath = customConfigPath != null ? java.nio.file.Paths.get(customConfigPath) : draftFlowDir.resolve("config.json");
         try {
             if (Files.exists(configPath)) {
                 return DraftFlowConfig.load(configPath);
             }
         } catch (Exception e) {
-            System.err.println("Warning: config.json was corrupted or unparseable. Automatically regenerating it...");
+            System.err.println("Warning: config file was corrupted or unparseable. Automatically regenerating it...");
         }
 
         try {
-            Files.createDirectories(draftFlowDir);
+            if (configPath.getParent() != null) {
+                Files.createDirectories(configPath.getParent());
+            }
             String defaultConfig = "{\n  \"version\": \"1.0\",\n  \"hashAlgorithm\": \"SHA-256\",\n  \"exclude\": [\".git\", \".draftflow\", \"build\", \"out\", \"target\", \".gradle\", \".idea\", \"bin\", \".vscode\"]\n}";
             Files.writeString(configPath, defaultConfig, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             return DraftFlowConfig.load(configPath);
