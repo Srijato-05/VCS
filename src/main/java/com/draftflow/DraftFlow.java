@@ -65,42 +65,11 @@ import java.util.concurrent.Callable;
                 DraftFlow.GitImportCmd.class,
                 DraftFlow.GitExportCmd.class,
                 DraftFlow.HooksCmd.class,
-                DraftFlow.ConfigCmd.class,
-                DraftFlow.RebuildIndexCmd.class
+                DraftFlow.ConfigCmd.class
         })
 public class DraftFlow implements Callable<Integer> {
 
-    private static DraftFlow instance;
-
-    @Option(names = {"--repo"}, description = "Path to the repository root directory", scope = CommandLine.ScopeType.INHERIT)
-    private String repoPath;
-
-    @Option(names = {"--config"}, description = "Path to the configuration file", scope = CommandLine.ScopeType.INHERIT)
-    private String configPath;
-
-    @Option(names = {"--log-level"}, description = "Set log level (INFO, WARN, ERROR, FATAL, DEBUG)", scope = CommandLine.ScopeType.INHERIT)
-    private String logLevel = "INFO";
-
-    public DraftFlow() {
-        instance = this;
-    }
-
-    public static String getConfigPath() {
-        return instance != null ? instance.configPath : null;
-    }
-
-    public static String getLogLevel() {
-        return instance != null ? instance.logLevel : "INFO";
-    }
-
     public static Path getCurrentDir() {
-        if (instance != null && instance.repoPath != null) {
-            return Paths.get(instance.repoPath).toAbsolutePath().normalize();
-        }
-        String homeEnv = System.getenv("DRAFTFLOW_HOME");
-        if (homeEnv != null && !homeEnv.trim().isEmpty()) {
-            return Paths.get(homeEnv).toAbsolutePath().normalize();
-        }
         return Paths.get(System.getProperty("draftflow.dir", ".")).toAbsolutePath().normalize();
     }
 
@@ -132,8 +101,28 @@ public class DraftFlow implements Callable<Integer> {
     public static class DraftFlowExecutionExceptionHandler implements CommandLine.IExecutionExceptionHandler {
         @Override
         public int handleExecutionException(Exception ex, CommandLine commandLine, CommandLine.ParseResult parseResult) {
-            Path currentDir = getCurrentDir();
-            com.draftflow.core.DiagnosticEngine.handleException(ex, currentDir);
+            System.err.println("================================================================================");
+            System.err.println("                     DRAFTFLOW VCS CRITICAL EXCEPTION");
+            System.err.println("================================================================================");
+            System.err.println("Operation failed due to an unexpected error.");
+            System.err.println("Error Type: " + ex.getClass().getName());
+            System.err.println("Message:    " + (ex.getMessage() != null ? ex.getMessage() : ""));
+            System.err.println();
+            System.err.println("Diagnostics & Troubleshooting Tips:");
+            if (ex instanceof java.io.FileNotFoundException || (ex.getMessage() != null && (ex.getMessage().contains("Access is denied") || ex.getMessage().contains("Permission")))) {
+                System.err.println("  -> Permissions Issue: Please verify that you have read/write access to the repository directory.");
+            } else if (ex.getMessage() != null && (ex.getMessage().contains("lock") || ex.getMessage().contains("Lock"))) {
+                System.err.println("  -> Lock Contention: Another process may be running a DraftFlow operation. Please wait for it to complete.");
+            } else if (ex.getMessage() != null && (ex.getMessage().contains("corrupted") || ex.getMessage().contains("corruption"))) {
+                System.err.println("  -> Data Corruption: A stored object failed checksum verification. Run 'draftflow verify' to verify and heal.");
+            } else {
+                System.err.println("  -> System State: Ensure you have enough disk space and that no other application is locking the database files.");
+            }
+            System.err.println();
+            System.err.println("System Information:");
+            System.err.println("  OS:           " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ")");
+            System.err.println("  Java Version: " + System.getProperty("java.version"));
+            System.err.println("================================================================================");
             
             if ("true".equalsIgnoreCase(System.getenv("DRAFTFLOW_DEBUG")) || "true".equalsIgnoreCase(System.getProperty("DRAFTFLOW_DEBUG"))) {
                 ex.printStackTrace();
@@ -142,6 +131,10 @@ public class DraftFlow implements Callable<Integer> {
             }
             return 1;
         }
+    }
+
+    public static String getLogLevel() {
+        return "INFO";
     }
 
     public static int runMain(String[] args) {
@@ -279,14 +272,8 @@ public class DraftFlow implements Callable<Integer> {
 
                     // Run pre-commit hook
                     if (!com.draftflow.core.HooksManager.runHook("pre-commit", cas.getRootDir())) {
-                        Path logPath = com.draftflow.core.HooksManager.getLastLogPath();
-                        throw new com.draftflow.core.HooksFailureException(
-                            "pre-commit hook failed. Aborting commit.",
-                            List.of(
-                                "Check the hook execution output logs at: " + (logPath != null ? logPath.toAbsolutePath().toString() : "N/A"),
-                                "Review your pre-commit script in .draftflow/hooks/pre-commit for syntax or logic errors."
-                            )
-                        );
+                        System.err.println("Fatal: pre-commit hook failed. Aborting commit.");
+                        return 1;
                     }
 
                     List<FileMetadata> allTracked = db.getAllFiles();
@@ -504,14 +491,13 @@ public class DraftFlow implements Callable<Integer> {
                     db.setConfig("activeRevisionHash", permanentHash);
                     db.setChangeRevision(draft.getChangeId(), permanentHash);
 
-                    String branchName = activeHead != null && activeHead.startsWith("heads/") ? activeHead.substring(6) : "detached HEAD";
                     Revision newDraft = new Revision(
                             draft.getTreeHash(),
                             Collections.singletonList(permanentHash),
                             draft.getChangeId(),
                             getAuthor(db),
                             System.currentTimeMillis(),
-                            "Working Copy: " + branchName + " (clean)",
+                            "shadow-revision (WIP)",
                             true
                     );
                     newDraft = SignatureHelper.signRevisionIfKeyExists(newDraft, cas);
@@ -948,14 +934,8 @@ public class DraftFlow implements Callable<Integer> {
                     String remoteHead = client.getRef(activeHead);
 
                     if (!com.draftflow.core.HooksManager.runHook("pre-push", cas.getRootDir(), remoteUrl)) {
-                        Path logPath = com.draftflow.core.HooksManager.getLastLogPath();
-                        throw new com.draftflow.core.HooksFailureException(
-                            "pre-push hook failed. Aborting push.",
-                            List.of(
-                                "Check the hook execution output logs at: " + (logPath != null ? logPath.toAbsolutePath().toString() : "N/A"),
-                                "Review your pre-push script in .draftflow/hooks/pre-push for syntax or logic errors."
-                            )
-                        );
+                        System.err.println("Fatal: pre-push hook failed. Aborting push.");
+                        return 1;
                     }
 
                     List<String> missingHashes = new ArrayList<>();
@@ -1192,178 +1172,37 @@ public class DraftFlow implements Callable<Integer> {
             Path dbPath = cas.getDraftFlowDir().resolve("index").resolve("index.mv.db");
             try (MetadataStore db = new MetadataStore(dbPath)) {
                 db.open();
-                
-                List<String> refNames = db.getRefNames();
-                Map<String, List<String>> refMap = new HashMap<>();
-                for (String refName : refNames) {
-                    String hash = db.getRef(refName);
-                    if (hash != null) {
-                        refMap.computeIfAbsent(hash, k -> new ArrayList<>()).add(refName);
-                    }
-                }
-                
-                String activeHead = db.getConfig("activeHead");
-                String activeRevision = db.getConfig("activeRevisionHash");
-
-                Map<String, Revision> allRevisions = new HashMap<>();
-                Queue<String> queue = new LinkedList<>();
-                
-                for (String hash : refMap.keySet()) {
-                    queue.add(hash);
-                }
-                if (activeRevision != null) {
-                    queue.add(activeRevision);
-                }
-                
-                while (!queue.isEmpty()) {
-                    String curr = queue.poll();
-                    if (curr == null || allRevisions.containsKey(curr)) {
-                        continue;
-                    }
-                    try {
-                        Revision rev = (Revision) cas.readObject(curr);
-                        allRevisions.put(curr, rev);
-                        queue.addAll(rev.getParentHashes());
-                    } catch (Exception ignored) {}
-                }
-                
-                if (allRevisions.isEmpty()) {
-                    System.out.println("No commits in history.");
+                String activeRev = db.getConfig("activeRevisionHash");
+                if (activeRev == null) {
+                    System.out.println("No commits in this branch.");
                     return 0;
                 }
-                
-                List<Revision> sortedList = new ArrayList<>(allRevisions.values());
-                sortedList.sort((r1, r2) -> Long.compare(r2.getTimestamp(), r1.getTimestamp()));
 
-                List<String> activeColumns = new ArrayList<>();
-                
-                for (Revision rev : sortedList) {
-                    String hash = rev.getHash();
-                    if (!activeColumns.contains(hash)) {
-                        activeColumns.add(hash);
+                Queue<String> queue = new LinkedList<>();
+                queue.add(activeRev);
+                Set<String> visited = new HashSet<>();
+
+                while (!queue.isEmpty()) {
+                    String curr = queue.poll();
+                    if (curr == null || visited.contains(curr)) {
+                        continue;
                     }
-                    int nodeIndex = activeColumns.indexOf(hash);
-                    
-                    // Build the node line with the ANSI colored * and the commit summary
-                    StringBuilder graphPrefix = new StringBuilder();
-                    for (int j = 0; j < activeColumns.size(); j++) {
-                        if (j == nodeIndex) {
-                            graphPrefix.append("\u001B[33m*\u001B[m ");
-                        } else {
-                            graphPrefix.append("| ");
-                        }
-                    }
-                    
-                    // Gather references pointing to this commit
-                    List<String> labels = new ArrayList<>();
-                    List<String> refsAtHash = refMap.get(hash);
-                    if (refsAtHash != null) {
-                        for (String r : refsAtHash) {
-                            String displayName = r;
-                            if (r.startsWith("heads/")) {
-                                displayName = r.substring(6);
-                            }
-                            if (activeHead != null && activeHead.equals(r)) {
-                                labels.add("\u001B[32mHEAD -> " + displayName + "\u001B[m");
-                            } else {
-                                labels.add("\u001B[36m" + displayName + "\u001B[m");
-                            }
-                        }
-                    }
-                    // Handle detached head label if activeRevision is here and no branch matches
-                    if (activeRevision != null && activeRevision.equals(hash)) {
-                        boolean hasHead = false;
-                        for (String l : labels) {
-                            if (l.contains("HEAD")) hasHead = true;
-                        }
-                        if (!hasHead) {
-                            labels.add("\u001B[32mHEAD\u001B[m");
-                        }
-                    }
-                    
-                    String labelStr = "";
-                    if (!labels.isEmpty()) {
-                        labelStr = " (" + String.join(", ", labels) + ")";
-                    }
-                    
-                    String sigStatus = "";
+                    visited.add(curr);
+
+                    Revision rev = (Revision) cas.readObject(curr);
+                    String sigStatus = "[UNSIGNED]";
                     if (rev.getSignature() != null && rev.getPublicKey() != null) {
                         boolean verified = SignatureHelper.verify(rev.getSigningData(), rev.getSignature(), rev.getPublicKey());
-                        sigStatus = verified ? " \u001B[32m[SIGNED]\u001B[m" : " \u001B[31m[BAD SIGNATURE]\u001B[m";
+                        sigStatus = verified ? "[SIGNED & VERIFIED]" : "[SIGNATURE INVALID]";
                     }
-                    
-                    // Print the node line
-                    System.out.println(graphPrefix + "\u001B[35m" + hash.substring(0, 8) + "\u001B[m" + labelStr + sigStatus + " " + rev.getMessage());
-                    
-                    // Prefix for metadata lines
-                    StringBuilder metaPrefix = new StringBuilder();
-                    for (int j = 0; j < activeColumns.size(); j++) {
-                        metaPrefix.append("| ");
-                    }
-                    
-                    // Print author, date, changeId
-                    System.out.println(metaPrefix + "Author: " + rev.getAuthor());
-                    System.out.println(metaPrefix + "Date:   " + new java.util.Date(rev.getTimestamp()));
-                    System.out.println(metaPrefix + "Change: " + rev.getChangeId().substring(0, 8));
-                    
-                    // Rebuild activeColumns for the next iteration
-                    List<String> parents = rev.getParentHashes();
-                    if (parents.isEmpty()) {
-                        activeColumns.remove(nodeIndex);
-                        if (!activeColumns.isEmpty()) {
-                            StringBuilder shiftPrefix = new StringBuilder();
-                            for (int j = 0; j < activeColumns.size() + 1; j++) {
-                                if (j == nodeIndex) {
-                                    shiftPrefix.append("/ ");
-                                } else if (j > nodeIndex) {
-                                    shiftPrefix.append("\\ ");
-                                } else {
-                                    shiftPrefix.append("| ");
-                                }
-                            }
-                            System.out.println(shiftPrefix);
-                        }
-                    } else if (parents.size() == 1) {
-                        String parent = parents.get(0);
-                        if (activeColumns.contains(parent)) {
-                            activeColumns.remove(nodeIndex);
-                            StringBuilder shiftPrefix = new StringBuilder();
-                            for (int j = 0; j < activeColumns.size() + 1; j++) {
-                                if (j == nodeIndex) {
-                                    shiftPrefix.append("/ ");
-                                } else if (j > nodeIndex) {
-                                    shiftPrefix.append("\\ ");
-                                } else {
-                                    shiftPrefix.append("| ");
-                                }
-                            }
-                            System.out.println(shiftPrefix);
-                        } else {
-                            activeColumns.set(nodeIndex, parent);
-                            System.out.println(metaPrefix);
-                        }
-                    } else { // Merge commit (multiple parents)
-                        activeColumns.set(nodeIndex, parents.get(0));
-                        for (int k = 1; k < parents.size(); k++) {
-                            String extraParent = parents.get(k);
-                            if (!activeColumns.contains(extraParent)) {
-                                activeColumns.add(nodeIndex + k, extraParent);
-                            }
-                        }
-                        StringBuilder splitPrefix = new StringBuilder();
-                        for (int j = 0; j < activeColumns.size(); j++) {
-                            if (j >= nodeIndex && j < nodeIndex + parents.size() - 1) {
-                                if (j == nodeIndex) {
-                                    splitPrefix.append("|\\ ");
-                                } else {
-                                    splitPrefix.append("\\ ");
-                                }
-                            } else {
-                                splitPrefix.append("| ");
-                            }
-                        }
-                        System.out.println(splitPrefix);
-                    }
+                    System.out.println("*  Revision: " + curr.substring(0, 8) + (rev.isDraft() ? " (DRAFT)" : "") + " " + sigStatus);
+                    System.out.println("|  Change ID: " + rev.getChangeId().substring(0, 8));
+                    System.out.println("|  Author: " + rev.getAuthor());
+                    System.out.println("|  Date: " + new java.util.Date(rev.getTimestamp()));
+                    System.out.println("|  Message: " + rev.getMessage());
+                    System.out.println("|");
+
+                    queue.addAll(rev.getParentHashes());
                 }
             }
             return 0;
@@ -1503,9 +1342,6 @@ public class DraftFlow implements Callable<Integer> {
 
     @Command(name = "verify", description = "Verify CAS objects and index integrity, prune orphaned entries")
     public static class VerifyCmd implements Callable<Integer> {
-        @Option(names = {"--repair"}, description = "Automatically repair references by rolling back to the last known completely valid commit")
-        private boolean repair;
-
         @Override
         public Integer call() throws Exception {
             Path currentDir = getCurrentDir();
@@ -1550,64 +1386,23 @@ public class DraftFlow implements Callable<Integer> {
                     
                     System.out.println("Checked " + (validObjects.size() + corruptedObjects.size()) + " CAS objects.");
                     if (!corruptedObjects.isEmpty()) {
-                        System.err.println("Found " + corruptedObjects.size() + " corrupted/unreadable objects: " + corruptedObjects);
-                        if (repair) {
-                            System.out.println("Successfully cleared corrupted object files.");
-                        }
+                        System.err.println("Found and cleared " + corruptedObjects.size() + " corrupted objects: " + corruptedObjects);
                     } else {
                         System.out.println("All stored CAS objects are healthy.");
                     }
                     
-                    // Clean up files in index database if they reference missing CAS objects
                     List<FileMetadata> trackedFiles = db.getAllFiles();
                     int missingRefs = 0;
-                    int repairCount = 0;
                     for (FileMetadata f : trackedFiles) {
                         String hash = f.getHash();
                         Path objPath = objectsDir.resolve(hash.substring(0, 2)).resolve(hash.substring(2));
                         if (!Files.exists(objPath)) {
                             System.err.println("Warning: Tracked file " + f.getPath() + " references missing CAS object " + hash);
                             missingRefs++;
-                            if (repair) {
-                                System.out.println("Repairing index: Removing tracked file " + f.getPath() + " referencing missing object " + hash);
-                                db.removeFile(f.getPath());
-                                repairCount++;
-                            }
                         }
                     }
-                    if (repairCount > 0) {
-                        db.commit();
-                        System.out.println("Successfully repaired " + repairCount + " missing file entries in index.");
-                    }
-
-                    if (repair) {
-                        List<String> refs = db.getRefNames();
-                        for (String refName : refs) {
-                            String currentHash = db.getRef(refName);
-                            if (currentHash == null) continue;
-                            
-                            String validCommit = findFirstValidCommit(currentHash, cas);
-                            if (validCommit == null) {
-                                System.err.println("Warning: Branch " + refName + " has no valid commits in its history! Resetting branch pointer.");
-                                db.removeRef(refName);
-                            } else if (!validCommit.equals(currentHash)) {
-                                System.out.println("Repairing branch '" + refName + "': Rolling back pointer from " 
-                                        + currentHash.substring(0, 8) + " to last completely valid commit " 
-                                        + validCommit.substring(0, 8));
-                                db.setRef(refName, validCommit);
-                                
-                                String activeHead = db.getConfig("activeHead");
-                                if (refName.equals(activeHead)) {
-                                    db.setConfig("activeRevisionHash", validCommit);
-                                }
-                            }
-                        }
-                        db.commit();
-                    }
-                    
-                    if (missingRefs > 0 && !repair) {
+                    if (missingRefs > 0) {
                         System.err.println("Integrity Check Failed: " + missingRefs + " tracked files are missing their content in the CAS store.");
-                        System.err.println("Run 'draftflow verify --repair' to fix these issues.");
                         return 1;
                     } else {
                         System.out.println("Index matches CAS successfully.");
@@ -1615,274 +1410,6 @@ public class DraftFlow implements Callable<Integer> {
                 }
                 return 0;
             });
-        }
-
-        private static boolean isCommitTreeValid(String commitHash, CAS cas) {
-            try {
-                Revision rev = (Revision) cas.readObject(commitHash);
-                String treeHash = rev.getTreeHash();
-                if (treeHash == null) return false;
-                return isTreeValid(treeHash, cas);
-            } catch (Exception e) {
-                return false;
-            }
-        }
-
-        private static boolean isTreeValid(String treeHash, CAS cas) {
-            try {
-                Tree tree = (Tree) cas.readObject(treeHash);
-                for (TreeEntry entry : tree.getEntries()) {
-                    String hash = entry.getHash();
-                    if (hash == null) return false;
-                    if (entry.getType() == ObjectType.TREE) {
-                        if (!isTreeValid(hash, cas)) return false;
-                    } else {
-                        Path prefixDir = cas.getDraftFlowDir().resolve("objects").resolve(hash.substring(0, 2));
-                        Path objPath = prefixDir.resolve(hash.substring(2));
-                        if (!Files.exists(objPath)) {
-                            return false;
-                        }
-                    }
-                }
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-
-        private static String findFirstValidCommit(String startHash, CAS cas) {
-            String curr = startHash;
-            while (curr != null) {
-                if (isCommitTreeValid(curr, cas)) {
-                    return curr;
-                }
-                try {
-                    Revision rev = (Revision) cas.readObject(curr);
-                    List<String> parents = rev.getParentHashes();
-                    if (parents == null || parents.isEmpty()) {
-                        curr = null;
-                    } else {
-                        curr = parents.get(0);
-                    }
-                } catch (Exception e) {
-                    curr = null;
-                }
-            }
-            return null;
-        }
-    }
-
-    @Command(name = "rebuild-index", description = "Reconstruct the H2 index metadata store database from CAS revision tree")
-    public static class RebuildIndexCmd implements Callable<Integer> {
-        private static class RebuildFile {
-            final String path;
-            final String hash;
-            final ObjectType type;
-            final int mode;
-            RebuildFile(String path, String hash, ObjectType type, int mode) {
-                this.path = path;
-                this.hash = hash;
-                this.type = type;
-                this.mode = mode;
-            }
-        }
-
-        @Override
-        public Integer call() throws Exception {
-            Path currentDir = getCurrentDir();
-            CAS cas = new CAS(currentDir);
-            if (!Files.exists(cas.getDraftFlowDir())) {
-                System.err.println("Fatal: Not a draftflow repository.");
-                return 1;
-            }
-
-            return runLockedCommand(cas, () -> {
-                System.out.println("Rebuilding H2 database index store...");
-                Path dbPath = cas.getDraftFlowDir().resolve("index").resolve("index.mv.db");
-                
-                if (Files.exists(dbPath)) {
-                    Path backup = dbPath.resolveSibling("index.mv.db.corrupted_" + System.currentTimeMillis());
-                    try {
-                        Files.move(dbPath, backup, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                        System.out.println("Moved existing index database to: " + backup.getFileName());
-                    } catch (IOException e) {
-                        Files.deleteIfExists(dbPath);
-                        System.out.println("Removed existing locked database file.");
-                    }
-                }
-
-                try (com.draftflow.db.MetadataStore db = new com.draftflow.db.MetadataStore(dbPath)) {
-                    db.open();
-                    
-                    String activeRevision = null;
-                    List<com.draftflow.core.ReflogManager.ReflogEntry> entries = com.draftflow.core.ReflogManager.getReflog(cas.getRootDir());
-                    if (entries != null && !entries.isEmpty()) {
-                        activeRevision = entries.get(entries.size() - 1).getNewHash();
-                        System.out.println("Discovered active revision in reflog: " + activeRevision);
-                    }
-
-                    if (activeRevision == null || activeRevision.equals("0000000000000000000000000000000000000000")) {
-                        System.out.println("Reflog empty/missing. Scanning object store for revisions...");
-                        activeRevision = findLatestRevisionInCas(cas);
-                        if (activeRevision != null) {
-                            System.out.println("Found latest revision in CAS: " + activeRevision);
-                        }
-                    }
-
-                    if (activeRevision == null) {
-                        System.out.println("No revisions found. Repository is empty. Initializing empty main branch.");
-                        db.setConfig("activeHead", "heads/main");
-                        db.commit();
-                        System.out.println("Rebuild complete. Database has been initialized cleanly.");
-                        return 0;
-                    }
-
-                    Revision rev;
-                    try {
-                        rev = (Revision) cas.readObject(activeRevision);
-                    } catch (Exception e) {
-                        System.err.println("Fatal: Active revision " + activeRevision + " is unreadable or corrupted: " + e.getMessage());
-                        return 1;
-                    }
-
-                    String treeHash = rev.getTreeHash();
-                    if (treeHash == null) {
-                        System.err.println("Fatal: Active revision tree hash is null.");
-                        return 1;
-                    }
-
-                    System.out.println("Traversing revision tree: " + treeHash);
-                    List<RebuildFile> filesList = new ArrayList<>();
-                    collectTreeFiles(cas, "", treeHash, filesList);
-
-                    db.clearIndex();
-                    for (RebuildFile rf : filesList) {
-                        Path diskPath = cas.getRootDir().resolve(rf.path);
-                        long size = 0;
-                        long lastModified = 0;
-                        boolean contentMatches = false;
-                        if (Files.exists(diskPath)) {
-                            try {
-                                byte[] fileBytes = Files.readAllBytes(diskPath);
-                                byte[] casBytes = null;
-                                Object obj = cas.readObject(rf.hash);
-                                if (obj instanceof com.draftflow.core.Blob) {
-                                    casBytes = ((com.draftflow.core.Blob) obj).getContent();
-                                } else if (obj instanceof com.draftflow.core.ChunkTree) {
-                                    com.draftflow.core.ChunkTree ct = (com.draftflow.core.ChunkTree) obj;
-                                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                                    for (String chunkHash : ct.getChunkHashes()) {
-                                        com.draftflow.core.Blob chunkBlob = (com.draftflow.core.Blob) cas.readObject(chunkHash);
-                                        bos.write(chunkBlob.getContent());
-                                    }
-                                    casBytes = bos.toByteArray();
-                                }
-                                
-                                if (casBytes != null) {
-                                    String contentStr = new String(casBytes, java.nio.charset.StandardCharsets.UTF_8);
-                                    com.draftflow.core.LFSManager.LfsPointer lfsPtr = com.draftflow.core.LFSManager.parsePointer(contentStr);
-                                    if (lfsPtr != null) {
-                                        String diskSha = com.draftflow.core.Hasher.hash(fileBytes);
-                                        if (diskSha.equals(lfsPtr.oid) && fileBytes.length == lfsPtr.size) {
-                                            contentMatches = true;
-                                            size = fileBytes.length;
-                                            lastModified = Files.getLastModifiedTime(diskPath).toMillis();
-                                        }
-                                    } else {
-                                        if (java.util.Arrays.equals(fileBytes, casBytes)) {
-                                            contentMatches = true;
-                                            size = fileBytes.length;
-                                            lastModified = Files.getLastModifiedTime(diskPath).toMillis();
-                                        }
-                                    }
-                                }
-                            } catch (Exception ignored) {}
-                        }
-
-                        if (!contentMatches) {
-                            try {
-                                Object obj = cas.readObject(rf.hash);
-                                if (obj instanceof com.draftflow.core.Blob) {
-                                    byte[] casBytes = ((com.draftflow.core.Blob) obj).getContent();
-                                    String contentStr = new String(casBytes, java.nio.charset.StandardCharsets.UTF_8);
-                                    com.draftflow.core.LFSManager.LfsPointer lfsPtr = com.draftflow.core.LFSManager.parsePointer(contentStr);
-                                    if (lfsPtr != null) {
-                                        size = lfsPtr.size;
-                                    } else {
-                                        size = casBytes.length;
-                                    }
-                                } else if (obj instanceof com.draftflow.core.ChunkTree) {
-                                    size = ((com.draftflow.core.ChunkTree) obj).getTotalSize();
-                                }
-                            } catch (Exception ignored) {}
-                            
-                            if (Files.exists(diskPath)) {
-                                try {
-                                    size = Files.size(diskPath);
-                                } catch (Exception ignored) {}
-                                lastModified = 0;
-                            } else {
-                                lastModified = System.currentTimeMillis();
-                            }
-                        }
-
-                        db.putFile(new com.draftflow.db.FileMetadata(rf.path, size, lastModified, rf.hash, rf.type.name(), rf.mode));
-                    }
-
-                    db.setConfig("activeRevisionHash", activeRevision);
-                    db.setConfig("activeChangeId", rev.getChangeId());
-                    db.setConfig("activeHead", "heads/main");
-                    db.setRef("heads/main", activeRevision);
-                    db.commit();
-
-                    System.out.println("Successfully rebuilt database index! Registered " + filesList.size() + " files.");
-                }
-
-                return 0;
-            });
-        }
-
-        private static void collectTreeFiles(CAS cas, String currentPath, String treeHash, List<RebuildFile> filesList) throws IOException {
-            Tree tree = (Tree) cas.readObject(treeHash);
-            for (TreeEntry entry : tree.getEntries()) {
-                String relPath = currentPath.isEmpty() ? entry.getName() : currentPath + "/" + entry.getName();
-                if (entry.getType() == ObjectType.TREE) {
-                    collectTreeFiles(cas, relPath, entry.getHash(), filesList);
-                } else {
-                    filesList.add(new RebuildFile(relPath, entry.getHash(), entry.getType(), entry.getMode()));
-                }
-            }
-        }
-
-        private static String findLatestRevisionInCas(CAS cas) {
-            Path objDir = cas.getDraftFlowDir().resolve("objects");
-            if (!Files.exists(objDir)) return null;
-
-            String latestHash = null;
-            long latestTime = -1;
-
-            try (java.util.stream.Stream<Path> stream = Files.walk(objDir)) {
-                List<Path> files = stream.filter(Files::isRegularFile).collect(java.util.stream.Collectors.toList());
-                for (Path p : files) {
-                    String sub = p.getParent().getFileName().toString();
-                    String name = p.getFileName().toString();
-                    if (sub.length() == 2 && name.length() == 38) {
-                        String hash = sub + name;
-                        try {
-                            Object obj = cas.readObject(hash);
-                            if (obj instanceof Revision) {
-                                Revision rev = (Revision) obj;
-                                if (rev.getTimestamp() > latestTime) {
-                                    latestTime = rev.getTimestamp();
-                                    latestHash = hash;
-                                }
-                            }
-                        } catch (Exception ignored) {}
-                    }
-                }
-            } catch (Exception ignored) {}
-
-            return latestHash;
         }
     }
 
@@ -1921,17 +1448,8 @@ public class DraftFlow implements Callable<Integer> {
         }
     }
 
-    @Command(name = "keys", description = "Manage cryptographic ECDSA keys for signing and push verification")
+    @Command(name = "keys", description = "Generate ECDSA keypair for cryptographic commit signing")
     public static class KeysCmd implements Callable<Integer> {
-        @Option(names = {"--add"}, description = "Add a public key to the authorized list for push verification")
-        private String addKey;
-
-        @Option(names = {"--remove"}, description = "Remove a public key from the authorized list")
-        private String removeKey;
-
-        @Option(names = {"--list"}, description = "List all authorized public keys")
-        private boolean listKeys;
-
         @Override
         public Integer call() throws Exception {
             Path currentDir = getCurrentDir();
@@ -1940,69 +1458,6 @@ public class DraftFlow implements Callable<Integer> {
                 System.err.println("Fatal: Not a draftflow repository.");
                 return 1;
             }
-
-            Path dbPath = cas.getDraftFlowDir().resolve("index").resolve("index.mv.db");
-            try (MetadataStore db = new MetadataStore(dbPath)) {
-                db.open();
-
-                if (listKeys) {
-                    String authKeys = db.getConfig("authorized_keys");
-                    if (authKeys == null || authKeys.trim().isEmpty()) {
-                        System.out.println("No public keys are currently authorized.");
-                    } else {
-                        System.out.println("Authorized Public Keys:");
-                        String[] keys = authKeys.split(",");
-                        for (int i = 0; i < keys.length; i++) {
-                            System.out.printf("[%d] %s%n", i + 1, keys[i].trim());
-                        }
-                    }
-                    return 0;
-                }
-
-                if (addKey != null) {
-                    addKey = addKey.trim();
-                    if (addKey.isEmpty()) {
-                        System.err.println("Error: Public key cannot be empty.");
-                        return 1;
-                    }
-                    String authKeys = db.getConfig("authorized_keys");
-                    List<String> list = new ArrayList<>();
-                    if (authKeys != null && !authKeys.trim().isEmpty()) {
-                        for (String k : authKeys.split(",")) {
-                            list.add(k.trim());
-                        }
-                    }
-                    if (list.contains(addKey)) {
-                        System.out.println("Public key is already authorized.");
-                    } else {
-                        list.add(addKey);
-                        db.setConfig("authorized_keys", String.join(",", list));
-                        db.commit();
-                        System.out.println("Successfully added public key to authorized list.");
-                    }
-                    return 0;
-                }
-
-                if (removeKey != null) {
-                    removeKey = removeKey.trim();
-                    String authKeys = db.getConfig("authorized_keys");
-                    List<String> list = new ArrayList<>();
-                    if (authKeys != null && !authKeys.trim().isEmpty()) {
-                        for (String k : authKeys.split(",")) {
-                            list.add(k.trim());
-                        }
-                    }
-                    if (list.remove(removeKey)) {
-                        db.setConfig("authorized_keys", String.join(",", list));
-                        db.commit();
-                        System.out.println("Successfully removed public key from authorized list.");
-                    } else {
-                        System.out.println("Public key was not found in the authorized list.");
-                    }
-                    return 0;
-                }
-            }
-
             Path privPath = cas.getDraftFlowDir().resolve("id_ecdsa");
             Path pubPath = cas.getDraftFlowDir().resolve("id_ecdsa.pub");
 
@@ -2484,14 +1939,8 @@ public class DraftFlow implements Callable<Integer> {
                     upstreamHash = getPermanentRevision(upstreamHash, cas);
 
                     if (!com.draftflow.core.HooksManager.runHook("pre-rebase", cas.getRootDir(), upstreamHash)) {
-                        Path logPath = com.draftflow.core.HooksManager.getLastLogPath();
-                        throw new com.draftflow.core.HooksFailureException(
-                            "pre-rebase hook failed. Aborting rebase.",
-                            List.of(
-                                "Check the hook execution output logs at: " + (logPath != null ? logPath.toAbsolutePath().toString() : "N/A"),
-                                "Review your pre-rebase script in .draftflow/hooks/pre-rebase for syntax or logic errors."
-                            )
-                        );
+                        System.err.println("Fatal: pre-rebase hook failed. Aborting rebase.");
+                        return 1;
                     }
 
                     String activeRev = db.getConfig("activeRevisionHash");

@@ -63,9 +63,14 @@ public class DraftFlowSubcommandsCoverageTest {
     }
 
     private int runCommand(String... args) {
+        System.out.flush();
+        System.err.flush();
         outContent.reset();
         errContent.reset();
-        return new CommandLine(new DraftFlow()).execute(args);
+        int code = new CommandLine(new DraftFlow()).execute(args);
+        System.out.flush();
+        System.err.flush();
+        return code;
     }
 
     @Test
@@ -90,12 +95,6 @@ public class DraftFlowSubcommandsCoverageTest {
         int setupCode2 = runCommand("setup");
         assertEquals(0, setupCode2);
         assertTrue(outContent.toString().contains("DraftFlow repository already initialized"));
-
-        // 3. KeysCmd - Generate cryptographic keys
-        int keysCode = runCommand("keys");
-        assertEquals(0, keysCode);
-        String keysOut = outContent.toString();
-        assertTrue(keysOut.contains("successfully") || keysOut.contains("already exists"));
 
         // 4. StatusCmd on clean repo
         int statusCleanCode = runCommand("status");

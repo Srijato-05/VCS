@@ -327,6 +327,10 @@ public class WorkspaceManager {
                 Path temp = entry.getKey();
                 Path target = entry.getValue();
 
+                if (Files.exists(target) && Files.isDirectory(target)) {
+                    throw new IOException("Cannot replace directory " + target + " with file.");
+                }
+
                 Files.createDirectories(target.getParent());
                 safeMoveWithRetry(temp, target);
 

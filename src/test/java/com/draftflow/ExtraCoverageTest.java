@@ -427,21 +427,11 @@ public class ExtraCoverageTest {
         assertTrue(new String(bytes2, java.nio.charset.StandardCharsets.UTF_8).contains("DraftFlow Premium Web GUI"));
 
         // 2. ActionHandler empty query parameters
-        java.lang.reflect.Method mParseQuery = null;
-        for (Class<?> clazz : com.draftflow.ui.UiServer.class.getDeclaredClasses()) {
-            if (clazz.getSimpleName().equals("ActionHandler")) {
-                mParseQuery = clazz.getDeclaredMethod("parseQuery", String.class);
-                mParseQuery.setAccessible(true);
-                // Instantiate ActionHandler using reflection
-                java.lang.reflect.Constructor<?> cons = clazz.getDeclaredConstructor(com.draftflow.ui.UiServer.class);
-                cons.setAccessible(true);
-                Object actionHandlerObj = cons.newInstance(s1);
-                Map<String, String> res = (Map<String, String>) mParseQuery.invoke(actionHandlerObj, "cmd=clean&emptyParam");
-                assertEquals("clean", res.get("cmd"));
-                assertEquals("", res.get("emptyParam"));
-                break;
-            }
-        }
+        java.lang.reflect.Method mParseQuery = com.draftflow.ui.UiServer.class.getDeclaredMethod("parseQuery", String.class);
+        mParseQuery.setAccessible(true);
+        Map<String, String> res = (Map<String, String>) mParseQuery.invoke(null, "cmd=clean&emptyParam");
+        assertEquals("clean", res.get("cmd"));
+        assertEquals("", res.get("emptyParam"));
 
         db.close();
     }

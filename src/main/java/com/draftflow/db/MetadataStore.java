@@ -147,6 +147,20 @@ public class MetadataStore implements AutoCloseable {
         shutdownHookRegistry.addShutdownHook(shutdownHook);
     }
 
+    public synchronized boolean isClosed() {
+        return store == null || store.isClosed();
+    }
+
+    private synchronized void ensureOpen() {
+        if (store == null || store.isClosed()) {
+            try {
+                open();
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to re-open closed store", e);
+            }
+        }
+    }
+
     public synchronized void commit() {
         if (store != null && !store.isClosed()) {
             store.commit();
@@ -172,6 +186,7 @@ public class MetadataStore implements AutoCloseable {
     // --- Index Cache Operations ---
 
     public synchronized void putFile(FileMetadata meta) {
+        ensureOpen();
         indexMap.put(meta.getPath(), meta.toJson());
         fileMetadataCache.put(meta.getPath(), meta);
     }
@@ -181,6 +196,7 @@ public class MetadataStore implements AutoCloseable {
     }
 
     public synchronized void removeFile(String path) {
+        ensureOpen();
         indexMap.remove(path);
         fileMetadataCache.remove(path);
     }
@@ -190,6 +206,7 @@ public class MetadataStore implements AutoCloseable {
     }
 
     public synchronized void clearIndex() {
+        ensureOpen();
         indexMap.clear();
         fileMetadataCache.clear();
     }
@@ -197,33 +214,40 @@ public class MetadataStore implements AutoCloseable {
     // --- Ref / Branch Operations ---
 
     public synchronized void setRef(String name, String revisionHash) {
+        ensureOpen();
         refMap.put(name, revisionHash);
     }
 
     public synchronized String getRef(String name) {
+        ensureOpen();
         return refMap.get(name);
     }
 
     public synchronized void removeRef(String name) {
+        ensureOpen();
         refMap.remove(name);
     }
 
     public synchronized List<String> getRefNames() {
+        ensureOpen();
         return new ArrayList<>(refMap.keySet());
     }
 
     // --- Change ID Operations ---
 
     public synchronized void setChangeRevision(String changeId, String revisionHash) {
+        ensureOpen();
         changeMap.put(changeId, revisionHash);
         addRevisionToChangeHistory(changeId, revisionHash);
     }
 
     public synchronized String getChangeRevision(String changeId) {
+        ensureOpen();
         return changeMap.get(changeId);
     }
 
     private synchronized void addRevisionToChangeHistory(String changeId, String revisionHash) {
+        ensureOpen();
         String history = changeHistoryMap.get(changeId);
         if (history == null || history.isEmpty()) {
             changeHistoryMap.put(changeId, revisionHash);
@@ -236,6 +260,7 @@ public class MetadataStore implements AutoCloseable {
     }
 
     public synchronized List<String> getChangeHistory(String changeId) {
+        ensureOpen();
         String history = changeHistoryMap.get(changeId);
         if (history == null || history.isEmpty()) {
             return new ArrayList<>();
@@ -246,32 +271,39 @@ public class MetadataStore implements AutoCloseable {
     // --- Config Operations ---
 
     public synchronized void setConfig(String key, String value) {
+        ensureOpen();
         configMap.put(key, value);
     }
 
     public synchronized String getConfig(String key) {
+        ensureOpen();
         return configMap.get(key);
     }
 
     public synchronized void removeConfig(String key) {
+        ensureOpen();
         configMap.remove(key);
     }
 
     public synchronized Map<String, String> getAllConfig() {
+        ensureOpen();
         return new java.util.HashMap<>(configMap);
     }
 
     // --- User Operations ---
 
     public synchronized void putUser(String email, String json) {
+        ensureOpen();
         usersMap.put(email, json);
     }
 
     public synchronized String getUser(String email) {
+        ensureOpen();
         return usersMap.get(email);
     }
 
     public synchronized List<String> getAllUsers() {
+        ensureOpen();
         return new ArrayList<>(usersMap.values());
     }
 

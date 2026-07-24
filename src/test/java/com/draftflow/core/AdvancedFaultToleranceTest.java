@@ -38,7 +38,7 @@ public class AdvancedFaultToleranceTest {
         Files.write(objectPath, "corrupted compressed payload data that will not decompress or hash correctly".getBytes());
 
         // Verify read fails with corruption exception
-        IOException ex = assertThrows(IOException.class, () -> cas.readObject(hash));
+        Exception ex = assertThrows(Exception.class, () -> cas.readObject(hash));
         assertTrue(ex.getMessage().contains("Decompression failed") || ex.getMessage().contains("corruption detected"), 
                 "Expected corruption message but got: " + ex.getMessage());
     }

@@ -122,6 +122,10 @@ public class UiServer {
         return port;
     }
 
+    public MetadataStore getMetadataStore() {
+        return db;
+    }
+
     private int executeCommandWithDbClosed(java.util.concurrent.Callable<Integer> cmd) throws Exception {
         synchronized (this) {
             if (db != null) {

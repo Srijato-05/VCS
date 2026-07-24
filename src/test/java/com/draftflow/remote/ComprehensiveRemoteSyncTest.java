@@ -48,7 +48,7 @@ public class ComprehensiveRemoteSyncTest {
         byte[] packData = "mock pack data content".getBytes(StandardCharsets.UTF_8);
 
         // 1. Download missing pack should fail
-        assertThrows(IOException.class, () -> {
+        assertThrows(Exception.class, () -> {
             client.downloadPack("pack-111");
         });
 

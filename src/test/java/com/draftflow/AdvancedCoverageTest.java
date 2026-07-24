@@ -224,7 +224,9 @@ public class AdvancedCoverageTest {
         assertEquals(200, responseActionClean.statusCode());
 
         server.stop();
-        db.close();
+        if (server.getMetadataStore() != null) {
+            server.getMetadataStore().close();
+        }
     }
 
     @Test

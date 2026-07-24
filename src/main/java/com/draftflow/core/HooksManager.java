@@ -21,30 +21,11 @@ import java.util.List;
 
 public class HooksManager {
 
-    private static final ThreadLocal<Path> lastLogPath = new ThreadLocal<>();
+    private static Path lastLogPath;
 
     public static Path getLastLogPath() {
-        return lastLogPath.get();
+        return lastLogPath != null ? lastLogPath : Paths.get(".draftflow/hooks.log");
     }
-
-    private static List<String> parseShebang(Path scriptPath) {
-        List<String> parts = new ArrayList<>();
-        try (java.io.BufferedReader reader = Files.newBufferedReader(scriptPath, java.nio.charset.StandardCharsets.UTF_8)) {
-            String firstLine = reader.readLine();
-            if (firstLine != null && firstLine.startsWith("#!")) {
-                String shebang = firstLine.substring(2).trim();
-                if (!shebang.isEmpty()) {
-                    for (String part : shebang.split("\\s+")) {
-                        if (!part.isEmpty()) {
-                            parts.add(part);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ignored) {}
-        return parts;
-    }
-
     /**
      * Runs a hook script if it exists in .draftflow/hooks.
      * Returns true if the hook executed successfully (exit code 0) or did not exist.
@@ -75,22 +56,12 @@ public class HooksManager {
             return false;
         }
 
-        // Line endings normalization
-        String lowerPath = hookPath.getFileName().toString().toLowerCase();
-        if (!lowerPath.endsWith(".bat") && !lowerPath.endsWith(".cmd") && !lowerPath.endsWith(".exe")) {
-            try {
-                String content = Files.readString(hookPath, java.nio.charset.StandardCharsets.UTF_8);
-                if (content.contains("\r\n")) {
-                    Files.writeString(hookPath, content.replace("\r\n", "\n"), java.nio.charset.StandardCharsets.UTF_8);
-                }
-            } catch (Exception ignored) {}
-        }
-
         try {
             List<String> command = new ArrayList<>();
             boolean isActuallyWin = java.io.File.separatorChar == '\\';
 
             if (isActuallyWin) {
+                String lowerPath = hookPath.getFileName().toString().toLowerCase();
                 if (lowerPath.endsWith(".bat") || lowerPath.endsWith(".cmd")) {
                     command.add("cmd.exe");
                     command.add("/c");
@@ -103,46 +74,21 @@ public class HooksManager {
                     command.add(repoRoot.relativize(hookPath).toString().replace('\\', '/'));
                 }
             } else {
-                if (!Files.isExecutable(hookPath)) {
-                    List<String> shebangParts = parseShebang(hookPath);
-                    if (!shebangParts.isEmpty()) {
-                        command.addAll(shebangParts);
-                        command.add(hookPath.toAbsolutePath().toString());
-                    } else {
-                        command.add("/bin/sh");
-                        command.add(hookPath.toAbsolutePath().toString());
-                    }
-                } else {
-                    command.add(hookPath.toAbsolutePath().toString());
-                }
+                command.add(hookPath.toAbsolutePath().toString());
             }
 
             for (String arg : args) {
                 command.add(arg);
             }
 
-            Path logDir = repoRoot.resolve(".draftflow").resolve("logs").resolve("hooks");
-            Files.createDirectories(logDir);
-            Path logFile = logDir.resolve(hookName + "_" + System.currentTimeMillis() + ".log");
-            lastLogPath.set(logFile);
-
             ProcessBuilder pb = new ProcessBuilder(command);
             pb.directory(repoRoot.toFile());
-            pb.redirectErrorStream(true);
+            
+            // Redirect output to inherit so the user/developer sees the output in their terminal
+            pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+            pb.redirectError(ProcessBuilder.Redirect.INHERIT);
 
             Process p = pb.start();
-            try (java.io.InputStream is = p.getInputStream();
-                 java.io.OutputStream fos = Files.newOutputStream(logFile, java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.WRITE)) {
-                
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = is.read(buffer)) != -1) {
-                    System.out.write(buffer, 0, bytesRead);
-                    System.out.flush();
-                    fos.write(buffer, 0, bytesRead);
-                    fos.flush();
-                }
-            }
             int exitCode = p.waitFor();
             return exitCode == 0;
         } catch (Exception e) {

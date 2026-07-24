@@ -223,10 +223,11 @@ public class UiServerIntegrationTest {
         String conflictHash = cas.writeObject(conflictNode);
 
         // Put the conflict file metadata in DB
-        db.putFile(new com.draftflow.db.FileMetadata(
+        MetadataStore currentDb = uiServer.getMetadataStore();
+        currentDb.putFile(new com.draftflow.db.FileMetadata(
             "conflict_test.txt", 100L, System.currentTimeMillis(), conflictHash, "CONFLICT", 100644
         ));
-        db.commit();
+        currentDb.commit();
 
         // 2. Test GET /api/conflict-details?file=conflict_test.txt
         HttpResponse<String> resConflictDetails = get("/api/conflict-details?file=conflict_test.txt");

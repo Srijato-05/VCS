@@ -166,6 +166,7 @@ public class AdvancedFeatureSuite3Test {
 
         // 2. Test successful hook
         Files.writeString(preCommitFile, isWin ? "@echo off\nexit /b 0\n" : "#!/bin/sh\nexit 0\n");
+        Files.writeString(testFile, "Updated hook test content");
         DraftFlow.SaveCmd saveSuccess = new DraftFlow.SaveCmd();
         setField(saveSuccess, "message", "Succeeding hook commit");
         assertEquals(0, saveSuccess.call());
