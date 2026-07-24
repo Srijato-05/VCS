@@ -20,12 +20,9 @@ import org.h2.mvstore.MVStore;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.time.Instant;
-import com.draftflow.core.LockContentionException;
 
 public class MetadataStore implements AutoCloseable {
     private final Path dbFilePath;
@@ -62,93 +59,17 @@ public class MetadataStore implements AutoCloseable {
         this.dbFilePath = dbFilePath;
     }
 
-    private MVStore tryOpenWithBackoff(MVStore.Builder builder) throws Exception {
-        int[] delays = { 50, 150, 400, 800 };
-        for (int i = 0; i <= delays.length; i++) {
-            try {
-                return builder.open();
-            } catch (Exception e) {
-                String msg = e.getMessage();
-                boolean isLock = msg != null && (msg.toLowerCase().contains("lock") || msg.toLowerCase().contains("in use") || msg.toLowerCase().contains("locked"));
-                if (isLock && i < delays.length) {
-                    try {
-                        Thread.sleep(delays[i]);
-                    } catch (InterruptedException ie) {
-                        Thread.currentThread().interrupt();
-                        throw e;
-                    }
-                } else {
-                    throw e;
-                }
-            }
-        }
-        throw new IllegalStateException("Unreachable");
-    }
-    private boolean isDatabaseFileLocked(Path path) {
-        if (!Files.exists(path) || Files.isDirectory(path)) {
-            return false;
-        }
-        try (java.nio.channels.FileChannel channel = java.nio.channels.FileChannel.open(path, 
-                java.nio.file.StandardOpenOption.WRITE)) {
-            java.nio.channels.FileLock lock = channel.tryLock();
-            if (lock == null) {
-                return true;
-            }
-            lock.release();
-            return false;
-        } catch (Exception e) {
-            return true;
-        }
-    }
-
     public void open() throws IOException {
         Files.createDirectories(dbFilePath.getParent());
-        // --- Process‑aware lock detection ---
-        Path lockFile = dbFilePath.getParent().resolve("index.lock.json");
-        if (Files.exists(lockFile)) {
-            try {
-                String content = Files.readString(lockFile);
-                // Simple extraction of pid value
-                String pidStr = content.replaceAll(".*\"pid\"\\s*:\\s*(\\d+).*", "$1");
-                long pid = Long.parseLong(pidStr);
-                ProcessHandle ph = ProcessHandle.of(pid).orElse(null);
-                if (ph != null && ph.isAlive()) {
-
-                    throw new LockContentionException(
-                        "Database lock held by another live process (PID " + pid + ").",
-                        List.of(
-                            "Terminate the process: Windows: taskkill /PID " + pid,
-                            "Terminate the process: Unix: kill -9 " + pid,
-                            "If this is a stale lock, delete the lock file manually."
-                        )
-                    );
-                } else {
-                    // Stale lock – clean up
-                    Files.deleteIfExists(lockFile);
-                }
-            } catch (Exception ignored) {
-                // If parsing fails, attempt to delete the lock file and continue
-                try { Files.deleteIfExists(lockFile); } catch (IOException ignored2) {}
-            }
-        }
         try {
-            this.store = tryOpenWithBackoff(new MVStore.Builder()
+            this.store = new MVStore.Builder()
                     .fileName(dbFilePath.toString())
-                    .compress());
-        // Write lock metadata after successful open
-        try {
-            Path lockFilePath = dbFilePath.getParent().resolve("index.lock.json");
-            String lockJson = String.format("{\"pid\":%d,\"command\":\"%s\",\"timestamp\":\"%s\"}",
-                ProcessHandle.current().pid(),
-                ProcessHandle.current().info().commandLine().orElse("unknown"),
-                Instant.now().toString()
-            );
-            Files.writeString(lockFilePath, lockJson, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        } catch (IOException ignored) {}
+                    .compress()
+                    .open();
         } catch (Exception e) {
-            if (isDatabaseFileLocked(dbFilePath)) {
-                throw new LockContentionException("Database file is locked by another process (is the DraftFlow Dashboard/UiServer running?). Please stop the dashboard or other running DraftFlow processes and try again.",
-                    List.of("Check if the DraftFlow GUI dashboard server is currently running and close it.", "Verify if another DraftFlow terminal/CLI instance is running."), e);
+            String msg = e.getMessage();
+            if (msg != null && (msg.toLowerCase().contains("lock") || msg.toLowerCase().contains("in use") || msg.toLowerCase().contains("locked"))) {
+                throw new IOException("Database file is locked by another process (is the DraftFlow Dashboard/UiServer running?). Please stop the dashboard or other running DraftFlow processes and try again.", e);
             }
             // MVStore corruption recovery: backup corrupt db and recreate a clean one
             Path backupPath = dbFilePath.resolveSibling(dbFilePath.getFileName().toString() + ".corrupted_" + System.currentTimeMillis());
@@ -162,11 +83,13 @@ public class MetadataStore implements AutoCloseable {
                 } catch (IOException ignored) {}
             }
             try {
-                this.store = tryOpenWithBackoff(new MVStore.Builder()
+                this.store = new MVStore.Builder()
                         .fileName(dbFilePath.toString())
-                        .compress());
+                        .compress()
+                        .open();
             } catch (Exception e2) {
-                if (isDatabaseFileLocked(dbFilePath)) {
+                String msg2 = e2.getMessage();
+                if (msg2 != null && (msg2.toLowerCase().contains("lock") || msg2.toLowerCase().contains("in use") || msg2.toLowerCase().contains("locked"))) {
                     throw new IOException("Database file is locked by another process (is the DraftFlow Dashboard/UiServer running?). Please stop the dashboard or other running DraftFlow processes and try again.", e2);
                 }
                 // Secondary fallback: open in an alternative database file
@@ -174,13 +97,10 @@ public class MetadataStore implements AutoCloseable {
                 try {
                     Files.deleteIfExists(fallbackPath);
                 } catch (IOException ignored) {}
-                try {
-                    this.store = tryOpenWithBackoff(new MVStore.Builder()
-                            .fileName(fallbackPath.toString())
-                            .compress());
-                } catch (Exception e3) {
-                    throw new IOException("Failed to open secondary fallback database file.", e3);
-                }
+                this.store = new MVStore.Builder()
+                        .fileName(fallbackPath.toString())
+                        .compress()
+                        .open();
             }
         }
         
@@ -247,8 +167,6 @@ public class MetadataStore implements AutoCloseable {
             store.commit();
             store.close();
         }
-        // Clean up lock file on close
-        try { Files.deleteIfExists(dbFilePath.getParent().resolve("index.lock.json")); } catch (IOException ignored) {}
     }
 
     // --- Index Cache Operations ---

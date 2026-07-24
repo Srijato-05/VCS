@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import {Activity,AlertCircle,BellRing,ChevronLeft,ChevronRight,FolderGit2,GitBranch,GitCommitVertical,LayoutDashboard,Monitor,
   MoonStar,Plus,Search,Settings,Sparkles,SunMedium,UserCircle2,} from 'lucide-react'
-import { BrowserRouter, Link, Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
+import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { RepoProvider, useRepo } from './context/RepoContext'
 import BranchManagerPage from './pages/BranchManagerPage'
@@ -33,15 +33,8 @@ function ProtectedRoute({ user, children }) {
 
 function AppLayout({ user, onLogout, theme, onThemeChange, children }) {
   const location = useLocation()
-  const { repoId } = useParams()
-  const { selectedRepo, selectRepository } = useRepo()
+  const { selectedRepo } = useRepo()
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-
-  useEffect(() => {
-    if (repoId && (!selectedRepo || selectedRepo.id !== repoId)) {
-      selectRepository(repoId)
-    }
-  }, [repoId, selectedRepo, selectRepository])
 
   const workflowLinks = useMemo(() => {
   const repoPath = selectedRepo ? `/repo/${selectedRepo.id}` : "/repos";

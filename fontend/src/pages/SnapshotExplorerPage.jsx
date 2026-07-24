@@ -19,11 +19,8 @@ export default function SnapshotExplorerPage() {
       author: commit.author,
       timestamp: commit.timestamp,
       branch: selectedRepo.currentBranch || 'main',
-      treeId: commit.treeHash ? commit.treeHash.slice(0, 8) : 'N/A',
-      createdAt: commit.timestamp ? new Date(commit.timestamp).toLocaleString() : 'N/A',
-      repositoryId: repoId || 'N/A',
     }));
-  }, [selectedRepo, repoId]);
+  }, [selectedRepo]);
 
   const filteredSnapshots = useMemo(() => {
     return snapshots.filter((snapshot) => {
@@ -38,14 +35,6 @@ export default function SnapshotExplorerPage() {
       return matchesSearch && matchesBranch;
     });
   }, [snapshots, search, branch]);
-
-  if (!selectedRepo || selectedRepo.id !== repoId) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-500 border-t-transparent"></div>
-      </div>
-    );
-  }
 
   const latestSnapshot = filteredSnapshots[0];
 

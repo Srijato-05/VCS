@@ -83,8 +83,7 @@ public class CAS {
     public DraftFlowObject readObject(String hash) throws IOException {
         Path objectPath = getObjectPath(hash);
         if (!Files.exists(objectPath)) {
-            throw new CASCorruptException("Object not found: " + hash, 
-                List.of("Run 'draftflow verify' to check repository health.", "Try performing a remote pull to restore missing objects."));
+            throw new IOException("Object not found: " + hash);
         }
 
         byte[] compressed = Files.readAllBytes(objectPath);
@@ -92,15 +91,13 @@ public class CAS {
         try {
             decompressed = Compressor.decompress(compressed);
         } catch (Exception e) {
-            throw new CASCorruptException("Decompression failed for: " + hash, 
-                List.of("The compressed object file may have zlib header corruption.", "Run 'draftflow verify --repair' to prune corrupt objects."), e);
+            throw new IOException("Decompression failed for: " + hash, e);
         }
 
         // SHA-256 post-read integrity check
         String recalculated = Hasher.hash(decompressed);
         if (!recalculated.equals(hash)) {
-            throw new CASCorruptException("CAS data corruption detected: expected hash " + hash + " but calculated " + recalculated,
-                List.of("The object payload does not match its SHA-256 identifier.", "Run 'draftflow verify --repair' to repair local cache."));
+            throw new IOException("CAS data corruption detected: expected hash " + hash + " but calculated " + recalculated);
         }
 
         // Parse header: "[type] [size]\0[payload]"
@@ -118,8 +115,7 @@ public class CAS {
         }
 
         if (spaceIndex == -1 || nullIndex == -1) {
-            throw new CASCorruptException("Corrupt object header for: " + hash,
-                List.of("The object header structure is invalid. Please run 'draftflow verify --repair'."));
+            throw new IOException("Corrupt object header for: " + hash);
         }
 
         String typeStr = new String(Arrays.copyOfRange(decompressed, 0, spaceIndex)).toUpperCase();
@@ -168,24 +164,17 @@ public class CAS {
     }
 
     public DraftFlowConfig getConfig() {
-        String customConfigPath = null;
-        try {
-            customConfigPath = com.draftflow.DraftFlow.getConfigPath();
-        } catch (Throwable ignored) {}
-
-        Path configPath = customConfigPath != null ? java.nio.file.Paths.get(customConfigPath) : draftFlowDir.resolve("config.json");
+        Path configPath = draftFlowDir.resolve("config.json");
         try {
             if (Files.exists(configPath)) {
                 return DraftFlowConfig.load(configPath);
             }
         } catch (Exception e) {
-            System.err.println("Warning: config file was corrupted or unparseable. Automatically regenerating it...");
+            System.err.println("Warning: config.json was corrupted or unparseable. Automatically regenerating it...");
         }
 
         try {
-            if (configPath.getParent() != null) {
-                Files.createDirectories(configPath.getParent());
-            }
+            Files.createDirectories(draftFlowDir);
             String defaultConfig = "{\n  \"version\": \"1.0\",\n  \"hashAlgorithm\": \"SHA-256\",\n  \"exclude\": [\".git\", \".draftflow\", \"build\", \"out\", \"target\", \".gradle\", \".idea\", \"bin\", \".vscode\"]\n}";
             Files.writeString(configPath, defaultConfig, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             return DraftFlowConfig.load(configPath);
@@ -230,8 +219,7 @@ public class CAS {
 
     public void acquireLock() throws IOException {
         if (!tryAcquireLock(5000)) {
-            throw new LockContentionException("Another DraftFlow process is holding the workspace lock. Please wait or release any hanging commands.",
-                List.of("Close any active terminal command running DraftFlow.", "If the web dashboard server is running, close or pause it."));
+            throw new IOException("Another DraftFlow process is holding the workspace lock. Please wait or release any hanging commands.");
         }
     }
 

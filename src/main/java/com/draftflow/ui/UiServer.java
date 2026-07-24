@@ -27,8 +27,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 
-import com.draftflow.watcher.FSWatcher;
-
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
@@ -43,7 +41,6 @@ public class UiServer {
     private HttpServer server;
     private int port;
     private static final Gson GSON = new Gson();
-    private FSWatcher watcher;
 
 
     public UiServer(CAS cas, MetadataStore db, int port) {
@@ -57,36 +54,6 @@ public class UiServer {
         context.getFilters().add(new DatabaseLifecycleFilter());
     }
 
-    private void sendErrorResponse(HttpExchange exchange, int statusCode, Exception ex) throws IOException {
-        com.draftflow.core.DiagnosticEngine.handleException(ex, cas.getRootDir());
-        
-        JsonObject errorEnv = new JsonObject();
-        errorEnv.addProperty("success", false);
-        
-        if (ex instanceof com.draftflow.core.DraftFlowException) {
-            com.draftflow.core.DraftFlowException dfe = (com.draftflow.core.DraftFlowException) ex;
-            errorEnv.addProperty("errorCode", dfe.getErrorCode());
-            errorEnv.addProperty("message", dfe.getMessage());
-            JsonArray suggestions = new JsonArray();
-            for (String suggestion : dfe.getSuggestions()) {
-                suggestions.add(suggestion);
-            }
-            errorEnv.add("suggestions", suggestions);
-        } else {
-            errorEnv.addProperty("errorCode", "INTERNAL_ERROR");
-            errorEnv.addProperty("message", ex.getMessage() != null ? ex.getMessage() : ex.toString());
-            errorEnv.add("suggestions", new JsonArray());
-        }
-
-        byte[] responseBytes = GSON.toJson(errorEnv).getBytes(java.nio.charset.StandardCharsets.UTF_8);
-        exchange.getResponseHeaders().set("Content-Type", "application/json");
-        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-        exchange.sendResponseHeaders(statusCode, responseBytes.length);
-        try (java.io.OutputStream os = exchange.getResponseBody()) {
-            os.write(responseBytes);
-        }
-    }
-
     private class DatabaseLifecycleFilter extends com.sun.net.httpserver.Filter {
         @Override
         public String description() {
@@ -97,18 +64,10 @@ public class UiServer {
         public void doFilter(HttpExchange exchange, Chain chain) throws IOException {
             synchronized (UiServer.this) {
                 Path dbPath = cas.getDraftFlowDir().resolve("index").resolve("index.mv.db");
-                try {
-                    db = new MetadataStore(dbPath);
-                    db.open();
-                } catch (Exception e) {
-                    sendErrorResponse(exchange, 503, e);
-                    db = null;
-                    return;
-                }
+                db = new MetadataStore(dbPath);
+                db.open();
                 try {
                     chain.doFilter(exchange);
-                } catch (Exception e) {
-                    sendErrorResponse(exchange, 500, e);
                 } finally {
                     try {
                         db.close();
@@ -126,9 +85,6 @@ public class UiServer {
         }
         server = HttpServer.create(new InetSocketAddress(port), 0);
         registerContext("/", new IndexHandler());
-        registerContext("/refs/", new RemoteRefsHandler());
-        registerContext("/packs/", new RemotePacksHandler());
-        registerContext("/pack.index", new RemoteIndexHandler());
         registerContext("/api/dag", new DagHandler());
         registerContext("/api/status", new StatusHandler());
         registerContext("/api/ledger", new LedgerHandler());
@@ -154,36 +110,9 @@ public class UiServer {
         server.start();
         this.port = server.getAddress().getPort();
         System.out.println("DraftFlow UI Server running at: http://localhost:" + this.port);
-
-        // Start File System Watcher to auto-save background draft/shadow commits
-        try {
-            watcher = new FSWatcher(cas.getRootDir(), cas.getConfig(), changedPaths -> {
-                synchronized (UiServer.this) {
-                    Path dbPath = cas.getDraftFlowDir().resolve("index").resolve("index.mv.db");
-                    try (MetadataStore watcherDb = new MetadataStore(dbPath)) {
-                        watcherDb.open();
-                        WorkspaceManager wm = new WorkspaceManager(cas, watcherDb);
-                        wm.scanAndCreateShadowCommit(changedPaths);
-                        watcherDb.commit();
-                        System.out.println("[FSWatcher] Auto-saved shadow revision for: " + changedPaths.size() + " changed files.");
-                    } catch (Exception e) {
-                        System.err.println("[FSWatcher] Failed to auto-save shadow revision: " + e.getMessage());
-                    }
-                }
-            });
-            watcher.start();
-            System.out.println("[FSWatcher] Started monitoring workspace recursively: " + cas.getRootDir());
-        } catch (Exception e) {
-            System.err.println("[FSWatcher] Could not start file system watcher: " + e.getMessage());
-        }
     }
 
     public void stop() {
-        if (watcher != null) {
-            try {
-                watcher.stop();
-            } catch (Exception ignored) {}
-        }
         if (server != null) {
             server.stop(0);
         }
@@ -268,7 +197,13 @@ public class UiServer {
                     os.write(response);
                 }
             } catch (Exception e) {
-                throw new IOException(e);
+                e.printStackTrace();
+                byte[] response = ("{\"error\": \"" + e.getMessage() + "\"}").getBytes(StandardCharsets.UTF_8);
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.sendResponseHeaders(500, response.length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response);
+                }
             }
         }
     }
@@ -285,7 +220,12 @@ public class UiServer {
                     os.write(response);
                 }
             } catch (Exception e) {
-                throw new IOException(e);
+                byte[] response = ("{\"error\": \"" + e.getMessage() + "\"}").getBytes(StandardCharsets.UTF_8);
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.sendResponseHeaders(500, response.length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response);
+                }
             }
         }
     }
@@ -1526,7 +1466,12 @@ public class UiServer {
                     os.write(response);
                 }
             } catch (Exception e) {
-                throw new IOException(e);
+                byte[] response = ("{\"error\": \"" + e.getMessage() + "\"}").getBytes(StandardCharsets.UTF_8);
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.sendResponseHeaders(500, response.length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response);
+                }
             }
         }
     }
@@ -1616,7 +1561,13 @@ public class UiServer {
                     os.write(response);
                 }
             } catch (Exception e) {
-                throw new IOException(e);
+                e.printStackTrace();
+                byte[] response = ("{\"error\": \"" + e.getMessage() + "\"}").getBytes(StandardCharsets.UTF_8);
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.sendResponseHeaders(500, response.length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response);
+                }
             }
         }
     }
@@ -1910,7 +1861,13 @@ public class UiServer {
                     os.write(response);
                 }
             } catch (Exception e) {
-                throw new IOException(e);
+                e.printStackTrace();
+                byte[] response = ("{\"error\": \"" + e.getMessage() + "\"}").getBytes(StandardCharsets.UTF_8);
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.sendResponseHeaders(500, response.length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response);
+                }
             }
         }
 
@@ -1986,7 +1943,13 @@ public class UiServer {
                     os.write(response);
                 }
             } catch (Exception e) {
-                throw new IOException(e);
+                e.printStackTrace();
+                byte[] response = ("{\"error\": \"" + e.getMessage() + "\"}").getBytes(StandardCharsets.UTF_8);
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.sendResponseHeaders(500, response.length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response);
+                }
             }
         }
 
@@ -2053,7 +2016,12 @@ public class UiServer {
                     os.write(response);
                 }
             } catch (Exception e) {
-                throw new IOException(e);
+                byte[] response = ("{\"error\": \"" + e.getMessage() + "\"}").getBytes(StandardCharsets.UTF_8);
+                exchange.getResponseHeaders().set("Content-Type", "application/json");
+                exchange.sendResponseHeaders(500, response.length);
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response);
+                }
             }
         }
 
@@ -2549,197 +2517,6 @@ public class UiServer {
         }
     }
 
-    private void populateRepoInfo(Path repoDir, JsonObject obj) {
-        if (repoDir.getFileName().toString().equals(cas.getRootDir().getFileName().toString())) {
-            populateFromActiveDb(obj);
-            return;
-        }
-
-        org.h2.mvstore.MVStore tempStore = null;
-        try {
-            CAS tempCas = new CAS(repoDir);
-            Path dbPath = tempCas.getDraftFlowDir().resolve("index").resolve("index.mv.db");
-            if (Files.exists(dbPath)) {
-                tempStore = new org.h2.mvstore.MVStore.Builder()
-                        .fileName(dbPath.toString())
-                        .compress()
-                        .readOnly()
-                        .open();
-                
-                Map<String, String> configMap = tempStore.openMap("config");
-                Map<String, String> refMap = tempStore.openMap("refs");
-                
-                String activeRev = configMap.get("activeRevisionHash");
-                String lastMsg = "n/a";
-                int totalCommits = 0;
-                int totalBranches = 0;
-                
-                for (String refName : refMap.keySet()) {
-                    if (refName.startsWith("heads/")) {
-                        totalBranches++;
-                    }
-                }
-                if (totalBranches == 0) {
-                    totalBranches = 1;
-                }
-                
-                Queue<String> queue = new LinkedList<>();
-                for (String refVal : refMap.values()) {
-                    if (refVal != null) {
-                        queue.add(refVal);
-                    }
-                }
-                if (activeRev != null) {
-                    queue.add(activeRev);
-                }
-                
-                Set<String> visited = new HashSet<>();
-                Set<String> contributors = new HashSet<>();
-                long latestTimestamp = -1;
-                
-                while (!queue.isEmpty()) {
-                    String curr = queue.poll();
-                    if (curr == null || visited.contains(curr)) {
-                        continue;
-                    }
-                    visited.add(curr);
-                    
-                    try {
-                        Revision rev = (Revision) tempCas.readObject(curr);
-                        if (rev != null) {
-                            totalCommits++;
-                            if (rev.getAuthor() != null) {
-                                contributors.add(rev.getAuthor());
-                            }
-                            if (rev.getTimestamp() > latestTimestamp) {
-                                latestTimestamp = rev.getTimestamp();
-                                lastMsg = rev.getMessage();
-                            }
-                            for (String p : rev.getParentHashes()) {
-                                queue.add(p);
-                            }
-                        }
-                    } catch (Exception ignored) {}
-                }
-                
-                if (lastMsg == null || lastMsg.trim().isEmpty()) {
-                    lastMsg = "n/a";
-                }
-                
-                obj.addProperty("lastCommitMessage", lastMsg);
-                JsonObject stats = new JsonObject();
-                stats.addProperty("totalCommits", totalCommits);
-                stats.addProperty("totalBranches", totalBranches);
-                stats.addProperty("totalContributors", contributors.isEmpty() ? 1 : contributors.size());
-                obj.add("statistics", stats);
-                
-                if (activeRev != null) {
-                    obj.addProperty("activeRevisionHash", activeRev);
-                }
-            } else {
-                obj.addProperty("lastCommitMessage", "n/a");
-                JsonObject stats = new JsonObject();
-                stats.addProperty("totalCommits", 0);
-                stats.addProperty("totalBranches", 1);
-                stats.addProperty("totalContributors", 1);
-                obj.add("statistics", stats);
-            }
-        } catch (Exception e) {
-            obj.addProperty("lastCommitMessage", "n/a");
-            JsonObject stats = new JsonObject();
-            stats.addProperty("totalCommits", 0);
-            stats.addProperty("totalBranches", 1);
-            stats.addProperty("totalContributors", 1);
-            obj.add("statistics", stats);
-        } finally {
-            if (tempStore != null) {
-                try {
-                    tempStore.close();
-                } catch (Exception ignored) {}
-            }
-        }
-    }
-
-    private void populateFromActiveDb(JsonObject obj) {
-        try {
-            String activeRev = db.getConfig("activeRevisionHash");
-            String lastMsg = "n/a";
-            int totalCommits = 0;
-            int totalBranches = 0;
-            
-            for (String refName : db.getRefNames()) {
-                if (refName.startsWith("heads/")) {
-                    totalBranches++;
-                }
-            }
-            if (totalBranches == 0) {
-                totalBranches = 1;
-            }
-            
-            Queue<String> queue = new LinkedList<>();
-            for (String refName : db.getRefNames()) {
-                String val = db.getRef(refName);
-                if (val != null) {
-                    queue.add(val);
-                }
-            }
-            if (activeRev != null) {
-                queue.add(activeRev);
-            }
-            
-            Set<String> visited = new HashSet<>();
-            Set<String> contributors = new HashSet<>();
-            long latestTimestamp = -1;
-            
-            while (!queue.isEmpty()) {
-                String curr = queue.poll();
-                if (curr == null || visited.contains(curr)) {
-                    continue;
-                }
-                visited.add(curr);
-                
-                try {
-                    Revision rev = (Revision) cas.readObject(curr);
-                    if (rev != null) {
-                        totalCommits++;
-                        if (rev.getAuthor() != null) {
-                            contributors.add(rev.getAuthor());
-                        }
-                        if (rev.getTimestamp() > latestTimestamp) {
-                            latestTimestamp = rev.getTimestamp();
-                            lastMsg = rev.getMessage();
-                        }
-                        for (String p : rev.getParentHashes()) {
-                            queue.add(p);
-                        }
-                    }
-                } catch (Exception ignored) {}
-            }
-            
-            if (lastMsg == null || lastMsg.trim().isEmpty()) {
-                lastMsg = "n/a";
-            }
-            
-            obj.addProperty("lastCommitMessage", lastMsg);
-            JsonObject stats = new JsonObject();
-            stats.addProperty("totalCommits", totalCommits);
-            stats.addProperty("totalBranches", totalBranches);
-            stats.addProperty("totalContributors", contributors.isEmpty() ? 1 : contributors.size());
-            obj.add("statistics", stats);
-            
-            if (activeRev != null) {
-                obj.addProperty("activeRevisionHash", activeRev);
-            }
-        } catch (Exception e) {
-            obj.addProperty("lastCommitMessage", "n/a");
-            JsonObject stats = new JsonObject();
-            stats.addProperty("totalCommits", 0);
-            stats.addProperty("totalBranches", 1);
-            stats.addProperty("totalContributors", 1);
-            obj.add("statistics", stats);
-        }
-    }
-
     private class RepositoriesHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
@@ -2768,7 +2545,11 @@ public class UiServer {
                                 obj.addProperty("description", "VCS repository.");
                                 obj.addProperty("defaultBranch", "main");
                                 obj.addProperty("updatedAt", "recently");
-                                populateRepoInfo(p, obj);
+                                JsonObject stats = new JsonObject();
+                                stats.addProperty("totalCommits", 0);
+                                stats.addProperty("totalBranches", 1);
+                                stats.addProperty("totalContributors", 1);
+                                obj.add("statistics", stats);
                                 list.add(obj);
                             }
                         });
@@ -2783,7 +2564,11 @@ public class UiServer {
                     obj.addProperty("description", "VCS repository.");
                     obj.addProperty("defaultBranch", "main");
                     obj.addProperty("updatedAt", "recently");
-                    populateRepoInfo(currentRepoDir, obj);
+                    JsonObject stats = new JsonObject();
+                    stats.addProperty("totalCommits", 0);
+                    stats.addProperty("totalBranches", 1);
+                    stats.addProperty("totalContributors", 1);
+                    obj.add("statistics", stats);
                     list.add(obj);
                 }
                 sendJsonResponse(exchange, 200, GSON.toJson(list));
@@ -3103,179 +2888,6 @@ public class UiServer {
                 db.setConfig("author.email", null);
                 db.commit();
                 sendJsonResponse(exchange, 200, "{\"message\":\"Logged out successfully.\"}");
-            } catch (Exception e) {
-                e.printStackTrace();
-                sendJsonResponse(exchange, 500, "{\"error\":\"" + e.getMessage() + "\"}");
-            }
-        }
-    }
-
-    private class RemoteRefsHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            setCorsHeaders(exchange);
-            if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
-                exchange.sendResponseHeaders(204, -1);
-                return;
-            }
-            try {
-                String path = exchange.getRequestURI().getPath();
-                String refName = path.substring(path.indexOf("/refs/") + 6);
-                
-                if (exchange.getRequestMethod().equalsIgnoreCase("GET")) {
-                    String hash = db.getRef(refName);
-                    if (hash == null) {
-                        Path refPath = cas.getDraftFlowDir().resolve("refs").resolve(refName);
-                        if (Files.exists(refPath)) {
-                            hash = Files.readString(refPath, StandardCharsets.UTF_8).trim();
-                        }
-                    }
-                    if (hash == null) {
-                        exchange.sendResponseHeaders(404, -1);
-                        return;
-                    }
-                    byte[] response = hash.getBytes(StandardCharsets.UTF_8);
-                    exchange.sendResponseHeaders(200, response.length);
-                    try (OutputStream os = exchange.getResponseBody()) {
-                        os.write(response);
-                    }
-                } else if (exchange.getRequestMethod().equalsIgnoreCase("PUT")) {
-                    String newHash = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8).trim();
-                    
-                    String sig = exchange.getRequestHeaders().getFirst("X-DF-Signature");
-                    String pubKey = exchange.getRequestHeaders().getFirst("X-DF-PublicKey");
-                    
-                    if (sig != null && pubKey != null) {
-                        String payload = refName + ":" + newHash;
-                        boolean valid = SignatureHelper.verify(payload.getBytes(StandardCharsets.UTF_8), sig, pubKey);
-                        if (!valid) {
-                            sendJsonResponse(exchange, 403, "{\"error\":\"Signature verification failed.\"}");
-                            return;
-                        }
-                        
-                        String authorizedKeys = db.getConfig("authorized_keys");
-                        if (authorizedKeys != null && !authorizedKeys.isEmpty()) {
-                            boolean authorized = false;
-                            for (String k : authorizedKeys.split(",")) {
-                                if (k.trim().equals(pubKey.trim())) {
-                                    authorized = true;
-                                    break;
-                                }
-                            }
-                            if (!authorized) {
-                                sendJsonResponse(exchange, 403, "{\"error\":\"Public key not authorized to push to this repository.\"}");
-                                return;
-                            }
-                        } else {
-                            db.setConfig("authorized_keys", pubKey.trim());
-                            db.commit();
-                            System.out.println("[RemoteRefsHandler] TOFU Initialized public key as authorized repository owner.");
-                        }
-                        System.out.println("[RemoteRefsHandler] Cryptographic signature VERIFIED successfully for ref " + refName);
-                    } else {
-                        String authorizedKeys = db.getConfig("authorized_keys");
-                        if (authorizedKeys != null && !authorizedKeys.isEmpty()) {
-                            sendJsonResponse(exchange, 401, "{\"error\":\"Authentication required: Signature missing.\"}");
-                            return;
-                        }
-                    }
-                    
-                    Path refPath = cas.getDraftFlowDir().resolve("refs").resolve(refName);
-                    Files.createDirectories(refPath.getParent());
-                    Files.writeString(refPath, newHash, StandardCharsets.UTF_8);
-                    
-                    db.setRef(refName, newHash);
-                    db.commit();
-                    
-                    exchange.sendResponseHeaders(200, -1);
-                } else {
-                    exchange.sendResponseHeaders(405, -1);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                sendJsonResponse(exchange, 500, "{\"error\":\"" + e.getMessage() + "\"}");
-            }
-        }
-    }
-
-    private class RemotePacksHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            setCorsHeaders(exchange);
-            if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
-                exchange.sendResponseHeaders(204, -1);
-                return;
-            }
-            try {
-                String path = exchange.getRequestURI().getPath();
-                String packId = path.substring(path.indexOf("/packs/") + 7);
-                Path packPath = cas.getDraftFlowDir().resolve("packs").resolve(packId);
-
-                if (exchange.getRequestMethod().equalsIgnoreCase("GET")) {
-                    if (!Files.exists(packPath)) {
-                        exchange.sendResponseHeaders(404, -1);
-                        return;
-                    }
-                    byte[] packData = Files.readAllBytes(packPath);
-                    exchange.sendResponseHeaders(200, packData.length);
-                    try (OutputStream os = exchange.getResponseBody()) {
-                        os.write(packData);
-                    }
-                } else if (exchange.getRequestMethod().equalsIgnoreCase("PUT")) {
-                    Files.createDirectories(packPath.getParent());
-                    Path stagingPath = cas.getDraftFlowDir().resolve("packs").resolve(packId + ".staging");
-                    
-                    byte[] packData = exchange.getRequestBody().readAllBytes();
-                    Files.write(stagingPath, packData);
-
-                    try (ByteArrayInputStream in = new ByteArrayInputStream(packData)) {
-                        com.draftflow.remote.Packer.unpack(in, cas);
-                        Files.move(stagingPath, packPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                        System.out.println("[RemotePacksHandler] Successfully verified and unpacked staged pack " + packId + " into server CAS.");
-                        exchange.sendResponseHeaders(200, -1);
-                    } catch (Exception e) {
-                        Files.deleteIfExists(stagingPath);
-                        System.err.println("[RemotePacksHandler] Staged pack failed validation: " + e.getMessage());
-                        sendJsonResponse(exchange, 400, "{\"error\":\"pack_corrupted\",\"message\":\"The uploaded pack file is corrupted or incomplete: " + e.getMessage() + "\"}");
-                    }
-                } else {
-                    exchange.sendResponseHeaders(405, -1);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                sendJsonResponse(exchange, 500, "{\"error\":\"" + e.getMessage() + "\"}");
-            }
-        }
-    }
-
-    private class RemoteIndexHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            setCorsHeaders(exchange);
-            if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
-                exchange.sendResponseHeaders(204, -1);
-                return;
-            }
-            try {
-                Path indexPath = cas.getDraftFlowDir().resolve("pack.index");
-                if (exchange.getRequestMethod().equalsIgnoreCase("GET")) {
-                    if (!Files.exists(indexPath)) {
-                        exchange.sendResponseHeaders(404, -1);
-                        return;
-                    }
-                    byte[] indexData = Files.readAllBytes(indexPath);
-                    exchange.sendResponseHeaders(200, indexData.length);
-                    try (OutputStream os = exchange.getResponseBody()) {
-                        os.write(indexData);
-                    }
-                } else if (exchange.getRequestMethod().equalsIgnoreCase("PUT")) {
-                    Files.createDirectories(indexPath.getParent());
-                    byte[] indexData = exchange.getRequestBody().readAllBytes();
-                    Files.write(indexPath, indexData);
-                    exchange.sendResponseHeaders(200, -1);
-                } else {
-                    exchange.sendResponseHeaders(405, -1);
-                }
             } catch (Exception e) {
                 e.printStackTrace();
                 sendJsonResponse(exchange, 500, "{\"error\":\"" + e.getMessage() + "\"}");

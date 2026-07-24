@@ -20,14 +20,11 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
-import com.draftflow.core.NetworkSyncException;
 
 public class RemoteClient {
 
@@ -35,45 +32,17 @@ public class RemoteClient {
     private final HttpClient httpClient;
 
     public RemoteClient(String remoteUrl) {
-        String normalized = normalizeUrl(remoteUrl);
-        this.remoteUrl = normalized.endsWith("/") ? normalized : normalized + "/";
+        this.remoteUrl = remoteUrl.endsWith("/") ? remoteUrl : remoteUrl + "/";
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(java.time.Duration.ofSeconds(10))
                 .build();
-    }
-
-    private static String normalizeUrl(String url) {
-        if (url == null) return "";
-        url = url.trim();
-        if (url.startsWith("git@")) {
-            // git@host:path/to/repo.git -> http://host/path/to/repo/
-            String content = url.substring(4).replace(":", "/");
-            if (content.endsWith(".git")) {
-                content = content.substring(0, content.length() - 4);
-            }
-            String mapped = "http://" + content;
-            System.out.println("[RemoteClient] Mapped SSH Git URL '" + url + "' to DraftFlow HTTP remote protocol: " + mapped);
-            return mapped;
-        } else if (url.startsWith("ssh://")) {
-            // ssh://user@host/path/to/repo.git -> http://host/path/to/repo/
-            String content = url.substring(6);
-            if (content.contains("@")) {
-                content = content.substring(content.indexOf("@") + 1);
-            }
-            if (content.endsWith(".git")) {
-                content = content.substring(0, content.length() - 4);
-            }
-            String mapped = "http://" + content;
-            System.out.println("[RemoteClient] Mapped SSH Remote URL '" + url + "' to DraftFlow HTTP remote protocol: " + mapped);
-            return mapped;
-        }
-        return url;
     }
 
     @FunctionalInterface
     private interface NetworkCall<T> {
         T execute() throws IOException, InterruptedException;
     }
+
     private <T> T executeWithRetry(NetworkCall<T> call) throws IOException, InterruptedException {
         int maxRetries = 3;
         int delay = 100; // ms
@@ -82,28 +51,13 @@ public class RemoteClient {
                 return call.execute();
             } catch (IOException e) {
                 if (attempt == maxRetries) {
-                    if (e instanceof NetworkSyncException) {
-                        throw (NetworkSyncException) e;
-                    }
-                    throw new NetworkSyncException("Failed to synchronize with remote server '" + remoteUrl + "' after " + maxRetries + " attempts.", 
-                        java.util.List.of("Check your internet connection or remote host availability.", "Verify that the remote server URL is correct: " + remoteUrl), e);
+                    throw e;
                 }
                 Thread.sleep(delay);
                 delay *= 2; // Exponential backoff
             }
         }
-        throw new NetworkSyncException("Unexpected exhaustion of retries while contacting: " + remoteUrl, 
-            java.util.List.of("Check remote server logs and ensure it is responding."));
-    }
-    private void checkStatusCode(HttpResponse<?> response, String errorMessage) throws NetworkSyncException {
-        if (response.statusCode() < 200 || response.statusCode() >= 300) {
-            if (response.statusCode() == 401 || response.statusCode() == 403) {
-                throw new NetworkSyncException("Cryptographic authentication failed: " + errorMessage + " (HTTP " + response.statusCode() + ")",
-                    java.util.List.of("Ensure your public key is authorized on the remote server.", "Run 'draftflow keys --add' on the remote to add your public key: .draftflow/id_ecdsa.pub"));
-            }
-            throw new NetworkSyncException(errorMessage + " (HTTP " + response.statusCode() + ")",
-                java.util.List.of("Check remote server status.", "Ensure the remote repository exists and is accessible."));
-        }
+        throw new IOException("Unexpected exhaustion of retries");
     }
 
     public String getRef(String refName) throws IOException, InterruptedException {
@@ -125,7 +79,9 @@ public class RemoteClient {
                 if (response.statusCode() == 404) {
                     return null;
                 }
-                checkStatusCode(response, "Failed to get remote ref");
+                if (response.statusCode() != 200) {
+                    throw new IOException("Failed to get remote ref: HTTP " + response.statusCode());
+                }
                 return response.body().trim();
             });
         }
@@ -144,38 +100,17 @@ public class RemoteClient {
                 throw e;
             }
         } else {
-            // Sign the ref update if ECDSA key pair exists
-            String signature = null;
-            String publicKey = null;
-            try {
-                Path privPath = Paths.get(".draftflow/id_ecdsa");
-                Path pubPath = Paths.get(".draftflow/id_ecdsa.pub");
-                if (Files.exists(privPath) && Files.exists(pubPath)) {
-                    String privKeyStr = Files.readString(privPath, StandardCharsets.UTF_8).trim();
-                    publicKey = Files.readString(pubPath, StandardCharsets.UTF_8).trim();
-                    String payload = refName + ":" + revisionHash;
-                    signature = com.draftflow.core.SignatureHelper.sign(payload.getBytes(StandardCharsets.UTF_8), privKeyStr);
-                }
-            } catch (Exception e) {
-                System.err.println("Warning: Failed to cryptographically sign ref update: " + e.getMessage());
-            }
-
-            final String finalSig = signature;
-            final String finalPub = publicKey;
-
             executeWithRetry(() -> {
                 URI uri = URI.create(remoteUrl + "refs/" + refName);
-                HttpRequest.Builder builder = HttpRequest.newBuilder()
+                HttpRequest request = HttpRequest.newBuilder()
                         .uri(uri)
                         .timeout(java.time.Duration.ofSeconds(10))
-                        .PUT(HttpRequest.BodyPublishers.ofString(revisionHash));
-                if (finalSig != null && finalPub != null) {
-                    builder.header("X-DF-Signature", finalSig);
-                    builder.header("X-DF-PublicKey", finalPub);
-                }
-                HttpRequest request = builder.build();
+                        .PUT(HttpRequest.BodyPublishers.ofString(revisionHash))
+                        .build();
                 HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
-                checkStatusCode(response, "Failed to update remote ref");
+                if (response.statusCode() < 200 || response.statusCode() >= 300) {
+                    throw new IOException("Failed to update remote ref: HTTP " + response.statusCode());
+                }
                 return null;
             });
         }
@@ -202,7 +137,9 @@ public class RemoteClient {
                         .PUT(HttpRequest.BodyPublishers.ofByteArray(packData))
                         .build();
                 HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
-                checkStatusCode(response, "Failed to upload pack");
+                if (response.statusCode() < 200 || response.statusCode() >= 300) {
+                    throw new IOException("Failed to upload pack: HTTP " + response.statusCode());
+                }
                 return null;
             });
         }
@@ -212,8 +149,7 @@ public class RemoteClient {
         if (remoteUrl.startsWith("file://")) {
             Path packPath = getLocalPath("packs/" + packId + ".dfpack");
             if (!Files.exists(packPath)) {
-                throw new NetworkSyncException("Remote packfile not found: " + packId,
-                    List.of("Verify that the pack file is present in remote store packs directory."));
+                throw new IOException("Remote packfile not found: " + packId);
             }
             return Files.readAllBytes(packPath);
         } else {
@@ -224,21 +160,11 @@ public class RemoteClient {
                         .timeout(java.time.Duration.ofSeconds(30))
                         .GET()
                         .build();
-                Path stagingPath = Paths.get(".draftflow/tmp/staging_" + packId + ".dfpack");
-                Files.createDirectories(stagingPath.getParent());
-                
-                HttpResponse<Path> response = httpClient.send(request, HttpResponse.BodyHandlers.ofFile(stagingPath));
+                HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
                 if (response.statusCode() != 200) {
-                    Files.deleteIfExists(stagingPath);
+                    throw new IOException("Failed to download remote pack: HTTP " + response.statusCode());
                 }
-                checkStatusCode(response, "Failed to download remote pack");
-                
-                try {
-                    byte[] data = Files.readAllBytes(stagingPath);
-                    return data;
-                } finally {
-                    Files.deleteIfExists(stagingPath);
-                }
+                return response.body();
             });
         }
     }
@@ -270,7 +196,9 @@ public class RemoteClient {
                         .PUT(HttpRequest.BodyPublishers.ofString(content))
                         .build();
                 HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
-                checkStatusCode(response, "Failed to upload index");
+                if (response.statusCode() < 200 || response.statusCode() >= 300) {
+                    throw new IOException("Failed to upload index: HTTP " + response.statusCode());
+                }
                 return null;
             });
         }
@@ -298,7 +226,9 @@ public class RemoteClient {
                 if (response.statusCode() == 404) {
                     return "";
                 }
-                checkStatusCode(response, "Failed to download index");
+                if (response.statusCode() != 200) {
+                    throw new IOException("Failed to download index: HTTP " + response.statusCode());
+                }
                 return response.body();
             });
             if (content.isEmpty()) {

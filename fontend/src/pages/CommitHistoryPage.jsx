@@ -11,7 +11,10 @@ function CommitHistoryPage() {
   const { selectedRepo } = useRepo()
 
   const repo = useMemo(() => {
-    return selectedRepo?.id === repoId ? selectedRepo : null;
+    if (selectedRepo?.id === repoId) {
+      return selectedRepo;
+    }
+    return selectedRepo;
   }, [repoId, selectedRepo]);
 
   const commits = useMemo(() => {
@@ -19,11 +22,7 @@ function CommitHistoryPage() {
   }, [repo?.commits])
 
   if (!repo) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-500 border-t-transparent"></div>
-      </div>
-    );
+    return <div className="text-slate-400">Repository not found.</div>
   }
 
   const branchLabel = repo.currentBranch || 'main'
@@ -58,7 +57,7 @@ function CommitHistoryPage() {
           </div>
           <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/70">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">Latest Snapshot</p>
-            <p className="mt-2 text-sm font-semibold text-slate-900 dark:text-white">{commits[0]?.message || repo.lastCommitMessage || 'n/a'}</p>
+            <p className="mt-2 text-sm font-semibold text-slate-900 dark:text-white">{repo.lastCommitMessage || 'n/a'}</p>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-800 dark:bg-slate-950/70">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">Commit Count</p>

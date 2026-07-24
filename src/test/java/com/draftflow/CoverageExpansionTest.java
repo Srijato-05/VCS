@@ -1552,8 +1552,8 @@ public class CoverageExpansionTest {
         RemoteClient rcRetry = new RemoteClient("http://127.0.0.1:54321");
         try {
             rcRetry.getRef("main");
-            fail("Should have thrown Exception after retries");
-        } catch (Exception expected) {}
+            fail("Should have thrown IOException after retries");
+        } catch (IOException expected) {}
 
         // 2. Local HttpServer status 500 & empty line skip
         com.sun.net.httpserver.HttpServer server = com.sun.net.httpserver.HttpServer.create(new java.net.InetSocketAddress(0), 0);
@@ -1578,8 +1578,8 @@ public class CoverageExpansionTest {
             RemoteClient rcErr = new RemoteClient("http://localhost:" + port + "/error");
             try {
                 rcErr.downloadIndex();
-                fail("Should have thrown Exception");
-            } catch (Exception expected) {}
+                fail("Should have thrown IOException");
+            } catch (IOException expected) {}
 
             RemoteClient rcParsed = new RemoteClient("http://localhost:" + port);
             Map<String, String> idx = rcParsed.downloadIndex();

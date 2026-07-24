@@ -117,19 +117,8 @@ public class WorkspaceManager {
                     FileMetadata newMeta = new FileMetadata(relStr, size, lastMod, objectHash, typeStr, mode);
                     db.putFile(newMeta);
                 } else {
-                    // File or directory deleted
-                    if (db.getFile(relStr) != null) {
-                        db.removeFile(relStr);
-                    } else {
-                        // It could be a deleted directory containing tracked files.
-                        // Remove all tracked files in DB whose relative path starts with relStr + "/"
-                        List<FileMetadata> allTracked = db.getAllFiles();
-                        for (FileMetadata fm : allTracked) {
-                            if (fm.getPath().startsWith(relStr + "/")) {
-                                db.removeFile(fm.getPath());
-                            }
-                        }
-                    }
+                    // File deleted
+                    db.removeFile(relStr);
                 }
             } catch (IOException e) {
                 System.err.println("Warning: Could not read file " + relStr + " (" + e.getMessage() + "). Retaining previous index state.");
@@ -160,30 +149,6 @@ public class WorkspaceManager {
             db.setConfig("activeChangeId", activeChangeId);
         }
 
-        String branchName = activeHead != null && activeHead.startsWith("heads/") ? activeHead.substring(6) : "detached HEAD";
-        List<String> modifiedFileNames = new ArrayList<>();
-        if (changedPaths != null) {
-            for (Path path : changedPaths) {
-                if (!ignoreMatcher.isIgnored(path) && !Files.isDirectory(path)) {
-                    modifiedFileNames.add(rootDir.relativize(path).getFileName().toString());
-                }
-            }
-        }
-
-        String draftMsg;
-        if (modifiedFileNames.isEmpty()) {
-            draftMsg = "Working Copy: " + branchName + " (clean)";
-        } else {
-            Collections.sort(modifiedFileNames);
-            if (modifiedFileNames.size() == 1) {
-                draftMsg = "WIP on " + branchName + " (" + modifiedFileNames.get(0) + ")";
-            } else if (modifiedFileNames.size() == 2) {
-                draftMsg = "WIP on " + branchName + " (" + modifiedFileNames.get(0) + ", " + modifiedFileNames.get(1) + ")";
-            } else {
-                draftMsg = "WIP on " + branchName + " (" + modifiedFileNames.get(0) + " and " + (modifiedFileNames.size() - 1) + " other files)";
-            }
-        }
-
         // 4. Write draft revision
         Revision draftRev = new Revision(
                 rootTreeHash,
@@ -191,7 +156,7 @@ public class WorkspaceManager {
                 activeChangeId,
                 getAuthor(),
                 System.currentTimeMillis(),
-                draftMsg,
+                "shadow-revision (WIP)",
                 true // Is draft
         );
 

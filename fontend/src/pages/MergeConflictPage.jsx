@@ -1,7 +1,6 @@
 import { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ConflictResolver from '../components/ConflictResolver'
-import NotificationToast from '../components/NotificationToast'
 import { useRepo } from '../context/RepoContext'
 
 function MergeConflictPage() {
@@ -10,18 +9,10 @@ function MergeConflictPage() {
   const [conflicts, setConflicts] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
-  const [dbLocked, setDbLocked] = useState(false)
-  
-  // Toast state
-  const [toast, setToast] = useState(null)
 
   const repo = useMemo(() => {
     return selectedRepo?.id === repoId ? selectedRepo : null
   }, [repoId, selectedRepo])
-
-  const showToast = (message, type = 'info') => {
-    setToast({ message, type })
-  }
 
   const loadConflicts = async () => {
     if (!selectedRepo?.conflicts || selectedRepo.conflicts.length === 0) {
@@ -30,16 +21,10 @@ function MergeConflictPage() {
     }
     setLoading(true)
     setError("")
-    setDbLocked(false)
     try {
       const list = []
       for (const file of selectedRepo.conflicts) {
         const res = await fetch(`/api/conflict-details?file=${encodeURIComponent(file)}`)
-        if (res.status === 503) {
-          setDbLocked(true)
-          showToast("H2 Database is locked by another process.", "warning")
-          break
-        }
         if (res.ok) {
           const data = await res.json()
           list.push({
@@ -52,9 +37,7 @@ function MergeConflictPage() {
           console.error(`Failed to load conflict details for ${file}`)
         }
       }
-      if (!dbLocked) {
-        setConflicts(list)
-      }
+      setConflicts(list)
     } catch (err) {
       setError("Failed to load conflict details")
       console.error(err)
@@ -67,33 +50,21 @@ function MergeConflictPage() {
     loadConflicts()
   }, [selectedRepo?.conflicts])
 
-  const handleResolveAction = async (fileName, resolution, customContent = null) => {
+  const handleResolveAction = async (fileName, resolution) => {
     try {
-      setDbLocked(false)
-      const url = `/api/action?cmd=resolve&file=${encodeURIComponent(fileName)}&resolution=${resolution}`
-      const options = { method: "POST" }
-      if (resolution === "custom" && customContent !== null) {
-        options.body = customContent
-      }
-      const res = await fetch(url, options)
-      
-      if (res.status === 503) {
-        setDbLocked(true)
-        showToast("Action failed: Database is locked.", "error")
-        return
-      }
-
+      const res = await fetch(`/api/action?cmd=resolve&file=${encodeURIComponent(fileName)}&resolution=${resolution}`, {
+        method: "POST"
+      })
       if (res.ok) {
-        showToast(`Resolved conflict for ${fileName} successfully!`, "success")
         if (selectRepository && selectedRepo) {
           await selectRepository(selectedRepo)
         }
       } else {
         const err = await res.json()
-        showToast(err.error || "Failed to resolve conflict", "error")
+        alert(err.error || "Failed to resolve conflict")
       }
     } catch (err) {
-      showToast(err.message || "Error resolving conflict", "error")
+      alert(err.message || "Error resolving conflict")
     }
   }
 
@@ -108,35 +79,6 @@ function MergeConflictPage() {
         <h2 className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">{repo.name}</h2>
         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Review conflicting files before merging your branch.</p>
       </div>
-
-      {dbLocked && (
-        <div className="rounded-3xl border border-amber-300 bg-amber-50/50 p-6 shadow-sm dark:border-amber-500/30 dark:bg-amber-950/20">
-          <div className="flex items-start gap-4">
-            <div className="rounded-xl bg-amber-500/20 p-2 text-amber-600 dark:text-amber-400">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
-            <div className="space-y-1">
-              <h4 className="font-semibold text-amber-800 dark:text-amber-400">H2 Database Connection Locked</h4>
-              <p className="text-sm text-amber-700/80 dark:text-amber-300/80 leading-relaxed">
-                Another process (likely a CLI command run in your terminal or a concurrent sync operations) is holding the exclusive database lock.
-              </p>
-              <div className="mt-3 flex gap-2">
-                <button
-                  onClick={() => {
-                    setDbLocked(false);
-                    loadConflicts();
-                  }}
-                  className="rounded-lg bg-amber-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-amber-700 transition"
-                >
-                  Retry Connection
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {error && (
         <div className="rounded-xl border border-rose-300 bg-rose-50 p-4 text-rose-700">
@@ -159,18 +101,9 @@ function MergeConflictPage() {
               onAcceptCurrent={() => handleResolveAction(conflict.fileName, "ours")}
               onAcceptIncoming={() => handleResolveAction(conflict.fileName, "theirs")}
               onResolve={() => handleResolveAction(conflict.fileName, "both")}
-              onCustomResolve={(content) => handleResolveAction(conflict.fileName, "custom", content)}
             />
           ))}
         </div>
-      )}
-
-      {toast && (
-        <NotificationToast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
       )}
     </div>
   )
