@@ -135,4 +135,37 @@ public class ComprehensiveMetadataStoreTest {
             assertEquals("test_val", db.getConfig("test_key"));
         }
     }
+
+    @Test
+    public void testUserAndPullRequestOperations() throws IOException {
+        Path dbPath = tempDir.resolve("metadata.db");
+        try (MetadataStore db = new MetadataStore(dbPath)) {
+            db.shutdownHookRegistry = mockRegistry;
+            db.open();
+
+            // Users
+            db.putUser("u1@test.com", "{\"name\":\"User 1\"}");
+            assertEquals("{\"name\":\"User 1\"}", db.getUser("u1@test.com"));
+            assertEquals(1, db.getAllUsers().size());
+
+            // Pull requests
+            db.putPullRequest("pr-1", "{\"title\":\"PR 1\"}");
+            assertEquals("{\"title\":\"PR 1\"}", db.getPullRequest("pr-1"));
+            assertEquals(1, db.getAllPullRequests().size());
+            db.removePullRequest("pr-1");
+            assertNull(db.getPullRequest("pr-1"));
+        }
+    }
+
+    @Test
+    public void testLifecycleMethods() throws IOException {
+        Path dbPath = tempDir.resolve("metadata.db");
+        MetadataStore db = new MetadataStore(dbPath);
+        db.shutdownHookRegistry = mockRegistry;
+        db.open();
+        assertFalse(db.isClosed());
+
+        db.close();
+        assertTrue(db.isClosed());
+    }
 }

@@ -154,4 +154,91 @@ public class ExtendedUiServerTest {
             server.stop();
         }
     }
+
+    @Test
+    public void testRemoteHandlers() throws Exception {
+        CAS cas = new CAS(tempDir);
+        cas.init();
+        Path dbPath = tempDir.resolve(".draftflow").resolve("index").resolve("index.mv.db");
+        try (MetadataStore db = new MetadataStore(dbPath)) {
+            db.open();
+            UiServer server = new UiServer(cas, db, 0);
+            server.start();
+            int port = server.getPort();
+            HttpClient client = HttpClient.newHttpClient();
+
+            // GET /api/remote/refs
+            HttpResponse<String> r1 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/remote/refs")).GET().build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r1.statusCode());
+
+            // POST /api/remote/refs
+            String refBody = "{\"name\":\"heads/feature\",\"hash\":\"1234567890abcdef1234567890abcdef12345678\"}";
+            HttpResponse<String> r2 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/remote/refs")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(refBody)).build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r2.statusCode());
+
+            // GET /api/remote/refs?name=heads/feature
+            HttpResponse<String> r3 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/remote/refs?name=heads/feature")).GET().build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r3.statusCode());
+            assertTrue(r3.body().contains("1234567890abcdef"));
+
+            // DELETE /api/remote/refs?name=heads/feature
+            HttpResponse<String> r4 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/remote/refs?name=heads/feature")).DELETE().build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r4.statusCode());
+
+            // GET /api/remote/index
+            HttpResponse<String> r5 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/remote/index")).GET().build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r5.statusCode());
+
+            // POST /api/remote/index
+            HttpResponse<String> r6 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/remote/index")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{\"obj1\":\"pack1\"}")).build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r6.statusCode());
+
+            // POST /api/remote/packs?id=pack-1
+            HttpResponse<String> r7 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/remote/packs?id=pack-1")).header("Content-Type", "application/octet-stream").POST(HttpRequest.BodyPublishers.ofString("pack stream")).build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r7.statusCode());
+
+            // GET /api/remote/packs?id=pack-1
+            HttpResponse<String> r8 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/remote/packs?id=pack-1")).GET().build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r8.statusCode());
+            assertEquals("pack stream", r8.body());
+
+            server.stop();
+        }
+    }
+
+    @Test
+    public void testFileContentAndConflictDetailsHandlers() throws Exception {
+        CAS cas = new CAS(tempDir);
+        cas.init();
+        Path dbPath = tempDir.resolve(".draftflow").resolve("index").resolve("index.mv.db");
+        try (MetadataStore db = new MetadataStore(dbPath)) {
+            db.open();
+            UiServer server = new UiServer(cas, db, 0);
+            server.start();
+            int port = server.getPort();
+            HttpClient client = HttpClient.newHttpClient();
+
+            // GET /api/file-content without file param
+            HttpResponse<String> r1 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/file-content")).GET().build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(400, r1.statusCode());
+
+            // GET /api/conflict-details without file param
+            HttpResponse<String> r2 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/conflict-details")).GET().build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(400, r2.statusCode());
+
+            // POST /api/auth/sync
+            HttpResponse<String> r3 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/auth/sync")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{}")).build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r3.statusCode());
+
+            // POST /api/auth/logout
+            HttpResponse<String> r4 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/auth/logout")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{}")).build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r4.statusCode());
+
+            // POST /api/repositories/create
+            HttpResponse<String> r5 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/repositories/create")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{\"name\":\"test-repo\"}")).build(), HttpResponse.BodyHandlers.ofString());
+            assertEquals(200, r5.statusCode());
+
+            server.stop();
+        }
+    }
 }

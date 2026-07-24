@@ -143,8 +143,6 @@ public class AdvancedCoverageTest {
         db.commit();
 
         // --- Test ActionHandler ---
-        // Close the database to release the file lock for the command line action execution
-        db.close();
 
         // 1. GET method (Not Allowed)
         HttpResponse<String> responseActionGet = client.send(

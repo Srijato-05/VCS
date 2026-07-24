@@ -109,4 +109,86 @@ public class ComprehensiveDraftFlowCLITest {
         int helpCode = DraftFlow.runMain(new String[]{"--help"});
         assertEquals(0, helpCode);
     }
+
+    @Test
+    public void testSubcommandsCoverage() throws Exception {
+        CommandLine cmd = new CommandLine(new DraftFlow());
+
+        // setup
+        assertEquals(0, cmd.execute("setup"));
+
+        // status
+        assertEquals(0, cmd.execute("status"));
+
+        // save
+        java.nio.file.Files.writeString(tempDir.resolve("f1.txt"), "hello");
+        assertEquals(0, cmd.execute("save", "-m", "Commit 1"));
+
+        // branch
+        assertEquals(0, cmd.execute("branch", "feat"));
+
+        // switch
+        assertEquals(0, cmd.execute("switch", "feat"));
+
+        // save amend
+        java.nio.file.Files.writeString(tempDir.resolve("f1.txt"), "hello updated");
+        assertEquals(0, cmd.execute("save", "-m", "Commit 1 Amended", "--amend"));
+
+        // stash
+        java.nio.file.Files.writeString(tempDir.resolve("f1.txt"), "hello dirty");
+        assertEquals(0, cmd.execute("stash", "push"));
+        assertEquals(0, cmd.execute("stash", "list"));
+        assertEquals(0, cmd.execute("stash", "pop"));
+
+        // clean
+        java.nio.file.Files.writeString(tempDir.resolve("untracked.tmp"), "tmp");
+        assertEquals(0, cmd.execute("clean", "-f"));
+
+        // config
+        assertEquals(0, cmd.execute("config", "user.name", "Tester"));
+        assertEquals(0, cmd.execute("config", "user.name"));
+
+        // hooks
+        assertEquals(0, cmd.execute("hooks", "--status"));
+
+        // keys
+        assertEquals(0, cmd.execute("keys"));
+
+        // verify
+        assertEquals(0, cmd.execute("verify"));
+
+        // prune
+        assertEquals(0, cmd.execute("prune"));
+
+        // ignore
+        assertEquals(0, cmd.execute("ignore", "*.log"));
+    }
+
+    @Test
+    public void testSavePatchMode() throws Exception {
+        CommandLine cmd = new CommandLine(new DraftFlow());
+        assertEquals(0, cmd.execute("setup"));
+
+        java.nio.file.Files.writeString(tempDir.resolve("f1.txt"), "line 1\nline 2\n");
+        assertEquals(0, cmd.execute("save", "-m", "Initial commit"));
+
+        java.nio.file.Files.writeString(tempDir.resolve("f1.txt"), "line 1 modified\nline 2\nline 3 added\n");
+
+        System.setProperty("draftflow.test.patch.choice", "y");
+        try {
+            int code = cmd.execute("save", "-m", "Patch save y", "-p");
+            assertEquals(0, code);
+        } finally {
+            System.clearProperty("draftflow.test.patch.choice");
+        }
+
+        java.nio.file.Files.writeString(tempDir.resolve("f1.txt"), "line 1 modified again\n");
+        System.setProperty("draftflow.test.patch.choice", "n");
+        try {
+            int code = cmd.execute("save", "-m", "Patch save n", "-p");
+            assertEquals(0, code);
+        } finally {
+            System.clearProperty("draftflow.test.patch.choice");
+        }
+    }
 }
