@@ -31,8 +31,10 @@ $classesDir = "$projectRoot/target/classes"
 $testClassesDir = "$projectRoot/target/test-classes"
 $execFile = "$projectRoot/jacoco.exec"
 
-if (!(Test-Path $classesDir)) { New-Item -ItemType Directory -Path $classesDir | Out-Null }
-if (!(Test-Path $testClassesDir)) { New-Item -ItemType Directory -Path $testClassesDir | Out-Null }
+if (Test-Path $classesDir) { Remove-Item -Path "$classesDir/*" -Recurse -Force -ErrorAction SilentlyContinue }
+if (Test-Path $testClassesDir) { Remove-Item -Path "$testClassesDir/*" -Recurse -Force -ErrorAction SilentlyContinue }
+New-Item -ItemType Directory -Path $classesDir -Force | Out-Null
+New-Item -ItemType Directory -Path $testClassesDir -Force | Out-Null
 
 # 1. Compile Main Sources
 Write-Host "Compiling main Java sources..." -ForegroundColor Yellow
