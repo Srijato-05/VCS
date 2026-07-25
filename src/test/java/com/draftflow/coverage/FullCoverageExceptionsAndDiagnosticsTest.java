@@ -71,13 +71,29 @@ public class FullCoverageExceptionsAndDiagnosticsTest {
     }
 
     @Test
-    public void testDiagnosticEngineLoggingAndFormatting() {
+    public void testDiagnosticEngineLoggingAndFormatting() throws Exception {
         DiagnosticEngine.handleException(new DraftFlowException("ERR_100", "test error", List.of("action 1")), tempDir);
         DiagnosticEngine.handleException(new CASCorruptException("hash999", List.of("action CAS")), tempDir);
+        DiagnosticEngine.handleException(new NetworkSyncException("http://remote.org", List.of("action Net")), tempDir);
+        DiagnosticEngine.handleException(new RuntimeException("Database may be already in use"), tempDir);
+        DiagnosticEngine.handleException(new RuntimeException("Signature verification failed"), tempDir);
+        DiagnosticEngine.handleException(new java.util.zip.DataFormatException("corrupt data"), tempDir);
+        DiagnosticEngine.handleException(new java.io.SyncFailedException("Permission denied"), tempDir);
         DiagnosticEngine.handleException(new RuntimeException("general ex"), tempDir);
+
+        DiagnosticEngine.log(DiagnosticEngine.LogLevel.DEBUG, "CTX", "debug message", tempDir);
+        DiagnosticEngine.log(DiagnosticEngine.LogLevel.WARN, "CTX", new Exception("warn ex"), tempDir);
+
+        // Test log rotation
+        Path logPath = tempDir.resolve(".draftflow").resolve("diagnostics.log");
+        Files.createDirectories(logPath.getParent());
+        byte[] bigData = new byte[6 * 1024 * 1024];
+        Files.write(logPath, bigData);
+        DiagnosticEngine.log(DiagnosticEngine.LogLevel.ERROR, "CTX", "overflow message", tempDir);
 
         DiagnosticEngine.LogLevel[] levels = DiagnosticEngine.LogLevel.values();
         assertTrue(levels.length >= 5);
+        assertEquals(0, DiagnosticEngine.LogLevel.DEBUG.getPriority());
         assertEquals(DiagnosticEngine.LogLevel.INFO, DiagnosticEngine.LogLevel.valueOf("INFO"));
     }
 

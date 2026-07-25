@@ -215,7 +215,7 @@ public class LineMerge {
                     i--;
                     j--;
                 } else if (j > 0 && (i == 0 || dp[i][j - 1] >= dp[i - 1][j])) {
-                    middleEdits.add(new Edit(EditType.INSERT, prefixLen + i, targetMid.get(j - 1)));
+                    middleEdits.add(new Edit(EditType.INSERT, prefixLen + (i > 0 ? i - 1 : 0), targetMid.get(j - 1)));
                     j--;
                 } else {
                     middleEdits.add(new Edit(EditType.DELETE, prefixLen + i - 1, baseMid.get(i - 1)));

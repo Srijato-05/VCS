@@ -122,7 +122,7 @@ public class AdvancedCoverageTest {
                 HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/trace")).GET().build(),
                 HttpResponse.BodyHandlers.ofString()
         );
-        assertEquals(500, responseTraceErr1.statusCode());
+        assertEquals(400, responseTraceErr1.statusCode());
         assertTrue(responseTraceErr1.body().contains("error"));
 
         // --- Test GET Trace (Nonexistent file) ---
@@ -130,17 +130,24 @@ public class AdvancedCoverageTest {
                 HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/trace?file=missing.txt")).GET().build(),
                 HttpResponse.BodyHandlers.ofString()
         );
-        assertEquals(500, responseTraceErr2.statusCode());
+        assertEquals(404, responseTraceErr2.statusCode());
 
-        // --- Test GET Trace (No commits on detached) ---
-        db.removeConfig("activeRevisionHash");
+        MetadataStore modDb = new MetadataStore(dbPath);
+        modDb.open();
+        modDb.removeConfig("activeRevisionHash");
+        modDb.commit();
+        modDb.close();
+
         HttpResponse<String> responseTraceErr3 = client.send(
                 HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/trace?file=hello.txt")).GET().build(),
                 HttpResponse.BodyHandlers.ofString()
         );
         assertEquals(500, responseTraceErr3.statusCode());
-        db.setConfig("activeRevisionHash", revHash);
-        db.commit();
+
+        modDb.open();
+        modDb.setConfig("activeRevisionHash", revHash);
+        modDb.commit();
+        modDb.close();
 
         // --- Test ActionHandler ---
 
@@ -156,14 +163,14 @@ public class AdvancedCoverageTest {
                 HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/action")).POST(HttpRequest.BodyPublishers.noBody()).build(),
                 HttpResponse.BodyHandlers.ofString()
         );
-        assertEquals(500, responseActionNoCmd.statusCode());
+        assertEquals(400, responseActionNoCmd.statusCode());
 
         // 3. POST method unknown cmd
         HttpResponse<String> responseActionBadCmd = client.send(
                 HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/action?cmd=foo")).POST(HttpRequest.BodyPublishers.noBody()).build(),
                 HttpResponse.BodyHandlers.ofString()
         );
-        assertEquals(500, responseActionBadCmd.statusCode());
+        assertEquals(400, responseActionBadCmd.statusCode());
 
         // 4. POST save cmd (Commit 1)
         HttpResponse<String> responseActionSave = client.send(
@@ -184,7 +191,7 @@ public class AdvancedCoverageTest {
                 HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/action?cmd=switch")).POST(HttpRequest.BodyPublishers.noBody()).build(),
                 HttpResponse.BodyHandlers.ofString()
         );
-        assertEquals(500, responseActionSwitchErr.statusCode());
+        assertEquals(400, responseActionSwitchErr.statusCode());
 
         // 6. POST switch cmd (Success)
         HttpResponse<String> responseActionSwitch = client.send(
@@ -212,7 +219,7 @@ public class AdvancedCoverageTest {
                 HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/action?cmd=rebase")).POST(HttpRequest.BodyPublishers.noBody()).build(),
                 HttpResponse.BodyHandlers.ofString()
         );
-        assertEquals(500, responseActionRebaseErr.statusCode());
+        assertEquals(400, responseActionRebaseErr.statusCode());
 
         // 9. POST clean cmd
         HttpResponse<String> responseActionClean = client.send(

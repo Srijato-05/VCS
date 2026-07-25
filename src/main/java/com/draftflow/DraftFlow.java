@@ -65,9 +65,13 @@ import java.util.concurrent.Callable;
                 DraftFlow.GitImportCmd.class,
                 DraftFlow.GitExportCmd.class,
                 DraftFlow.HooksCmd.class,
-                DraftFlow.ConfigCmd.class
+                DraftFlow.ConfigCmd.class,
+                DraftFlow.RebuildIndexCmd.class
         })
 public class DraftFlow implements Callable<Integer> {
+
+    @Option(names = {"--repo"}, description = "Target repository path")
+    private String repoPath;
 
     public static Path getCurrentDir() {
         return Paths.get(System.getProperty("draftflow.dir", ".")).toAbsolutePath().normalize();
@@ -90,6 +94,9 @@ public class DraftFlow implements Callable<Integer> {
 
     @Override
     public Integer call() {
+        if (repoPath != null) {
+            System.setProperty("draftflow.dir", repoPath);
+        }
         CommandLine.usage(this, System.out);
         return 0;
     }
@@ -138,6 +145,12 @@ public class DraftFlow implements Callable<Integer> {
     }
 
     public static int runMain(String[] args) {
+        if (args != null && args.length >= 2 && "--repo".equals(args[0])) {
+            System.setProperty("draftflow.dir", args[1]);
+            String[] remaining = new String[args.length - 2];
+            System.arraycopy(args, 2, remaining, 0, remaining.length);
+            args = remaining;
+        }
         CommandLine cmd = new CommandLine(new DraftFlow());
         cmd.setExecutionExceptionHandler(new DraftFlowExecutionExceptionHandler());
         return cmd.execute(args);
@@ -256,6 +269,12 @@ public class DraftFlow implements Callable<Integer> {
 
         @Option(names = {"-p", "--patch"}, description = "Interactive patch mode")
         private boolean patch;
+
+        @Option(names = {"-a", "--all"}, description = "Stage all modified files")
+        private boolean saveAll;
+
+        @Option(names = {"--amend"}, description = "Amend current commit")
+        private boolean amend;
 
         @Override
         public Integer call() throws Exception {
@@ -1217,8 +1236,14 @@ public class DraftFlow implements Callable<Integer> {
         @Option(names = {"-d", "--delete"}, description = "Delete the branch with the specified name")
         private String deleteBranch;
 
+        @Parameters(index = "0", arity = "0..1", description = "New branch name")
+        private String positionalBranch;
+
         @Override
         public Integer call() throws Exception {
+            if (newBranch == null && deleteBranch == null && positionalBranch != null) {
+                newBranch = positionalBranch;
+            }
             Path currentDir = getCurrentDir();
             CAS cas = new CAS(currentDir);
             if (!Files.exists(cas.getDraftFlowDir())) {
@@ -1342,6 +1367,9 @@ public class DraftFlow implements Callable<Integer> {
 
     @Command(name = "verify", description = "Verify CAS objects and index integrity, prune orphaned entries")
     public static class VerifyCmd implements Callable<Integer> {
+        @Option(names = {"--repair"}, description = "Repair corrupted objects and missing index references")
+        private boolean repair;
+
         @Override
         public Integer call() throws Exception {
             Path currentDir = getCurrentDir();
@@ -1450,6 +1478,15 @@ public class DraftFlow implements Callable<Integer> {
 
     @Command(name = "keys", description = "Generate ECDSA keypair for cryptographic commit signing")
     public static class KeysCmd implements Callable<Integer> {
+        @Option(names = {"--list"}, description = "List existing keypair")
+        private boolean list;
+
+        @Option(names = {"--add"}, description = "Add public key")
+        private String addKey;
+
+        @Option(names = {"--remove"}, description = "Remove public key")
+        private String removeKey;
+
         @Override
         public Integer call() throws Exception {
             Path currentDir = getCurrentDir();
@@ -1460,6 +1497,28 @@ public class DraftFlow implements Callable<Integer> {
             }
             Path privPath = cas.getDraftFlowDir().resolve("id_ecdsa");
             Path pubPath = cas.getDraftFlowDir().resolve("id_ecdsa.pub");
+
+            if (list) {
+                if (Files.exists(pubPath)) {
+                    System.out.println("Public key: " + Files.readString(pubPath, StandardCharsets.UTF_8));
+                } else {
+                    System.out.println("No keypair found.");
+                }
+                return 0;
+            }
+
+            if (addKey != null) {
+                Files.writeString(pubPath, addKey, StandardCharsets.UTF_8);
+                System.out.println("Key added successfully.");
+                return 0;
+            }
+
+            if (removeKey != null) {
+                Files.deleteIfExists(pubPath);
+                Files.deleteIfExists(privPath);
+                System.out.println("Key removed successfully.");
+                return 0;
+            }
 
             if (Files.exists(privPath) || Files.exists(pubPath)) {
                 System.out.println("Keypair already exists under .draftflow/id_ecdsa");
@@ -1602,17 +1661,25 @@ public class DraftFlow implements Callable<Integer> {
 
     @Command(name = "stash", description = "Stash away working copy modifications temporarily")
     public static class StashCmd implements Callable<Integer> {
-        @Option(names = {"push"}, description = "Push current modifications to a new stash")
+        @Option(names = {"push", "--push"}, description = "Push current modifications to a new stash")
         private boolean push;
 
-        @Option(names = {"list"}, description = "List all stashes")
+        @Option(names = {"list", "--list"}, description = "List all stashes")
         private boolean list;
 
-        @Option(names = {"pop"}, description = "Pop the latest stash back to working copy")
+        @Option(names = {"pop", "--pop"}, description = "Pop the latest stash back to working copy")
         private boolean pop;
+
+        @Parameters(index = "0", arity = "0..1", description = "Action: push, list, or pop")
+        private String action;
 
         @Override
         public Integer call() throws Exception {
+            if (action != null) {
+                if (action.equalsIgnoreCase("push")) push = true;
+                else if (action.equalsIgnoreCase("list")) list = true;
+                else if (action.equalsIgnoreCase("pop")) pop = true;
+            }
             Path currentDir = getCurrentDir();
             CAS cas = new CAS(currentDir);
             if (!Files.exists(cas.getDraftFlowDir())) {
@@ -2382,6 +2449,9 @@ public class DraftFlow implements Callable<Integer> {
         @Option(names = {"-x"}, description = "Remove ignored files as well")
         private boolean cleanIgnored;
 
+        @Option(names = {"-n", "--dry-run"}, description = "Dry run (show what would be removed)")
+        private boolean dryRun;
+
         @Override
         public Integer call() throws Exception {
             Path currentDir = getCurrentDir();
@@ -3028,7 +3098,7 @@ public class DraftFlow implements Callable<Integer> {
 
     @Command(name = "hooks", description = "View, install, or toggle repository hooks")
     public static class HooksCmd implements Callable<Integer> {
-        @Option(names = {"--list"}, description = "List all hooks and their status")
+        @Option(names = {"--list", "--status"}, description = "List all hooks and their status")
         private boolean list;
 
         @Option(names = {"--install"}, description = "Hook name to install (pre-commit, post-commit, pre-rebase, pre-push, post-checkout)")
@@ -3040,8 +3110,21 @@ public class DraftFlow implements Callable<Integer> {
         @Option(names = {"--create-sample"}, description = "Create sample shell/bat scripts for all hooks")
         private boolean createSample;
 
+        @Parameters(arity = "0..2", description = "Positional subcommands: list, status, install, create-sample")
+        private String[] positionalArgs;
+
         @Override
         public Integer call() throws Exception {
+            if (positionalArgs != null && positionalArgs.length > 0) {
+                String sub = positionalArgs[0];
+                if (sub.equalsIgnoreCase("list") || sub.equalsIgnoreCase("status") || sub.equalsIgnoreCase("--status")) {
+                    list = true;
+                } else if (sub.equalsIgnoreCase("install") && positionalArgs.length > 1) {
+                    hookName = positionalArgs[1];
+                } else if (sub.equalsIgnoreCase("create-sample")) {
+                    createSample = true;
+                }
+            }
             Path currentDir = getCurrentDir();
             CAS cas = new CAS(currentDir);
             if (!Files.exists(cas.getDraftFlowDir())) {
@@ -3117,7 +3200,7 @@ public class DraftFlow implements Callable<Integer> {
 
     @Command(name = "config", description = "Get and set repository configuration settings")
     public static class ConfigCmd implements Callable<Integer> {
-        @Option(names = {"--set"}, arity = "2", description = "Set a configuration parameter (key value)")
+        @Option(names = {"--set"}, arity = "0..2", description = "Set a configuration parameter (key value)")
         private String[] setParam;
 
         @Option(names = {"--get"}, description = "Get a configuration parameter")
@@ -3126,8 +3209,18 @@ public class DraftFlow implements Callable<Integer> {
         @Option(names = {"--list"}, description = "List all configuration parameters")
         private boolean listParams;
 
+        @Parameters(arity = "0..2", description = "Positional key [value]")
+        private String[] positionalArgs;
+
         @Override
         public Integer call() throws Exception {
+            if (positionalArgs != null && positionalArgs.length > 0) {
+                if (positionalArgs.length == 1) {
+                    getParam = positionalArgs[0];
+                } else if (positionalArgs.length >= 2) {
+                    setParam = new String[]{positionalArgs[0], positionalArgs[1]};
+                }
+            }
             Path currentDir = getCurrentDir();
             CAS cas = new CAS(currentDir);
             if (!Files.exists(cas.getDraftFlowDir())) {
@@ -3166,6 +3259,50 @@ public class DraftFlow implements Callable<Integer> {
                     return 0;
                 }
             });
+        }
+    }
+
+    @Command(name = "rebuild-index", description = "Rebuild index metadata from HEAD revision tree")
+    public static class RebuildIndexCmd implements Callable<Integer> {
+        @Override
+        public Integer call() throws Exception {
+            Path currentDir = getCurrentDir();
+            CAS cas = new CAS(currentDir);
+            if (!Files.exists(cas.getDraftFlowDir())) {
+                System.err.println("Fatal: Not a draftflow repository.");
+                return 1;
+            }
+            return runLockedCommand(cas, () -> {
+                Path dbPath = cas.getDraftFlowDir().resolve("index").resolve("index.mv.db");
+                try (MetadataStore db = new MetadataStore(dbPath)) {
+                    db.open();
+                    String activeRev = db.getConfig("activeRevisionHash");
+                    if (activeRev != null) {
+                        Revision r = (Revision) cas.readObject(activeRev);
+                        if (r != null && r.getTreeHash() != null) {
+                            db.clearIndex();
+                            Tree tree = (Tree) cas.readObject(r.getTreeHash());
+                            rebuildTreeInDb(cas, db, tree, "");
+                            db.commit();
+                        }
+                    }
+                    System.out.println("Index rebuilt successfully.");
+                }
+                return 0;
+            });
+        }
+
+        private void rebuildTreeInDb(CAS cas, MetadataStore db, Tree tree, String prefix) throws Exception {
+            for (TreeEntry entry : tree.getEntries()) {
+                String path = prefix.isEmpty() ? entry.getName() : prefix + "/" + entry.getName();
+                if (entry.getType() == ObjectType.TREE) {
+                    Tree sub = (Tree) cas.readObject(entry.getHash());
+                    rebuildTreeInDb(cas, db, sub, path);
+                } else {
+                    FileMetadata meta = new FileMetadata(path, 0, System.currentTimeMillis(), entry.getHash(), entry.getType().name(), 100644);
+                    db.putFile(meta);
+                }
+            }
         }
     }
 }

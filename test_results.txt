@@ -1,0 +1,1909 @@
+﻿
+Thanks for using JUnit! Support its development at https://junit.org/sponsoring
+
+DraftFlow Repository Hooks Status:
+  pre-commit      : [Not Configured]
+  post-commit     : [Not Configured]
+  pre-rebase      : [Not Configured]
+  pre-push        : [Not Configured]
+  post-checkout   : [Not Configured]
+DraftFlow Repository Hooks Status:
+  pre-commit      : [Not Configured]
+  post-commit     : [Not Configured]
+  pre-rebase      : [Not Configured]
+  pre-push        : [Not Configured]
+  post-checkout   : [Not Configured]
+Running DraftFlow verify integrity verification...
+Checked 3 CAS objects.
+All stored CAS objects are healthy.
+Index matches CAS successfully.
+Saved change caabfcd1 as revision: 9db4b76e
+No unresolved conflicts.
+Index rebuilt successfully.
+Saved change bcf1bae7 as revision: 248af8ba
+Index rebuilt successfully.
+*  Revision: 46c3c555 [UNSIGNED]
+|  Change ID: change-4
+|  Author: Author <auth@test.com>
+|  Date: Sat Jul 25 21:33:44 IST 2026
+|  Message: Merge Commit
+|
+*  Revision: 2b35e88f [SIGNATURE INVALID]
+|  Change ID: change-3
+|  Author: Author <auth@test.com>
+|  Date: Sat Jul 25 21:33:43 IST 2026
+|  Message: Signed Commit
+|
+*  Revision: c4fc9401 [UNSIGNED]
+|  Change ID: change-1
+|  Author: Author <auth@test.com>
+|  Date: Sat Jul 25 21:33:41 IST 2026
+|  Message: commit 1
+|
+*  Revision: b92838d4 [UNSIGNED]
+|  Change ID: change-2
+|  Author: Author <auth@test.com>
+|  Date: Sat Jul 25 21:33:42 IST 2026
+|  Message: commit 2
+|
+*  Revision: c4fc9401 [UNSIGNED]
+|  Change ID: change-1
+|  Author: Author <auth@test.com>
+|  Date: Sat Jul 25 21:33:41 IST 2026
+|  Message: commit 1
+|
+  feature
+* main
+Created branch: new-test-branch
+  feature
+* main
+  new-test-branch
+Deleted branch: new-test-branch
+  feature
+* main
+Saved change 0fb73188 as revision: b0feeed0
+Saved change 0fb73188 as revision: 65b746fc
+Saved change 08028351 as revision: 3e38b97f
+Created branch: feature
+Switched to revision: ccd684de
+Saved change 08028351 as revision: 9adea62b
+Saved change 08028351 as revision: 068aa14e
+Switched to revision: ccd684de
+Saved change 08028351 as revision: 05c97f85
+Switched to revision: c51ae9f7
+DEBUG REBASE: activeRev=068aa14e27695574831f9f9e9072408314a3b5a04d9368d251e27511746371a6, upstreamHash=05c97f85f2519a054e3c9997da97088ce3a257e4510330ff8b062cfeb2093caf, ancestor=3e38b97f2fab77d81892c9ab08e7d45ba6503b64ebb6383fc12d8582ea14ff68
+Rebasing 1 commit(s) onto 05c97f85f2519a054e3c9997da97088ce3a257e4510330ff8b062cfeb2093caf...
+Applying (reword): C2 Message
+Successfully rebased current branch onto main
+Saved change a0df6827 as revision: 22d7e652
+Dry-run (use -f/--force to delete):
+Would remove file: .dfignore
+Would remove file: ignored.txt
+Would remove file: untracked.txt
+Would remove directory: untracked_dir
+Removed file: .dfignore
+Removed file: untracked.txt
+Removed file: ignored.txt
+Removed directory: untracked_dir
+Nothing to clean.
+Fatal: pre-commit hook failed. Aborting commit.
+Saved change 54dc9445 as revision: 760b1536
+Saved change 9c1d1fa8 as revision: 0b0ea99f
+Saved change 9c1d1fa8 as revision: d08dc67b
+Reverted branch ref back to: 324d8c34
+Warning: config.json was corrupted or unparseable. Automatically regenerating it...
+DraftFlow UI Server running at: http://localhost:56072
+DraftFlow UI Server running at: http://localhost:56074
+DraftFlow UI Server running at: http://localhost:56076
+DraftFlow UI Server running at: http://localhost:56078
+DraftFlow UI Server running at: http://localhost:56080
+DraftFlow UI Server running at: http://localhost:56082
+DraftFlow UI Server running at: http://localhost:56084
+DraftFlow UI Server running at: http://localhost:56086
+DraftFlow UI Server running at: http://localhost:56088
+DraftFlow UI Server running at: http://localhost:56090
+DraftFlow UI Server running at: http://localhost:56092
+DraftFlow UI Server running at: http://localhost:56094
+DraftFlow UI Server running at: http://localhost:56096
+DraftFlow UI Server running at: http://localhost:56098
+DraftFlow UI Server running at: http://localhost:56100
+DraftFlow UI Server running at: http://localhost:56102
+DraftFlow UI Server running at: http://localhost:56104
+DraftFlow UI Server running at: http://localhost:56106
+DraftFlow UI Server running at: http://localhost:56108
+DraftFlow UI Server running at: http://localhost:56110
+DraftFlow UI Server running at: http://localhost:56112
+DraftFlow UI Server running at: http://localhost:56114
+DraftFlow UI Server running at: http://localhost:56116
+DraftFlow UI Server running at: http://localhost:56118
+Initialized empty DraftFlow repository in C:\Users\User\AppData\Local\Temp\junit18176371218108254758\new-repo\.draftflow
+DraftFlow UI Server running at: http://localhost:56120
+DraftFlow UI Server running at: http://localhost:56122
+DraftFlow UI Server running at: http://localhost:56124
+DraftFlow UI Server running at: http://localhost:56126
+DraftFlow UI Server running at: http://localhost:56128
+DraftFlow UI Server running at: http://localhost:56130
+DraftFlow UI Server running at: http://localhost:56132
+DraftFlow UI Server running at: http://localhost:56134
+DraftFlow UI Server running at: http://localhost:56136
+DraftFlow UI Server running at: http://localhost:56138
+DraftFlow UI Server running at: http://localhost:56140
+DraftFlow UI Server running at: http://localhost:56142
+Error: Revision not found: main
+Error: No active revision on current branch.
+DraftFlow UI Server running at: http://localhost:56144
+DraftFlow UI Server running at: http://localhost:56146
+DraftFlow UI Server running at: http://localhost:56148
+DraftFlow UI Server running at: http://localhost:56150
+DraftFlow UI Server running at: http://localhost:56152
+DraftFlow UI Server running at: http://localhost:56154
+DraftFlow UI Server running at: http://localhost:56156
+DraftFlow UI Server running at: http://localhost:56158
+DraftFlow UI Server running at: http://localhost:56160
+DraftFlow UI Server running at: http://localhost:56162
+Nothing to clean.
+DraftFlow UI Server running at: http://localhost:56164
+Error: Cannot stash. No commits exist in this repository.
+DraftFlow UI Server running at: http://localhost:56166
+DraftFlow UI Server running at: http://localhost:56168
+DraftFlow UI Server running at: http://localhost:56170
+DraftFlow UI Server running at: http://localhost:56172
+Saved change 2e905602 as revision: 85b81c2a
+DraftFlow UI Server running at: http://localhost:56174
+DraftFlow UI Server running at: http://localhost:56176
+DraftFlow UI Server running at: http://localhost:56178
+java.lang.IllegalArgumentException: Missing commit parameter
+	at com.draftflow.ui.UiServer$CommitDiffHandler.handle(UiServer.java:2931)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+DraftFlow UI Server running at: http://localhost:56180
+DraftFlow UI Server running at: http://localhost:56182
+DraftFlow UI Server running at: http://localhost:56184
+DraftFlow UI Server running at: http://localhost:56186
+DraftFlow UI Server running at: http://localhost:56188
+DraftFlow UI Server running at: http://localhost:56190
+DraftFlow UI Server running at: http://localhost:56192
+DraftFlow UI Server running at: http://localhost:56194
+DraftFlow UI Server running at: http://localhost:56196
+DraftFlow UI Server running at: http://localhost:56198
+DraftFlow UI Server running at: http://localhost:56200
+JaCoCo XML report not found at E:\backup 7.1.26\user\Downloads\DraftFlow\build\reports\jacoco\test\jacocoTestReport.xml
+Saved change 3070b551 as revision: d11d28dc
+Saved change 3070b551 as revision: f3834a51
+Switched to revision: d11d28dc
+Created branch: feature
+Saved change 3070b551 as revision: dbb1fa61
+DEBUG REBASE: activeRev=dbb1fa6108c0bc0a1290e01d6160fac99c6fb1c984375cc2f119b9690f95367e, upstreamHash=f3834a514804b1bd088a71b422c9998ee47486d4d8257070b97c61c03285b8fb, ancestor=d11d28dc231a1bed3696891bbfa5d99ec6d404508b0d58e36af004ee1f812e09
+Rebasing 1 commit(s) onto f3834a514804b1bd088a71b422c9998ee47486d4d8257070b97c61c03285b8fb...
+Applying (pick): C3: On Feature
+Successfully rebased current branch onto main
+Saved change 1af48c18 as revision: d2810fa2
+Created branch: other
+Saved change 1af48c18 as revision: e0c24959
+Switched to revision: 481735f3
+Cherry-picking revision e0c2495911f6466a3df1c4709868a8ab029df00aac0002dce10e0e8955df1a0e: Important change to cherry pick
+Successfully cherry-picked and committed: c7bfd8d2a78925d07967eb8dbb694130c79afd466f7524358dfad168740e65cb
+Added pattern '*.log' to .dfignore
+Warning: Hook 'pre-commit' is not a regular file.
+DraftFlow UI Server running at: http://localhost:56206
+DraftFlow UI Server running at: http://localhost:56208
+DraftFlow UI Server running at: http://localhost:56210
+Running DraftFlow verify integrity verification...
+Checked 2 CAS objects.
+Found and cleared 1 corrupted objects: [d9f99587bf7203738a09bff1a38ed374635ab45f596da82cc1c490f52c02ed5a]
+Warning: Tracked file file2.txt references missing CAS object d9f99587bf7203738a09bff1a38ed374635ab45f596da82cc1c490f52c02ed5a
+Integrity Check Failed: 1 tracked files are missing their content in the CAS store.
+Warning: config.json was corrupted or unparseable. Automatically regenerating it...
+Warning: Could not read file locked.txt (The process cannot access the file because another process has locked a portion of the file). Retaining previous index state.
+Ambiguous hash: ab1234 matches [ab1234abcd567890abcdef1234567890abcdef1234567890abcdef12345678, ab1234ffff567890abcdef1234567890abcdef1234567890abcdef12345678]
+DEBUG REBASE: activeRev=f697acbba816875a500823301e0fb3416dad420246d34e295c7963766235603a, upstreamHash=5fb3de9679d4aad5182b3435133717e5550a9006e4474a71f83512826341a59f, ancestor=f22539c159366de979b1ab69e03b854bbf0b15434b056ed1c911fa288279b984
+Rebasing 1 commit(s) onto 5fb3de9679d4aad5182b3435133717e5550a9006e4474a71f83512826341a59f...
+Applying (pick): feature commit
+Successfully rebased current branch onto main
+Fatal: pre-rebase hook failed. Aborting rebase.
+DEBUG REBASE: activeRev=4eb293d5db2cefc0ce8c5956a98a95a4946ae4b9ca274c4d2f6e8c31debf12d5, upstreamHash=5fb3de9679d4aad5182b3435133717e5550a9006e4474a71f83512826341a59f, ancestor=5fb3de9679d4aad5182b3435133717e5550a9006e4474a71f83512826341a59f
+Current branch is already up to date with main
+Cherry-picking revision 76a101594017cbc8318550609ac8bcc76a161a8d50c1df63d8f8c17f7878866f: main commit
+Successfully cherry-picked and committed: e8130a021ab93c99bb4e6f0be174e1b4b620e8b0464684faa543815852ec85cf
+DraftFlow UI Server running at: http://localhost:56212
+DraftFlow UI Server running at: http://localhost:56214
+DraftFlow UI Server running at: http://localhost:56216
+Created branch: feat-api
+Nothing to clean.
+DEBUG PRUNE: refs=[heads/feat-api], activeRev=91ca79ea429aba9371c415ae6d2442eaf338cdf106cd9640aee280a8cab76f40, reachable=[rev-root-hash, 91ca79ea429aba9371c415ae6d2442eaf338cdf106cd9640aee280a8cab76f40, f26b2076981c76a305362014b5fb61e549b66a8dfc65bf075064f6d3442d6020]
+Pruned 5 unreachable object(s) (0 KB reclaimed).
+DraftFlow UI Server running at: http://localhost:56218
+DraftFlow UI Server running at: http://localhost:56220
+DraftFlow UI Server running at: http://localhost:56222
+Dry-run (use -f/--force to delete):
+Would remove file: untracked.tmp
+Removed file: untracked.tmp
+Removed directory: untracked_folder
+Removed file: .dfignore
+Removed file: app.log
+--- .dfignore patterns ---
+*.tmp
+# comment line
+
+--- .gitignore patterns ---
+*.log
+Added pattern 'new_pattern*.txt' to .dfignore
+Ignored: Yes
+Source: .dfignore
+Pattern: *.tmp
+Ignored: Yes
+Source: .dfignore
+Pattern: *.tmp
+Ignored: No
+DraftFlow UI Server running at: http://localhost:56225
+DraftFlow UI Server running at: http://localhost:56227
+No unresolved conflicts.
+No unresolved conflicts.
+No unresolved conflicts.
+Saved change b057e4d5 as revision: aeecdb32
+Unknown option: '--allow-empty'
+Possible solutions: --all
+Saved change b057e4d5 as revision: 71a4d4e0
+Missing required option: '--message=<message>'
+Usage: draftflow save [-ap] [--amend] -m=<message>
+Promote current working tree changes to a permanent commit
+  -a, --all                 Stage all modified files
+      --amend               Amend current commit
+  -m, --message=<message>   Commit message
+  -p, --patch               Interactive patch mode
+Index rebuilt successfully.
+Index rebuilt successfully.
+Running DraftFlow verify integrity verification...
+Checked 3 CAS objects.
+All stored CAS objects are healthy.
+Index matches CAS successfully.
+Running DraftFlow verify integrity verification...
+Checked 3 CAS objects.
+All stored CAS objects are healthy.
+Index matches CAS successfully.
+Unknown option: '--deep'
+Usage: draftflow verify [--repair]
+Verify CAS objects and index integrity, prune orphaned entries
+      --repair   Repair corrupted objects and missing index references
+No unresolved conflicts.
+No unresolved conflicts.
+No unresolved conflicts.
+No unresolved conflicts.
+No unresolved conflicts.
+No keypair found.
+Key added successfully.
+Public key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3 user@test
+Key removed successfully.
+Initialized empty DraftFlow repository in C:\Users\User\AppData\Local\Temp\junit5283560769724980712\.draftflow
+Saved change fa866524 as revision: 200d57ab
+Patching file: f1.txt
+Hunk 1 of 2:
+-line 1
++line 1 modified
+Stage this hunk? [y,n,q,a,d,?] Hunk 2 of 2:
++line 3 added
+Stage this hunk? [y,n,q,a,d,?] Saved change fa866524 as revision: a10e0473
+Patching file: f1.txt
+Hunk 1 of 1:
+-line 1 modified
+-line 2
+-line 3 added
++line 1 modified again
+Stage this hunk? [y,n,q,a,d,?] Saved change fa866524 as revision: 0ce060a5
+Usage: draftflow [-hV] [--repo=<repoPath>] [COMMAND]
+DraftFlow: High-Performance Snapshot-based DAG Version Control System
+  -h, --help              Show this help message and exit.
+      --repo=<repoPath>   Target repository path
+  -V, --version           Print version information and exit.
+Commands:
+  setup          Initialize a new, empty DraftFlow repository
+  status         Show the working tree status
+  save           Promote current working tree changes to a permanent commit
+  switch         Switch to a specific revision hash
+  merge          Merge another revision into the current branch
+  resolve        Resolve conflicts in the working copy interactively
+  upload         Upload branch commits to a remote repository
+  download       Download branch commits from a remote repository
+  history        Show DAG commit history
+  branch         List, create, or delete branches
+  undo           Undo the last commit / revert HEAD pointer to parent
+  dashboard      Launch visualization dashboard server
+  verify         Verify CAS objects and index integrity, prune orphaned entries
+  prune          Run garbage collection to delete unreachable objects in CAS
+  stash          Stash away working copy modifications temporarily
+  diff           Show line-by-line differences of files in the workspace
+  keys           Generate ECDSA keypair for cryptographic commit signing
+  rebase         Rebase the current branch commits on top of upstream branch or
+                   commit
+  cherry-pick    Apply the changes introduced by an arbitrary revision onto the
+                   current branch
+  ignore         Add, list, or check file exclude ignore patterns
+  clean          Remove untracked files from the working directory
+  ledger         Show reference log history
+  trace          Annotate each line of a file with last commit information
+  git-import     Import git history from a local git repository
+  git-export     Export DraftFlow history to a local Git repository
+  hooks          View, install, or toggle repository hooks
+  config         Get and set repository configuration settings
+  rebuild-index  Rebuild index metadata from HEAD revision tree
+Initialized empty DraftFlow repository in C:\Users\User\AppData\Local\Temp\junit651652244487298687\.draftflow
+On branch: main
+Active Change ID: null
+Active Revision: None
+
+Working copy is clean.
+Saved change ae2e6d7b as revision: ee53f222
+Created branch: feat
+Switched to revision: 47ba9b48
+Saved change ae2e6d7b as revision: f049ff32
+Saved working directory modifications to stash: stashes/stash-aa1b5629
+stashes/stash-aa1b5629 -> Stash: WIP on feat @ Sat Jul 25 21:33:54 IST 2026
+Popped stash: stashes/stash-aa1b5629 successfully!
+Removed file: untracked.tmp
+Config set: user.name = Tester
+Tester
+DraftFlow Repository Hooks Status:
+  pre-commit      : [Not Configured]
+  post-commit     : [Not Configured]
+  pre-rebase      : [Not Configured]
+  pre-push        : [Not Configured]
+  post-checkout   : [Not Configured]
+Generating ECDSA keypair...
+Keypair generated successfully!
+Private key: C:\Users\User\AppData\Local\Temp\junit651652244487298687\.draftflow\id_ecdsa
+Public key:  C:\Users\User\AppData\Local\Temp\junit651652244487298687\.draftflow\id_ecdsa.pub
+Running DraftFlow verify integrity verification...
+Checked 15 CAS objects.
+All stored CAS objects are healthy.
+Index matches CAS successfully.
+DEBUG PRUNE: refs=[heads/feat, heads/main], activeRev=dcb6055aa1222354f36a752359c230de1766722237798851a7f5484cee12c881, reachable=[ee53f22227960fdaffe503baed1e5e10c65a0a1cc00cd20d90752bf1844e005a, b54a723f2e6ebb6321fd1e6533e1c7d40849acae1ee64e70743e6da31329bb2d, 8aec4e4876f854f688d0ebfc8f37598f38e5fd6903cccc850ca36591175aeb60, b1c956665ebd985864f93115b6b3a4b1d4019aba2ca9186be388bc9287136462, f049ff32f6d4325572cdc2776ace0ce89d6aec7977e8d983c69dd886471ef45c, 3e03a45527286672f44cb0b4b2216b7238c2f841757889a7604ed68fec919842, dcb6055aa1222354f36a752359c230de1766722237798851a7f5484cee12c881, ae538211652a8dc5c11c69791c67b5c2e4bf29ecd07b5dfe9a299850092b5ae5, 47ba9b483fd4b30c1406649cb28d40265017df0d666d0b4b25318aeea53597b1, cc34f432c3c490697258e9c834386065ff83e680f0243b5ac032f2b148773e3f, 37e6f60a3b5b7a41fadcec8a1331d3936750116dc01d595c63d585227a7ca0b9, 097eb856cdb4378514dc7ca7c3b9823cae6baefd6a93f0e54f0200832d5b4cfd]
+Pruned 3 unreachable object(s) (0 KB reclaimed).
+Added pattern '*.log' to .dfignore
+DraftFlow UI Server running at: http://localhost:56229
+DraftFlow UI Server running at: http://localhost:56231
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$CreateRepositoryHandler.handle(UiServer.java:2720)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+DraftFlow UI Server running at: http://localhost:56233
+DraftFlow UI Server running at: http://localhost:56235
+DraftFlow UI Server running at: http://localhost:56237
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$RemoteRefsHandler.handle(UiServer.java:3059)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+DraftFlow UI Server running at: http://localhost:56239
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$PullRequestCommentHandler.handle(UiServer.java:2561)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$PullRequestCommentHandler.handle(UiServer.java:2561)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$PullRequestCommentHandler.handle(UiServer.java:2561)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$PullRequestCloseHandler.handle(UiServer.java:2527)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$PullRequestCloseHandler.handle(UiServer.java:2527)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$PullRequestMergeHandler.handle(UiServer.java:2479)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$PullRequestMergeHandler.handle(UiServer.java:2479)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$PullRequestMergeHandler.handle(UiServer.java:2479)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+DraftFlow UI Server running at: http://localhost:56242
+DraftFlow UI Server running at: http://localhost:56244
+Warning: Failed to read reflog: For input string: "notANumber"
+Warning: Failed to read reflog: C:\Users\User\AppData\Local\Temp\junit8820326839660869228\io-error\.draftflow\logs\reflog
+Warning: Failed to sign revision: Illegal base64 character 2d
+Config set: user.name = Tester
+Tester
+activeHead = heads/main
+user.name = Tester
+Config parameter not found: non.existent
+Error: Specify either --set, --get, or --list
+Fatal: Not a draftflow repository.
+Running DraftFlow verify integrity verification...
+Checked 3 CAS objects.
+All stored CAS objects are healthy.
+Index matches CAS successfully.
+Running DraftFlow verify integrity verification...
+Checked 3 CAS objects.
+All stored CAS objects are healthy.
+Index matches CAS successfully.
+Fatal: Not a draftflow repository.
+Saved change 41d19fed as revision: 34aea522
+Missing required option: '--message=<message>'
+Usage: draftflow save [-ap] [--amend] -m=<message>
+Promote current working tree changes to a permanent commit
+  -a, --all                 Stage all modified files
+      --amend               Amend current commit
+  -m, --message=<message>   Commit message
+  -p, --patch               Interactive patch mode
+Fatal: Not a draftflow repository.
+No keypair found.
+Key added successfully.
+Key removed successfully.
+Fatal: Not a draftflow repository.
+Index rebuilt successfully.
+Fatal: Not a draftflow repository.
+DraftFlow UI Server running at: http://localhost:56247
+DraftFlow UI Server running at: http://localhost:56249
+Nothing to clean.
+Error: Revision not found: nonexistent
+Saved change 65db7cf1 as revision: f8580464
+Error: Could not resolve upstream target: nonexistent
+Reverted branch ref back to: 0893d6a9
+DraftFlow UI Server running at: http://localhost:56251
+DEBUG PRUNE: refs=[heads/main, heads/test-branch], activeRev=180398ec5e6fd1659637bbdc37fdb54dba5dff8fff28c5211daada0cb7a18e9f, reachable=[7079dd2a25e607f5a385c3ce03ccac397136f6c05ade259784fbebfba4f5c725, 0e05a63e53ab59341628caf3d2b829b1df1cc238a14cc6f21471e36c1e9e00da, 26e8a73ebd6225ebe5638510d8b7879aec1ca6df78a885525b2b913750f43b0a, 8f85ba1504813ad7443582d3b65b860399f3841ede84a82f4ba3f74edbdd8814, ea532a07b94356fb79683a71720c1481e639d09a2a4db2b44221805c4cfb21ef, 16feeb453eedd1a756d609a294cbad11a6cac1d71d795dcd66fbe76d4db365f9, 4675a92e23adfde5dad20fe9c8c17dafae7ea7c4cb797c32caeed03e6b1ed6cb, 80a700d008c5437b2deacaff653fb308a76a78a6f2219aa8e90d58f5eac7b861, 4aa0d1ee4519354562d2567a47482ae30420b6a4281c289cd9792afa018ac0ca, ba906b96f795cb182e289f0bbc5909a265a8511e4beb6ffd64358e64b831817c, ee983dc8e2fdbcbb4ccfb330806166231b223e95bb26e8401ea97ef47ff343c7, 47a9340f1b11d12d8241733bf9f3364760a1d397c4659d2aceac5de64fbaf5ec, 3000305f8dfdea4d45f3952259b24be1cf147b6bb2d3af2de004bf0a5c6bb47c, 575c7ccb5b7d52c993de1735116f1ca192f481fce59622ef76cc8fb9f91ba402, ea45654539c32535b1e616cfbafa91f5c594bb7a181d6d5370377ccf6f5d197e, 4ac7d2b15f141e36e1f7a53fddd9a3280fe82e9568e2b78ad62524765d55f609, fc4febc63d86320e5ff5425282afdcd01358dad3131554848650155136d6c524, 5243fe8a95c74039072fe7cade9fc3a26a9ba80678eecb17d6bcb86e0892d1b7, ef2487d72796531dda0877bdc103fa64d06984c9fff2d01ee44e769e04232448, 7524959e37e1998f825e8fcf3a140ab104d5416e0c2049bd38297a58618aabba, c8b9d7eea06e80b0cbd19831edc39ecff74459aaef178b04c2cd76a121b2256a, 69651db764dbef54a48c940a02d48f5c74c00db5eacd7a018cebaa85ee491478, 1249d14f074dd93e0f132ecbd1ebbdae3b88c73d13739e2971627c3da1be3235, 2415963cf59d6ae664607199bb7892c5733255d27bc9eeaac3f51f7e5f19b567, 2462109f483f658f58243dfc3d37d9863f7d3b3aab05fb4e5eecd4d6d975c776, 9b8a537546b9d3483f3d3578be800b6fb9b716ccae3b91b7c2e4f71188e1aa88, 683f341e02bc88f954767fab686f669f74ac964250cf0beec4e49a35236f8266, 9c028679bebc822a899d5b792a4ae44df138d37819af8ace18488ac26d3bbd8e, aca977d1d14d7a2b247d641365ed3f5db5cd2d097cb462c1e4add58505c80128, e3ec91e8c6c60e8641d4b1f0215678b030f751310302aa2fed36d81458c65c16, 2d6bec862afb3225293d23838979b65dbed298ba13af7a6bbe7773097434a3a6, 180398ec5e6fd1659637bbdc37fdb54dba5dff8fff28c5211daada0cb7a18e9f, e8fa60f619553605281b73f3b0a14cefb3b540159f1bf0e4761af69bb896c841, 8b843ca1e68b9c5ee4c66be2e4df92e2a769752c951f0bd97a9a73222cdd4add, fcf574a05fb992a22efe39eb73a9374e9829269443cb6c83a37da41d34288e4a, f3d2bfd8cba60cda06db0f7ecdef54c9ab3f84e2b8d669d66697bc3f0a0c46db, 038cc06e6238ac4c9b7f2b88f9c0208331637f330557072757f35224d74b97cf, 0fa81d71a8d8d9165deba4bea26bf33ccfc0e59c0fc8238867c4b58d2e282486, c44977c66b6519635e8de03b01caea8ce0f9666e51acf177bb5e1aed76222eb0, aaf741010bef12bde8f4a9833ec305a4b45a802c12d65435d0622fa6a9718904, d2bc16391d8c9ec0f3475f5d67220a0b3100d6e6a914268b1139186e4bab69a9, ffd71a10da8876dd83dbb91240416c05bd055580ad8554e6575fb9e1cecd32a3, a2b5c8f093dcb80d1fb053107ed79a7d486fe7906c54aa2f89ae3686a07c4c82, 56e9853a41590619b98cd68341c7f7751f49898386b7b7bda7e661aaa80061e6, fbc7fc89768fb58166d6a007870904b89d25fb79534f0cf2e5db735c73ea5fa3, e76a35fee80285e0f480be0bb7c7ea292a4bc1e1e554ff1b355180d6914ca3f8, d7786b2b72013f431d724f5c24f9a8c57cb4110478d9fd439cdfd5c65d95c68d, c874a7ba0285126a632a97ed2c943483260846d283602a5a5217ffd648d7f1e7, 041bb5e145eb53f34fc641a495fe13ca37dc87ef3f39fb245b833d6a77f6fdec, 627b8384f1f1ee51314b6f68f538c42616a41bd7b44eb6ce768bfb8aea499530, f607d55c2a7ba0e847a401fd5407a5acf7c17570586f32e55b5934facedbebf3, c62d78bdee6729f9c897d365ed3a19c7609d10fa594f34db295b1d28fee23c06, 5060e02ee86d32749335305593010f69437309770bda6dc39e7864a874145f02, e638b68185da6d8780c229b9aed7d0f8865a6acc7357b12df9ef4bae64ab37ac, af920358d934e0ca884912d59e03b5f0bd7113b1cdaf96d9cab3c7e56c25de7e, 2c5f0ac06941435f48eadc6ddb7025e35dcf3c78be6771dd9b1d60c10ac300d3, 0540405723db68b2c1320e9ec28edd9c85c28264383a144a2c9bb341fbe6e675, dba74235e72aa8a4895927f1519e59ac627a600a1f89b3d30b239295b4d99536, 3db09104260f97b9fa2d5654ee4f74381f283bba1082c510a3f06f0d5b4b2fe4, 845c97e098e5702047c0fc33764fc897469ead705e671c1c98599546f69555dd, 06053bb69ba32b22087685b0d297e2d9edb0d65f1d8def43e825e66c7db5f6be, 236e9f7cf51e84fef41a56d2679d52aa78f92eb94e1f569c62a281c12355fbb2, 20df674579bbd5d657d132249853a1050a2f8c4516f1ccd9be2964f3cd5cde36, 230260d5e57390c0eab951557d4e8a22980931e1be61a4f1cc0d75e770457b74, 90c0c3205d5f0c7388e462ed0cd0189f51406e291ada61f024eab2f89de201f6, 568e18868d14288fd2f5511d24a5365fae179610bdc093af432d3cc41f2d92fa, 66ec81463e1bc7370580f63988a20828767513a5d8c82e00a88d76eb905105fa, 681eafe04cf7e1be4e2ce084d571e837fefb5b534783b83f63605b6ba1f0c395, 807c6db76d27373ae9bc1f839686351e89f7bf0916bc3f0c758079bc5ced10be, 97abe82ed1793ae35711a61ee0e71b4bf9503145c21468f80f7cdf0a73687126, 63cdad354ae151f1e38dfb0db48f2bc6cc3b60d44f2791df7fdd9aa14b3724a0, 7bdb4144ee04c554d9e8df4327b65bffdde7f119fb8860d654a3a03f6dd1fb51, 03ba70b6df28e0d7e16914a51d4c8cb8c8edb5a9bf8b31e4b5e75e5ce6eed3f6, 31d172d7006c293daea1e2761e08f3a63243ce41ea332246e8aeb09de2b48772, 5e078359575c445561450a878286b9fc86846c1139ce3c50ab9bd4effca1d2a2, baf4510f77336310b443a8fa09fc309a0b59e331c730ad948fd9e6e6f8ea8f49, 8b3a19d3475e6b0306cbe91164fcf804d6cc01c31a916d98b547eacd31834156, 5b1777a29e928d7da57f764213ed478c40ad07c7656644d1c86e0716b0df58d1, f88746b882cd10a7775ae2c8c6d7f228de72484001d0fc8ae95b6a3547a023bc, 77d1f327e8529249b643d4462debf39e97e117c4b72de20d0b45dd0c315415fa, ca20ad2433c8ed9ec669f8c4ceeb0e44e5d27df3b35e0cd1f826bbb4b66b404e, edb7600befaf5dfde9e1dde2fea22c1ed723a56af9f5d601927c65f45615418e, b3b4a297d15994fc0019fcb0114fee9708085545f6b9112c276c615e4607d12c, 7dc34b8adcd99d34ae6994e270a82cde0c7eb33164fe57eba2ea5634738fc7f6, 6582d6ad09b4ec15b0ce0f94fa4842980ac5892af812e5e9b5c6b84d333af541, e61abbcf674b90c209f1429a68970c14113149fe5db607e561084ea3c0f90a03, 7dfcbbcbce16247772154e3b08e8c1c15a500b856388198101bc873e3afcd40f, 6a882a7202ada55ccbb4ff23048382654b571d023bf51e0b151b27f8fff668dd, 55a3be064eb274413dc7c0a386a52a8913fa1c98b21c5929c28a1ff0e8ffd503, 35a827b0c9c58ca4da12a8d61855ef465226828353aa0486027197673408de73, 88fdd3f5effa3bae790f0a58c10f0d1cf0696a8436c25d2b6da6713a63467fd3, 9fa769443614bc56680bed5bbc139510626f6645b084d416cfccb3ce8cf239bc, fc62ab53cd795a23e5944d4787f7bdc6daca3ad160bae34bdefe12e00b07035f, 14edf9c34f32fec36cc0ff0acbe94ee86a56b5c9f1bd22f52fe3c13dcf7aba98, b567d5c4c8961e544411613834dbaf62d9e98fd2ad70332f0594e404f2281c22, e90b8f41cccda3fda02dbd90fa2f8125e952e8e03d35e557ce9fd5c4b065effa, dfde487ee473ccc54823c18e209d247a50aba8c0ce529fccee36ce0eb9cd31af, 017466792dbd5402dd2574321ae41beace4f5f187b9d9a4c2c885d32d57f1289, bc0f04446366e9d1e3f6fd927dc51f28141c9542b0d38d63a58ab64172c263d7, 68df309bfaab67a6622fcf367c9121bcfa1e1b96cf19125eac2d16b695a9b164, f6952fdd88f766c1b00532b824d053d81ba8fee56deca8e093f98c5afacd117a, 58f07c5fab0bb8ed24cbd4aac4d0993335e16accc66d7cbde6e6647a50915229, 4854853fb2e5da63f2f080e60b758789958fb95ebc5128fb9a64034a55faadf1, f317ec81b03c34af3b5063ff358824cfb1f21845b689924926d52fcfb9ae8813, 5d283462f2a7f4fa183bd2e41507c4632871fa766d3b5dbd629fe29a9684814f, 95bfd1c327cce4513a0e4b16df1a0c03780eb68e0818eff84acb68cb8774aa6e, 9d83e9eab123ce3c71ec4f2d79f3eef508002e3b5b7b0ce426e0f01278db2ba4, 4bd80a082e1ca1ed7935c0c10f744842e9f3e9ed2c38a819eebf5aaba22b5073, 03208c9d2fccc00e669d382896b1ac3ce2ab4a4b3ffb3c5a15ad31c4d723a719, ff33a8a7c9e2c690c3de53e62b27fefa00e6c742aca9cf97470bf9c6978c0285, b85e2451f09d1521e3cef1586d3dc83d7e90e4e928713f6b915882dcfb6d3be8, de45975385decb8fc063dcffc0f4a2d0db38980be5a8dc2baaa0fadea0698986, df24744ccac1a4ab9d33746ded7865ce621c2e694d67ae34d6d4cdd778f3f018, c0f9da059fe6300bc5f2e709d865bcd8063e6ceebc46e06ea38a84b276e74883, b9eb393fd884b963698188cdb9c39fb48a17f64f9b059626a3284d9bbd7185e2, 2296f7045b1c2180c3a7517b41e8c697eff4b57ff10df31319d5efc1778328b9, f4e4278b04093150b9df09f8e9b4617f7252c070d61957c18261b38505a8b3f7, db174924d5091172a684ac45649605681dcf4b6d9272e75adf4e6881b0c3e620, 20e4b8574d45e32516503f650bb44760d8e45ca415b1cfd4406bf9683d1a2b95, 4a70c74c233f5cbeb852b1c7bc311432a58d5a6ad2b3f80f40b882267114437d, 01fbee5d6d24a36bf77da3160781c8efaed16710b1454cf59e440a5153f92560, da7825b9ddbc688b7f2207a0e815e42406eb136f7f9ceb1f105aecf11526a1b7, 7f1fa9099de156f4691c27dbe0c3438f67af373b45f4bc8178bca90ea4f8d90e, ce2f176693a5ee55e2972667df77e6868571d7837b4180ae089484526dd68d26, 6091dacaaaa04f0776f4781d4a226f357bf6fc218b57b7b0e6f29d940b692c94, b4e1e6978ef1d652fb585612c5132a88c867ae99fb6656f813992d123c4688a0, 19008a088797c04f812069bccee35570de89cee68fe4b1a05b8bb990e8ee685c, a42b5d36593d7951754ebd2ba374f1f6bf99dfd54c489963fd60cbd56603a181, 3b5a7ed9277f5f316ce882cda52b42c5ddb2ea4dea61277aef3920d1fc511a57, f778d0c46a96c9bf77e483c6d61406b55085617c00d344b70e2c4ed7f6e70181, fb704aa35db5f818877833c7783b71ccd3df7ab99b4ec790ba9325d8d47bcb03, 3cf27c3c4c888894e94be6f370ab638028516c29f221b6ed5e39b5fd5fdcec9c, 70af8676e664059168014a7848303d6683b8857bd2a36c55b555b97242d4bc31, 3082593266025b93a6c6204364b0285d8c805884bdaf9d97668103dcd7a98248, 408c5a3218efbade4a57340764e8d1c1d195e41782e05346a048075c13ed0518, eaa910757a8280cd09198471025457686a1efd7d0f61c7276df8bf50164dff67, ea1e5f8c92152b544971541698b711d47d597e943d47d7a055e8d9c6317f86c4, 1b530d6ac0234fcbfa7980bc87bf35eac1e1ba9b9dc5b3bf57e41f37fed1822a, 290b52ef577bbd06a0fc20227ff2ba7604e4f7ab5b6a69975b3a726bd3fd300c, 6505c25a25e56a8caab386d5c0c223c92ee84bddd021c14b402d96ef44f1a955, 148bca74042cfad035f2e231e1b52030d0fbffa83dfa50854c81d98148768dcc, 251d02060ffef369dc9a492cdca920effcfb8f8263ae314e69532513b84c829e, ae1b04fea47e37b2862d54b416a2519caea67f2fddcadaa01bfc718d44f91d3c, dead6022a42d5411a4c7db3741bfde0c1882e4426baa1eed8161703ac14d290d, e6ab80e7919a0c3db5af73c7fb452d056e38c438176540936b349c49407dba51, beefc84532193ffa74a978719f6d7ab12570447d2bd9286e2716ea8565dce61f, 1fa30238c54a61757fe364417fb4c41f1c248cc257eef1e7d22a2b8b93bb7211, 44319280900a9f1f8dafaa85a13e7625227ee18bd0a79fca6a1c421d2c338457, 14d3a4f9234e122305a99b3f1876d028b316b08747db78be3b8965be1af5208a, 4b417eb4c65ab2eb3ef7d2a795178216b1fe4a790e58b9cda8ef85e4ae36d0f6, 2ce439dd523b2f11d8eda20fff59c7d3309cd03efa1bb82c78e27a1b2b6a63c5, 57db6d230367334c44f7dbdcebad4f8560fc184f571be98f3bb4b888658195a5, 50b87fcd7654a0c5f53f43f42cf54a0729aaa52dfc829ef8fa206df2e455fb60, 4976009754799c5b8984021b1d2ddc9bbf994616a432f55303f8d0514851e912, 291ed819cdb91519f0544bafd2a4beb9e52317a2e40a11e284865acc51ac027b, 878dacdc1d3712a398fae8b75fc63ec56942d14847bc0e6a1abe032190d7aee6, 28986d97985a48944b0c782329baa17c7244749aaeb5ee826c6b4a47e98bd6af, 64a392c9f3b0269f496650cecea3531f5cf087c6a27b4c34f304be5f646b9ac0, b9bdfec62e3dd331d9bf28e27ab1bca42291b8b3c0be61eaaa31c8ad44f17b76, 1cb8e722f9c32babe4ed5a960b68207833bae273327b31f29a76c6fe7c057bda, d23de1e5cca2c90584e143816d55580930c16b17417fedfea1ee984fbc87cf19, c5a98563f4c0cacb54d0164320b2ab99eb2ee38fab5dff458fa993b3e68bfc1e, d2ebb54797c93c57a42ab3e6cacd47a39174f02d6801c8197b182aca82eb9fe6, 39640d65b6950b8a77a07e42c35ac8acf2f8ce4580bd6a041a9855482e9eac90, 47e15cbcace0270aaca90a304052d6b1e8d0479e8f47a35dbed9454e79cd2bbd, ba9a8fd436a54b73005278a9c9c3618307de3ebfe19a508e3c052a60520a44d2, 1e4de39b7c97ff68b5b694d413b9dd61189b50920d583994e8fb235d89719008, efad075bf2c4807250339f196b9c79cba3ba464e0d9cf133eec503b7c3388988, 3d7c5f4204152a1e3f5dd996d95d6cfc948d0aeff23c44051dea8c572c85f2c7, 35eaa522e80c99ba2ae5090a5b80fc2fdb9501330c07f35b3b1b4ac11600a7a1, ad6ca0f91281a7856a5f485bceab81adb545c1e10b996631b567f164f90af7bd, e44aee6d4d135e194642eba10a1a6b2d5c1e2d2dc95b681e026f13d71058f650, 728c18d9fde0d4fcddab85a6867ce2f5223da10d1576854d14e0bf193413a80a, 0e2fee297645190793bf37fc62d26ae7cc8b16432073048638252f246b361eb5, a67c51b569a83309e08045ec013faee8f9c8865db015ae87c8126e86ec5ee96c, afb02dcefa58f6afd7e0c1a6ff716707aa3de422f667575379c908718274dea0, c8a5433515fa43e618dfeae32e7252b44ac6b856190b547b2ff5a7b61b3f01f8, 79819d308eb4b90fceec70ac45faff1d65117a22d7214cd5aa703d67c5211c98, d9be71cad663af8073c16cc1ec3b4546683a8c891a45c6b882b5d476764c0774, 2d4129615e4ae094f3b773d8bd1ad1242ca60b3bdbab11dba4c3d746767ccebc, ed85f4e7c8d3430ffc58090df2992b17ef03d15524982c9ad5e6ec85c83af72f, 83a7bd50361b22fc8f8538e316920f11c725646c5f22110441cdc52d9b3ec1b7, 7969a302286b9c27035e9da3836eddc2a15f6e9b9b4c7e65f7f3536677cc4267, 6e4e3b82dd8acb4aac2e509b0e720457e43e0145165d9fe2ee4cf410dfe8f0ef, d28b4faeed568ce636d83095c11a6e17b2511a05e6d74c66a8bdc78698e75b45, f6c71885c9849c9b85c4ef6cfa79b5ab342bca47b05128fb7a149faaaff6ad5b, 6f008d7b3dbd7bd2177db0e949b9bcb8a2a6e1dcf14d1fee459c99c262e1af78, 11f00ccd064ca4b65943ebfc30fd3c018053acee6af601931cacfc77c1e77e79, 9807b9622ef4fd7157d02fc979618b819fdb66b4b86e8609aa99984f834af744, db1270b9864ff5f28f4d9e1e506d2966045b1e4500e9bf0d919d924a45441630, f28a3467dd68ffdb20a2e4d40a84b869c2b70dbb5634280ac5265d1e30d53668, ab0ed5782e755e7a49912eb95032712430512597c52d081d15c09bed98626eb2, ee1498851185f410ce3c9cde5447e0d9965a9201aab0e8bd95b82887de7a2077, ea2c9e455d97f3a38c20032d33dc97bc8496de345d2c35149cfdd91214afd789, 778d68d161ac6b5f1d8ecd9f21bf27812cc87461a6ef7422cdf3193ecd98d1f6, 6090b68048fd24e77a440e5b15bf2210e989a29586f639d96bd308735fca8730, f715dd3c080154bee14d82bfbb669623e896044382351a66a103befe5f63be14, 701d3358530f02c26542d7c19bb9a522de7486879606d4fd3c31b4eb8357d663, 70f37610f785cb0ce55a4d17e631e4c2e712193874640c2b9c60308c67850a5e, 5792f11a1c67305d0bba3c3cc60cb97d4e20128ae54dd91c7f6fe1a33e31fb1e, 4166df3150bcce253cccd0272793b9b8f88aed12d00ec818de5db23419f939a3, f3039b6d6977ceb29ad9096f978cb0d4fc09beb1b1a961acbfd270f9f5ef100d, 2c9993bbd1bde9d7525f2c20da251a4bbb7aca13a889ca403516185db0551f8d, f0b3ce0cdb37cee2a166b238b9e57d60962c0b963f834a2dad04f12645e11f9e, adbec1ceba7b7a3afb0fd13a0d1519dc20fcf90d0ca218f3b0079e54f4bd9512, 5a275cf785338c9ee4bf8fb828f48e93ed2f53892a4d69d28f2606295bef4619, ace849ae64a2c10165769fe64e2a11dbc7146044bdffd82ccf6d9555848fa4e7, 2534ffcf67c842f2397a9368b3001cfd3abad68fe90cc483c8b71b5820581821, 18fc7cc9c1fdd3e2055ce6d66f9ece1cb714ae5a5f81d50560995b292dce0e4e, 0ad09e8401600630017e7ad9913464508c7443388383ca92299b5641b8a0a561, 1534c7276d689f232209f8f1a2bac826cea54e633b53fd04488a12ada408839e, 72821ed0c5ea7387bb38b1157f0aa98519997b2383c0c7af20f9f2c0105078b5, f078ce16a5e3e03faecc8c53b3451b3e4df37b1cdb743b207791ec85b600aab9, 9976e48f812bc2eb1318267bbf8c0274bb289d59be47573d73710830e3b0ef7f, 3cd2aae308e83ac2a16ef4cc7d2d048c7893d3b5fa5ebaf93347696a7ff9f004, 0ee822c9a298c7c31427eadea55c38185972d84c0f82822a32703124634677db, 5d66f9c20c61440fdd4520763cb265f712c25112d98ec8be357de142969834da, 727548a450d7468c7b6d80484e560db4d14e71ebc70a86b3f68f99446eb17203, 1d68d63dcfc91dea80e1ba0f13d1d13ca5993063b89950d66ec80b03316ddba5, 19d4fa74bf68f467507d9e2dfa19f888113bdbff096db4478322b39df178c7e5, 10d2e3348c98a6fc72dadd2d71ad90c09efcfebbf99cb0c7a18c66834c4a3531, fb31131592e223ae532c7a4f979eeb7a36e94bb6f0bc6a5aacbc065aade40944, 2f2d85d04ff2c8275ff6df3d2c8c58e6f3c0bf49d7ef6e8f311757f8adc0fc8d, 63d9c7bcce152e8f6002cce19b6b68fa3868e75b5d84e60cd80cc5db132c145d, 0b8a6743712fa17bec672c2c809ee97dd36b258132678e82458d432ecb9b634d, 7cc646f052f7e1c31fe851300eca959149fc58de2982f47257f4ed61f980249c, 266436590901b6e974aedd992928984f433452313abff8222712e91266fcd386, e4af1d4b70a72998016ac7e0437b04a09357e82e135dcc8edc6ab19402cbd87d, 1db03ff6fb17b2afef2e632abf1c226c6ca606b7cd146a00f3fd0cfd1dd2c711, abba1e8525f0cb1ce7749e3ca11e15ff1a2c699e347b307d3914c892c36ee31a, 8728b705041d44750cc7c73ad7aff45785375476732331c0df16e9c05630fa88, ddc855ed8feb79628750cbcf455401d44027f324f95a738118405dce911e389e, 901f0fc52b07c2f50fc5f179dcb52bc63ab29437ff34fc08bcbedc6f0ce74b11, 8c4912d87f8f332ebbe260e991f5285dacf4bbe1546d4cc57860036eedaf3efb, 55e54296b128b9256f77da2ab14e4559b064f084d274a6cff92ada00a3518502, 6cfca711d904f6f95d73ecf5fbe59d5e8b1dcc0681dae1dc643732684b3f4fd5, eedf157109362dc8bac46cd5076496a14dfd5da8d8ccd2a8ced6199c3346c603, eb80e7b461d75dc0e2e2d0f85778d0f685cf39542545741f919cdacdb03f1353, 4151db4c0cd35ba4575cbd02c5be345b70e9a99c2468bc0bd3849048b5fda670, 155e5bfda15a089ae36743f7ca72eec8c863bafd19ab1c7bcd069d98a2e3557f, 4a05c9b7d67b0d418987a3d69562158f9ac30b2dce329dd1d85cfca63e0c66a4, 77dedf7831a315e6e2fae71a0fd50ee94d734a84275054df3c022e7fd9978d14, fc7e86503ffc93ab3aac58c175e7655cf935f3e18797edca4fa3d909e5838dbb, 9a2ba41d29525d127e09eff09ee8cc29c5977ab5fb64f5c43aad905ea380979a, 9e1def6528afebb261f07f2638e9500e918852758c020b9a636efa684d845a78, 4da15ace8327e087121a702fa5d790b78de78e0ed0bd068cb24066f82e48e346, 37736ed196003b18c7fafa65b1ca64b8133657615cbb84b4b77318e7c277e1a1, fde2aad3ff97d0d610013ab86f74907e1a94cd0a10b5eaf9bb8876223b62e052, 2ee0b3b07367a28501a7b14e8efbed903f0640a0faea6485a3fda9d6590b82b4, 267b0338b0735463418cd8d6271beefd096d3f27937b71373b1e3d820e3c38e5, d57f43cbad3212f92d5ee7569272c8be2cdfe15a0eefe967bedad9635e61c48a, e94f6860a42b6a86cd25193f4511862b547fa5fc6efea684b0b8db5db1061278, e98197208ce117ddad511dce9e24f1058b87a14ade5c4ae1b829aff45e6aeca7, 80b8addf4efc9821d366b025f2bbae7aec3e7e2b57b2e78ba4792c5f962c2e44, da29ecaf8ad70f55f3a830dd5b9e2761a96d86a34495b079b338d067efb3835f, 756063d8f0d565638d3886b7e0476fadba490f3f676e2db2b8b54a6efa5b135e, 0a9d48a9f10fb25c29b1330bce62ffed7beaec80abb12d535ba6645ff99e5f26, 84bb68a8d429b42f184c90c888b058cf5f00ed8fbf02c7c943418f70acaa0610, e29bed3912da7992ef13e3691eb2e86780f7b2a776da5e706de79ee68dacbd8f, 3f36f9f99df1d8c4950a986234471c7fd25bac0e18693e8c090d65094df7bf6e, 97fa57bd2ba84ec723c58a7d989e7cf3bf7a5b68c8f19504386861136e3ca6f6, 7eb20d877966c69c37eb4a15a943753b3742d7bf5993ced415e2517dda385d6e, 4d352c83820d2fdd6088b5abbbc033570d211441acbc438de6d6775edbffa0a2, 8ca02d36c72e027fc66692f1cc91f732317d2bcd303631ab73dc7eede5c8f487, b69fe8a4983fa9d732408ad7a6f0331ded078e9c478b0ffd3aed450a9f0f5366, deffd89a2e606bf9232dfa54c880890514d57603b1bbfa21f3e05babb4300209, 06508dea2007c5388a96d2e3f5e95846ae3c0e698f7fee788dd1483f3134c1e6, f98d25d0a1745fe2461909c70dfbcaee67bd32ee2e257c3245227cfc074d0b6f, 761494d36804fbfd8e4648dc757c9885e37023867e3f6c565706bfb40836b412, 0cad2bef6eb1c69f4f3064d3630a0f8d5e70cedb7a6b5e2dae852b3ab8f66fe3, 496cd99b8cee001127ebff35654f25f15a6f755c4fcdc05ebb80b980e8f6f622, ba56fe97331d1c11e6f71f1c62a5893078d5e7ef253289f4c145b6f09fdbc652, 18284bc704181711f1b9b9e150c6a0651a5ba5be54f4407a5697b3ea1987c719, 8b7116944978e45eef86e54565ff6d730e96e83ed53ce90f62f44e0d990d8e99, 18b28442fbda9db7d17d055df21c95e639cf8c52acb936ec87637d2f2c1611b2, a974637a2d85c8c7e05ff0c3e98a1c431e095b45e26fdb1bda38e9b5b473b249, 24cf6ee552a201298d3e3ee3223606ed846d64b1edbebf32c02b80a3ba206de3, fc988a53cf10b4420d2a2bda920d0df1321ba08c14798fbb007930cac5bbf8cf, f9bd760cbbe99601c525e2cbf04f09defa2906deb62ba1a4d1f6ccb29a29623a, 486830e8c8d991768ef1c94c9febaffad930260df2aa4cbe54abace6a2c324dd, e4af05a54a790567e78e291ddaae8179405c4b25c03785e15989bfc9a6cebabc, d876b8e1efc087aae0dd00bde086772734c3ba567d8be595badd02a9889f5c86, 27768eaad85ad38e77d4b5fa419405d525740d15e0f6841b3fa0ced697e5cf7e, 79a1026436c2c6da23e7113d82c71bfc32145259abc28ef2bb9c3eba44d2ddac, d4b9582bd4c660e71dbd75a16dc419dd3e9d7be74b5a63ef0da63fa55dbfd215, ecd0cf6f0329b789a72474f06e30fbfe5d0ab7604fcab95cf08abccfa7d2e698, 35d0db861a0381578c7db4333f675be2cefa9e642ba2e66da84e2cc0f780f433, 9a64a549cbf3a218f160933af42f86d24f7d1301f8e7d4ff3fe582c718a520c7, eef3f5ca0a81e7707bdaacab64053766b30356f985e318fabe48a864c69f8700, 7071620eb498d5c283be2c85309ad4bfb0e0c4259c7558ed08daa6ec0327deb6, a459ce9d816bcc22d84ab1f4a94372bccd5a644474edf5e17c9b9da583a89d12, 2716f7a85b588d789ed3d407a50117ac0375cb80960934e073e9d6253e5b5485, 4cfdb684f3aa2f01c626268b47763aad9e0c269034553bb7760c559ad4879ac3, ce6afab12ceaa835f551c0039cb4e0dc8b208f7f201a0d47496a4e90441ea5b2, 143b3a1f1ef1b14b03772a23d728bd64304e1b197c104f0e140dac91cb8ea4eb, fd7cf13935e55e533e78ff8912aa06b2347af8ffb9c08de09751bda68f51eadf, cf80cc739666d2e65c6358310236ef3604f6cd5ec5778811d338dd6417e712b5, 0da1e1d4923c24ec59af3897bb70a0b39c779dbb0687219b4a77806c58fa0cf7, 36b73c61e32f7b7d888b24a95a97a7c16bc691ff3ee141ef435c71d1002c94ba, 0c3e49755966d4a069ff908ade87ec483c9a285f55b9fe144dc546dc971ab34f, 641e52064a6385a74de9c77f778ccb761b7f9aa08f36539c5aed2725a2c27912, f9f8cbebda42d62c8d8b6b83b35342e9fc11b5ed28c3e7c46cc56dd21e0ec7b1, 550ad84d952acf5f7faf18db2af18386ba0ecf8917a3f80a2b917667050c698a, e3b0f1b6a2732df60bce511c7c4bb6994b4b427ce0d14d34ac2fc215c78f8ec3, f09a29a769dbb56754fa3646ac66cc91488215f9f6bc90fa44ae0c1096c4066f, 8f156d1943c2ebad008bc56dd819a9dd0569fc403429ba0b6d7029b5b1dc0767, e541c48a8693894217cf1c5293089620252684794b8ae22fd92ff76c028fa5dc, 42040f61f973be6790b0b7845ade7406392b5de5ba6a5ad9484d8409c938b687, 1dbd44e9f3e54916b3f4043a32cefd196b5346e47be280a791afc63e2e4819f5, 8fc4f084a09b532374aae3793dba7eb8321dc05dc87dc19124efd6e0bd5e0ce6, b30553dd73a65f2ec20ee31bba1faf34656a66fa33ab15272be2930c239382df, 16288d49e837d7b804302ff01baf98869c2dfb25c3435cc5b5a9560cb6f3ab02, f6410622d50aa87ace5accf9ff3bd7e64adb415e144850b5702ab932e399a52d, 51e0e893d5eaf5ecfc6452847592acd58e3e5afcbe5e042638d08aaac73ba73f, f69b529d487c9ab3501fc7705b9784859c6fc92d9bd937eac20bb87db5c6040d, c6c4d325816afe6f5cb8ad1acd52362b4ac8c9ee93c5cc69f1d7785d99d2518b, f9fb972d2ad5d3e3b215c0f1928d3bf3fa76cde18b5068c390fd4b8faae943b3, aa9c92262d790f532c7da54a3ab12289c9299ce9e24b721a180c121f4ca76211, 2fb9dc29871612c3e6d5b5eceb24e89997d379145f3a059f7774a066ddeb4569, 28791deb720f2dd61775867de78da39062fa3085dcdf8ae9e42b6753d09f19ab, a366c9dee4f948c16c1e7c67b367befb24bc2e8050f40868f3fc2ef152af4380, 9e1668d890a76a29a80682d1664c58e25d52c19ab19debeb8d105442371ce85b, 1cd97fa2b04549ba8e2582a64d73a0f563ca0fa04f7cba2432b2982eca22ef8f, 2f676ac7b2c9091f69c151ded5c7ed510bf63bfccba7111ad781e2cdae79de79, 5757643b186944048db40201284d798a24d43ff0f2867b13cc538129aa2711b1, d6fc7f3078748d118d0263356af4633ab7181867388e07bd782761de0add24d8, c9ca35875090220de14505ee422c6402512f4471aac26ddc203c1b05aa05735c, 4682a5ccc5cae4ebb797034f3afca4642106c9c3ca43ece91ea1961b64547fba, abf20c04be520a28195235338fa5b27dabe8b5a4c7b9c995f587f8d335021970, 2cf02d3f433e9730c20b6f94d5ce4e496dea2921ad4e0f3a2ff9a893db472f20, 51a45cd0b699a8ee860681732b5b9565b6b54b3c65bb53f556512a7c4f5cb560, 7b12893edf4981dff8c77987d88e059b551b413278c8ce4ca9da5085708cea5a, c946722de74ef683bfcff64014e7b497d7809c570b7bba919d17f122f984e2dd, 986f3f98c8593b2784c417e1b0ca04cdccccc495f63c9990e0156745b0dd8d23, c45e72b1b30e86164e59f4e1aee8799ac2fc88d87061af56fef2c2c9b83973cf, 83b9e471bc8d5f5d1b603115a988ce2e7343f8220a8144547a40e35018d82ee0, fdc3c84222ee9d885ef0527351874756ad32a013d599807161420bc61db5d37d, 637d7a64498f5eebe389a7c9f21dc0cb6df0df4ae8eebfdb03b694decffa07c9, 3a1d3ceb564704e8de15ee00c5decef119f9e4d55996c56e874ee7e922c052a8, 862a1c2bd5432d1307ac7240f10e34ea882d8fa3dde79eb1bfae3301fcf31edb, 2ea49a29f619be3acb8d0e4072cc9e35c58f6152e27f57b6007c1c0730028ce7, 7a8be227188ccb54213371831af3d0a662dd66154ebf69220b4e1ee0c2eed034, f951c4fa39a65371b8e5586999c18c11e94048c40a2651a6b503c38bebc9085c, 4e88d26f5b3c17c8d61cddd95c39957988fb0d03ed11c196740ebae6473b234a, 5af747d242eb94f6e99fd62ccd004e4f8283cdd1fa318955a02d15e368164888, ca293db7b54b649b46c726738add0ec8ece86f6c4424fce96b700f4f88751cd2, df669f599d14845581bdac81954569a6dbbc5c253eeaf0dbf8ad6a0f96ad4e1a, 15b33873acb2743dd4c880194c12ed7cd63a24606eed86bfbcdb1ffc9c6184a9, 9bb971018e3f6b8ce5cc1e9e5bd6d0825534c812be864c874d6f28178a14dceb, 64f0c569b6c72767e16b8ea2959e6435fb44274e93149851a3f8674166689e50, d872456cdb130d6eedef7b50d6d80c66273bbefe517bc4c926f130e4863e51bf, c961f0e1e7a9a37f430ea73398edb0333cd0b888518955752359b85dfb4a74a7, 2589d7e2c68ef564504c837c946284fc51e76fdaae324757d2a04192a956c1da, c01ac2f438373cb75a19636e50e98a004483f1515fb3e106e0f902a9eaabcac0, 013c0f8735c357ca8a11821e8f90b09ae7c79c97da4d66e9ca208fbfca2e751e, 7a5c74ed16e359e159b4d27ab6f225a6f498cdb2ecde734a7fed9f5f715f964a, 618600f8be68bca727900f0cdb01cbdb31f82a8946f9768af837357c565c227d, 08050409914187f88caf9bcdac587ffa12067a1eeffa54de826a905fc0c1da15, d2adb307e572133e3738a79d2d528cdc9bfd6afcd81b1f70b7c307e706b1f726, 9080ae7bdd497d9a664c66215fe432c508b4e85ad3b2c58f9d6553362223d144, 1192feb4fe63b45ad3de1614d6f63cc5131ffe4860e64d2596b75179743846d1, 6845b31dae84fe09fa89e70a39b8c2509456acc953ec4baed4b28d1c6320a4bb, 795d9d76736065e76989bbb160c2c503c2e3d4bf3c7614c4668915bb37f185c4, 53775c6a0fb981dd4c5bb620d75c70961e90142d24d882275bb2c001a6e21da6, eefd344be4e735534db8c1425bf7e8fa4c824a6ac61e004660b1e459e60ed578, 29b5ce7ea4e1b73c1ec79464777cfa123813b788a4696fd9c9055963ded4c5a8, 55037b2af783869999d921cb1af9e7b2ae955f05bd5d08118e8836b0a1d249a4, ed287c50142a6a074d5b1f3aaa5cb63318c97f0fd434928e1d055dec8426fa5f, 2767e3612728493009a371225f5836bb2c2937f6f100ae82fd2deae75371b395, 15c17fbef2432a5e1d5631afba1316e053b82b2cfb6832ff970aa4e4900eebda, 0246580f33c6bccc419d9b58acd4ab4b60a5085e74c189714b1af2d977b1086b, 56414a989e8f2d3726a013e20964448f0651a92727eae8fe675af390be357f34, 726f70d9c604abdb7777b63789778299daea18aa6202c0d8cb7ce0cc9e280256, 727c73dad36d72b5b68bf0142cdf52ed8a00f9edf72cd11069664442b9d6c292, 5a05916fbf85a2474944c744a9e22b7a4f87ae3e70817c899db35d74fd6031a6, 21a62e2a448cc1f6bf214f7321ef81dffcd6fc295739a59fb7466b3e09dc4c4d, 5498bd803f480b12b98b5313f063a08da91f00e33cea93aa0bb043f1a7380fd6, ac91cac0b2914103eceab6feee69ec6527d4a40c6a3c429ee11a2892dfe74457, 1c925c935eb1d3bcd6e45a928667c84a75ac27a63e2e3c1c023d8b73d0b37dc0, 79460ba0c71bfc2b736ca9e38a6b8c6cb1e110454655284f4b19a347dc651f80, 991e39dbeebea89d66aea293ed3c7e4446064f6766f1cc05391843ea3af3df94, 610c2d7c07d610565d17e093fb8d1ac20518e1289e6b2b60e98cd323131607b4, 3a386463a9cc1e10f4942dfe37932f732384d0334731eb7d965e7c1982777c08, 8b97f1ec30913f68a8ba3fd88af57de8032ab0ad30374f068effe0e2fc7818fb, 703cd590c3433a6c2b5d6766bf8ed8dc5b78d824d0642786261efab3e6839de5, a9bc2ebbe3a3cb5c55e904e989febc33d4fcefa6601731b19784dcfaf182e10d, 2cd52a4838e330d3031a44c2a574b86da0e9ef912bf64bee4c9fbc7cc1b3edb1, c6f8bf0589518c20cb5c71498c6ba2d380dfe99c86ad959238ccca352822b2c3, 96fe82c4b0fc834e04404aff2b2dc3761d9b32ee5b20f4e64487cefc49592323, 57e6c6ef64f4aa7f2a78198ba9e183a18a3c6a35cffe47c895a778bca6a1cbad, 3e058ae0ed89f98f6cf7b82d1cf2d524af8ae2ac5d0f7d80b85818ca3a2b94c0, 847ddb7cd4f5fd205386ce3717cf7fa9d29c9ed7ce9a087175f399cdaae09bfd, 42527805548afda9360f953f555e252d725da54b371385ef6404aad839b83f2f, 05a53dc370d5642d4575b48a4aeba258783ce49629a0b3f4832b77f7318a3df4, b377785884dcc40300d828dd0e7e624bcaccf677b6e53b6709e49ef0d377814c, 7d1de12023c67b47aa3110b0965d7917a810243f336a013f424368e996bc1dd0, 89a8a32c4fe0adddbd42c32ae135cb63bf3a1fa852ee17bddaaf0d5147b1a85e, 98e4edcfc8498e31afff6bcc9a36170afb385657f70d4694fee78c4eb17cd3c1, 7bfbc003890cef92b41046f9780e28cf67093621d81f0dae52f6e986147d5e10, f8a2e23ebbd014db22992a7a21be31d253ba40bf826a2c38b624692ad52a427b, f6bef7dce30334f8e8cb149d774b0f0d4acd1ba2964e43faf45040e988fc4942, d21093c6d60bdd0d8b9c28590448ce446838963298572acde49fcbabcd2d3478, 934c6cc08f1d7c7b5b4c585c3f8925a2a8840721e71d0964c4bada6fea5acbf7, 5f61875c3fd7b6f407401780838f0a28aec57c36dd68faca8f6ecd30ef8b3c20, 174c8de8857ff9472af16aa0bc86b3be8dfbe226790914d891a0b7c953eb2cbf, baa757d8aa25e6653595e455171bb0278fe95679cb672e8aeb28941502634127, 5ad448a12579d01944bc44a79b855c496f85a8f79011fcfc528e9d81f0d01e75, 3c9784091371f9c4bd890aa1a1709dd2f30383214e1d032fb7e688478d5d8943, cb041f61ce7fcbd79812de1615fb60f5c4fdb11b1c8a30355c859b14bfb703bd, ec352b2e1f7deb677e9f541c3dac452e893493a7a174fd548ae6bd0ee0cb8b54, 583756e9c594a3600ecbf95ed57c3efa87af980a6af5fc81b541e2e4e913fff4, f9e6f55646376f42b0ceb3db67371d93dc2d1aea877647cb860024105d18a39b, 473a0f4c3be8a93681a267e3b1e9a7dcda1185436fe141f7749120a303721813, e523244f1f12fc2533ff0df90d3c07bcbe087847621c661bf21c53932fca7e95, 26acd754ecf0d482ecbf8839c25aba0c0c5beb291afd51a6c36157e5c6f0c581, e1ca98a4420985c76f094fa1ef65dfbd23a1e8ba4de6cb5694947d9fa545f967, 911965a939379d7f12a83e0a9256e2780f5f2bd7511c69ded19f15f2d0d12c61, b3e72860ed8eb674c70d32303ad63dd34bbac0a6624c3a1f42f3ff0636413802, 304e7788bf6ee7de4e1a68bbfa8ba09a9fdd0584f104495737674a98e444ff95, e628f4ca2e60c498e1f157a8a0f89ae484ebe0b4f8b8ecdb4abfb0556530149d, 4fddbf8325cba1c29c03e1b32a77b930d5f8d2f9993c6eb8056f05c93c52e8cc, 4fbabe32747c79ca2ed428accc74857de2629adf978d57d1000d1f712211642a, 5df21d36eda174ce08fa856848fbc1cea52d63527cd8442f655e1175f0c38453, 17a4d8898ab9ba2888011cf8886ca4475ec076545b6f91f9cda7f5c1df50445f, 7fc1eb66157f089698ed59a8ee169e44047dfb1e0f15d26e3875477ef942581d, 5e09526cfb6e45ff8dfbf8806daaf6b30f256a84c3ec3222e7d52b4e5640616c, 9b8c3fe710cf8add7010e400aeaa3dc79d46a1ebfb9119114ea3ec99e6af4682, 3b80d92b61ac86d1076a58604567b31de20a12c7f5d46e8d8f9d2acef6de0970, cca98756a20c2b849f5332ed3f0f31d284a130cbce708d580b74d7e82bf2e5f3, b27c8ed52d0fc4e42cfc3b84df2e3878c97af6f349cc97e17f967ec99442790a, 5ac5f3da0f7c0687997485a900f95e8e5004d525155a2160f623e728e4ff1b45, 3ed796051e8c3f9ae746422dd39794d73bc65ee6abac2d9494a600a55f7bf938, cfb0f98f0f4b7d2f5a4879ae675af9234fa7e3c7b782422df3780e3ce8ece5be, dde2bba6c772e3dc66d54b55fa3824682aa743390c81c261d5577684449bf384, 77742802b57ed7c906142649eb49f609b5992c986036fdee3c05408ca40ad238, 0c5278053a71446832765b92e59d7655f48b47ac6e093bd5997e7181b9674d00, 550fa1686e8d7d5460ee17c636862dbcab0a167ed2d700f3d1a3cee8aca79a29, cddafa2bc5c884204d88b5e58d4479ac0d60e9a4d57389315f0a36918e2cde60, a35e6286e892a28f49e5c8dab5e0ea84844089341fad7bebf1ed36be04089acf, 822b3a56a7f4056cec55933150d28090f7bd2f3f1ee48a11c30478beec76236d, b457707f8f5bb1e32e586b9d83cff6e3fa0ca1b917ab24c2fa7632644bdc758c, d2babfa2d1f64d6522a12aa98dfa57ace6ab4da1cb8db5d942a1891f651e3bf5, b0ba8c29508774363c389ef9318abf401eef53205cae7845cddd6483300f5c3c, 3f5274ef788eb7608325a855fee6b5469cb523957755130f72dbeabb49644839, 656adcd4d5b62ff5db91224defbdc307c60f3e91de06c653d70da8866c414816, 505679c982431352c3162b247c621d94576430aee7577cc5cfcddab12f725984, 522db0896afb314ae40567e96439fd3cfd9840b9b6494b3dca646765faa6362a, 6e00530950e70fea9ff2f5c61b0dc192fd044be8ca7322883d996fd68054cb6a, 05d39febbc762663416c50a1aa095a694fe0d39b493a89579a9886197e8471f7]
+Pruned 0 unreachable object(s) (0 KB reclaimed).
+Created branch: new-feature-branch
+Deleted branch: new-feature-branch
+Saved change 07b1bd01 as revision: 79ae3382
+Saved working directory modifications to stash: stashes/stash-5833e156
+Popped stash: stashes/stash-5833e156 successfully!
+Saved change 9caa5a62 as revision: 3c3761a3
+DEBUG TEST: perm1Hash=4d4966d09a13d3e4d321d1e275c6dda5a3f88d6aea4179b462c2f49aedd37eb8, file1Hash=7040d341e6bc96fc379754662d23ea042fd000265826b6b0e136e3e6fcb71cec, perm2Hash=7855b10a974a7b027ddea6a80471a3f7c19bcde7ff463b272072811c79a076d0, file2Hash=f92452be4025ed0afeb6d3d685fa3f2c62e28c4eb6be526571127fe598ae69f7
+DEBUG PRUNE: refs=[heads/main], activeRev=4d4966d09a13d3e4d321d1e275c6dda5a3f88d6aea4179b462c2f49aedd37eb8, reachable=[6a42a20c9d849486bf39f7ff19301666416284f61138eab85d60985ae40ce90c, 7040d341e6bc96fc379754662d23ea042fd000265826b6b0e136e3e6fcb71cec, 4d4966d09a13d3e4d321d1e275c6dda5a3f88d6aea4179b462c2f49aedd37eb8]
+Pruned 5 unreachable object(s) (0 KB reclaimed).
+Generating ECDSA keypair...
+Keypair generated successfully!
+Private key: C:\Users\User\AppData\Local\Temp\junit14476629132084298571\.draftflow\id_ecdsa
+Public key:  C:\Users\User\AppData\Local\Temp\junit14476629132084298571\.draftflow\id_ecdsa.pub
+Saved change 29d3e885 as revision: 112684d6
+DraftFlow UI Server running at: http://localhost:56253
+No keypair found.
+Key added successfully.
+Key added successfully.
+Key added successfully.
+Public key: sample-public-key-1
+Key removed successfully.
+Key removed successfully.
+Generating ECDSA keypair...
+Keypair generated successfully!
+Private key: C:\Users\User\AppData\Local\Temp\junit16771602687502516000\.draftflow\id_ecdsa
+Public key:  C:\Users\User\AppData\Local\Temp\junit16771602687502516000\.draftflow\id_ecdsa.pub
+Keypair already exists under .draftflow/id_ecdsa
+DraftFlow UI Server running at: http://localhost:56254
+DraftFlow UI Server running at: http://localhost:56256
+DraftFlow UI Server running at: http://localhost:56257
+Dashboard: http://localhost:56257
+Press Ctrl+C to terminate UI server...
+UI server terminated.
+DraftFlow UI Server running at: http://localhost:56258
+DraftFlow UI Server running at: http://localhost:56260
+Initialized empty DraftFlow repository in C:\Users\User\AppData\Local\Temp\test-repo-1784995437748\.draftflow
+DraftFlow UI Server running at: http://localhost:56262
+System.Management.Automation.RemoteException
+[31m==============================================================[0m
+[1m[31m               DRAFTFLOW VCS DIAGNOSTIC REPORT                [0m
+[31m==============================================================[0m
+[31m[1m[DIAGNOSTIC] Error Code: ERR_100[0m
+[1mEXPLANATION: test error[0m
+[33m[1mSUGGESTED ACTIONS:[0m
+[36m  1. action 1[0m
+[31m==============================================================[0m
+System.Management.Automation.RemoteException
+System.Management.Automation.RemoteException
+[31m==============================================================[0m
+[1m[31m               DRAFTFLOW VCS DIAGNOSTIC REPORT                [0m
+[31m==============================================================[0m
+[31m[1m[DIAGNOSTIC] Error Code: CAS_CORRUPTION[0m
+[1mEXPLANATION: hash999[0m
+[33m[1mSUGGESTED ACTIONS:[0m
+[36m  1. action CAS[0m
+[31m==============================================================[0m
+System.Management.Automation.RemoteException
+System.Management.Automation.RemoteException
+[31m==============================================================[0m
+[1m[31m               DRAFTFLOW VCS DIAGNOSTIC REPORT                [0m
+[31m==============================================================[0m
+[31m[1m[DIAGNOSTIC] Error Code: NETWORK_SYNC_FAILURE[0m
+[1mEXPLANATION: http://remote.org[0m
+[33m[1mSUGGESTED ACTIONS:[0m
+[36m  1. action Net[0m
+[31m==============================================================[0m
+System.Management.Automation.RemoteException
+System.Management.Automation.RemoteException
+[31m==============================================================[0m
+[1m[31m               DRAFTFLOW VCS DIAGNOSTIC REPORT                [0m
+[31m==============================================================[0m
+[31m[1m[DIAGNOSTIC] H2 Database Lock Contention Detected![0m
+[1mEXPLANATION: Lock Contention: Another process may be running a DraftFlow operation[0m
+[33m[1mSUGGESTED ACTIONS:[0m
+[36m  1. If the DraftFlow GUI dashboard is running, please close/terminate the dashboard server.[0m
+[36m  2. Check for other background terminal processes running DraftFlow commands in this workspace.[0m
+[36m  3. Check the active locks on directory: C:\Users\User\AppData\Local\Temp\junit11175967222949023168\.draftflow\index[0m
+[31m==============================================================[0m
+System.Management.Automation.RemoteException
+System.Management.Automation.RemoteException
+[31m==============================================================[0m
+[1m[31m               DRAFTFLOW VCS DIAGNOSTIC REPORT                [0m
+[31m==============================================================[0m
+[31m[1m[DIAGNOSTIC] Cryptographic Ref Signing Verification Failure![0m
+[1mEXPLANATION: The public key used to sign the update is not authorized by the remote server, or signature headers were corrupted.[0m
+[33m[1mSUGGESTED ACTIONS:[0m
+[36m  1. Run 'draftflow keys --list' on the remote server to see authorized keys.[0m
+[36m  2. Copy your local public key (found in '.draftflow/id_ecdsa.pub') and add it to the remote server using:[0m
+[36m     draftflow keys --add "<YOUR_PUBLIC_KEY>"[0m
+[36m  3. Verify that your local private key '.draftflow/id_ecdsa' is intact.[0m
+[31m==============================================================[0m
+System.Management.Automation.RemoteException
+System.Management.Automation.RemoteException
+[31m==============================================================[0m
+[1m[31m               DRAFTFLOW VCS DIAGNOSTIC REPORT                [0m
+[31m==============================================================[0m
+[31m[1m[DIAGNOSTIC] CAS Object Store Corruption Detected![0m
+[1mEXPLANATION: Data Corruption: A stored object failed checksum verification[0m
+[33m[1mSUGGESTED ACTIONS:[0m
+[36m  1. Run 'draftflow verify' to scan for corrupted files in '.draftflow/objects/'.[0m
+[36m  2. Use 'draftflow verify --repair' to automatically prune corrupt references and restore to the last stable state.[0m
+[31m==============================================================[0m
+System.Management.Automation.RemoteException
+System.Management.Automation.RemoteException
+[31m==============================================================[0m
+[1m[31m               DRAFTFLOW VCS DIAGNOSTIC REPORT                [0m
+[31m==============================================================[0m
+[31m[1m[DIAGNOSTIC] Filesystem Access/Permissions Failure![0m
+[1mEXPLANATION: Permissions Issue: Please verify that you have read/write access to the current directory.[0m
+[33m[1mSUGGESTED ACTIONS:[0m
+[36m  1. Ensure you have read/write access to the current directory.[0m
+[36m  2. On Windows, run the terminal as Administrator if the folder is system-protected.[0m
+[31m==============================================================[0m
+System.Management.Automation.RemoteException
+System.Management.Automation.RemoteException
+[31m==============================================================[0m
+[1m[31m               DRAFTFLOW VCS DIAGNOSTIC REPORT                [0m
+[31m==============================================================[0m
+[31m[1m[DIAGNOSTIC] General System Error Occurred.[0m
+Error Type: java.lang.RuntimeException
+Error Message: general ex
+Troubleshooting: Ensure you have enough disk space and that no other application is locking the database files.
+Please check the detailed trace in '.draftflow/diagnostics.log'.
+[31m==============================================================[0m
+System.Management.Automation.RemoteException
+DraftFlow UI Server running at: http://localhost:56264
+DraftFlow UI Server running at: http://localhost:56266
+DraftFlow UI Server running at: http://localhost:56268
+DraftFlow UI Server running at: http://localhost:56270
+DraftFlow UI Server running at: http://localhost:56272
+DraftFlow UI Server running at: http://localhost:56274
+java.lang.NullPointerException: Cannot invoke "com.google.gson.JsonElement.getAsString()" because the return value of "com.google.gson.JsonObject.get(String)" is null
+	at com.draftflow.ui.UiServer$RemoteRefsHandler.handle(UiServer.java:3059)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON at line 1 column 6 path $
+See https://github.com/google/gson/blob/main/Troubleshooting.md#malformed-json
+	at com.google.gson.JsonParser.parseReader(JsonParser.java:116)
+	at com.google.gson.JsonParser.parseString(JsonParser.java:92)
+	at com.draftflow.ui.UiServer$RemoteRefsHandler.handle(UiServer.java:3058)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at jdk.httpserver/sun.net.httpserver.AuthFilter.doFilter(AuthFilter.java:76)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange$LinkHandler.handle(ServerImpl.java:863)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:98)
+	at com.draftflow.ui.UiServer$DatabaseLifecycleFilter.doFilter(UiServer.java:70)
+	at jdk.httpserver/com.sun.net.httpserver.Filter$Chain.doFilter(Filter.java:101)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Exchange.run(ServerImpl.java:839)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$DefaultExecutor.execute(ServerImpl.java:202)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.handle(ServerImpl.java:557)
+	at jdk.httpserver/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:522)
+	at java.base/java.lang.Thread.run(Thread.java:1447)
+Caused by: com.google.gson.stream.MalformedJsonException: Use JsonReader.setStrictness(Strictness.LENIENT) to accept malformed JSON at line 1 column 6 path $
+See https://github.com/google/gson/blob/main/Troubleshooting.md#malformed-json
+	at com.google.gson.stream.JsonReader.syntaxError(JsonReader.java:1754)
+	at com.google.gson.stream.JsonReader.checkLenient(JsonReader.java:1550)
+	at com.google.gson.stream.JsonReader.doPeek(JsonReader.java:625)
+	at com.google.gson.stream.JsonReader.peek(JsonReader.java:507)
+	at com.google.gson.JsonParser.parseReader(JsonParser.java:111)
+	... 14 more
+Warning: Failed to parse FileMetadata JSON: {invalid json. Error: com.google.gson.stream.MalformedJsonException: Expected ':' at line 1 column 11 path $.invalid
+See https://github.com/google/gson/blob/main/Troubleshooting.md#malformed-json
+DraftFlow UI Server running at: http://localhost:56276
+Fatal: Cannot create a branch because there are no commits in the repository yet. Save a commit first.
+Deleted branch: non-existent
+No commits in this branch.
+DraftFlow UI Server running at: http://localhost:56277
+Fatal: Not a draftflow repository.
+Fatal: Not a draftflow repository.
+DraftFlow UI Server running at: http://localhost:56279
+Warning: Hook 'dir-hook' is not a regular file.
+Usage: draftflow [-hV] [--repo=<repoPath>] [COMMAND]
+DraftFlow: High-Performance Snapshot-based DAG Version Control System
+  -h, --help              Show this help message and exit.
+      --repo=<repoPath>   Target repository path
+  -V, --version           Print version information and exit.
+Commands:
+  setup          Initialize a new, empty DraftFlow repository
+  status         Show the working tree status
+  save           Promote current working tree changes to a permanent commit
+  switch         Switch to a specific revision hash
+  merge          Merge another revision into the current branch
+  resolve        Resolve conflicts in the working copy interactively
+  upload         Upload branch commits to a remote repository
+  download       Download branch commits from a remote repository
+  history        Show DAG commit history
+  branch         List, create, or delete branches
+  undo           Undo the last commit / revert HEAD pointer to parent
+  dashboard      Launch visualization dashboard server
+  verify         Verify CAS objects and index integrity, prune orphaned entries
+  prune          Run garbage collection to delete unreachable objects in CAS
+  stash          Stash away working copy modifications temporarily
+  diff           Show line-by-line differences of files in the workspace
+  keys           Generate ECDSA keypair for cryptographic commit signing
+  rebase         Rebase the current branch commits on top of upstream branch or
+                   commit
+  cherry-pick    Apply the changes introduced by an arbitrary revision onto the
+                   current branch
+  ignore         Add, list, or check file exclude ignore patterns
+  clean          Remove untracked files from the working directory
+  ledger         Show reference log history
+  trace          Annotate each line of a file with last commit information
+  git-import     Import git history from a local git repository
+  git-export     Export DraftFlow history to a local Git repository
+  hooks          View, install, or toggle repository hooks
+  config         Get and set repository configuration settings
+  rebuild-index  Rebuild index metadata from HEAD revision tree
+Unmatched argument at index 0: 'nonexistent-command'
+Did you mean: draftflow config or draftflow history or draftflow git-export?
+Fatal: Not a draftflow repository.
+================================================================================
+                     DRAFTFLOW VCS CRITICAL EXCEPTION
+================================================================================
+Operation failed due to an unexpected error.
+Error Type: java.io.FileNotFoundException
+Message:    file not found
+System.Management.Automation.RemoteException
+Diagnostics & Troubleshooting Tips:
+  -> Permissions Issue: Please verify that you have read/write access to the repository directory.
+System.Management.Automation.RemoteException
+System Information:
+  OS:           Windows 11 (10.0)
+  Java Version: 24
+================================================================================
+To see the full stack trace, set the environment variable DRAFTFLOW_DEBUG=true
+================================================================================
+                     DRAFTFLOW VCS CRITICAL EXCEPTION
+================================================================================
+Operation failed due to an unexpected error.
+Error Type: java.lang.RuntimeException
+Message:    Access is denied
+System.Management.Automation.RemoteException
+Diagnostics & Troubleshooting Tips:
+  -> Permissions Issue: Please verify that you have read/write access to the repository directory.
+System.Management.Automation.RemoteException
+System Information:
+  OS:           Windows 11 (10.0)
+  Java Version: 24
+================================================================================
+To see the full stack trace, set the environment variable DRAFTFLOW_DEBUG=true
+================================================================================
+                     DRAFTFLOW VCS CRITICAL EXCEPTION
+================================================================================
+Operation failed due to an unexpected error.
+Error Type: java.lang.RuntimeException
+Message:    database lock error
+System.Management.Automation.RemoteException
+Diagnostics & Troubleshooting Tips:
+  -> Lock Contention: Another process may be running a DraftFlow operation. Please wait for it to complete.
+System.Management.Automation.RemoteException
+System Information:
+  OS:           Windows 11 (10.0)
+  Java Version: 24
+================================================================================
+To see the full stack trace, set the environment variable DRAFTFLOW_DEBUG=true
+================================================================================
+                     DRAFTFLOW VCS CRITICAL EXCEPTION
+================================================================================
+Operation failed due to an unexpected error.
+Error Type: java.lang.RuntimeException
+Message:    corrupted index
+System.Management.Automation.RemoteException
+Diagnostics & Troubleshooting Tips:
+  -> Data Corruption: A stored object failed checksum verification. Run 'draftflow verify' to verify and heal.
+System.Management.Automation.RemoteException
+System Information:
+  OS:           Windows 11 (10.0)
+  Java Version: 24
+================================================================================
+To see the full stack trace, set the environment variable DRAFTFLOW_DEBUG=true
+================================================================================
+                     DRAFTFLOW VCS CRITICAL EXCEPTION
+================================================================================
+Operation failed due to an unexpected error.
+Error Type: java.lang.RuntimeException
+Message:    generic error
+System.Management.Automation.RemoteException
+Diagnostics & Troubleshooting Tips:
+  -> System State: Ensure you have enough disk space and that no other application is locking the database files.
+System.Management.Automation.RemoteException
+System Information:
+  OS:           Windows 11 (10.0)
+  Java Version: 24
+================================================================================
+To see the full stack trace, set the environment variable DRAFTFLOW_DEBUG=true
+Warning: Failed to parse FileMetadata JSON: {invalid-json}. Error: com.google.gson.stream.MalformedJsonException: Expected ':' at line 1 column 15 path $.invalid-json
+See https://github.com/google/gson/blob/main/Troubleshooting.md#malformed-json
+DraftFlow UI Server running at: http://localhost:56292
+DraftFlow UI Server running at: http://localhost:56294
+DraftFlow UI Server running at: http://localhost:56296
+=== STDOUT FOR TEST ===
+=======================
+=== STDERR FOR TEST ===
+Fatal: Not a draftflow repository.
+=======================
+=== STDOUT FOR TEST ===
+Branch heads/main does not exist on remote.
+=======================
+=== STDERR FOR TEST ===
+Error: No active branch to download into.
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+=======================
+=======================
+=== STDOUT FOR TEST ===
+
+--- Diff for file: diff_test.txt ---
+[31m- original line 1[0m
+[32m+ modified line 1[0m
+
+--- Diff for file: diff_test.txt ---
+[31m- original line 1[0m
+[32m+ modified line 1[0m
+
+--- Diff for file: diff_chunk.txt ---
+[31m- original line 1[0m
+[32m+ chunk modified[0m
+=======================
+=== STDERR FOR TEST ===
+Error: File not tracked in index: untracked.txt
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+Found 1 unresolved conflict(s).
+=======================
+
+----------------------------------------
+Conflicting file: theirs_keep.txt
+Select resolution action:
+  1. Keep OURS (Left) version
+  2. Keep THEIRS (Right) version
+  3. Resolve manually (Verify file no longer has markers on disk)
+  4. Launch external merge tool
+Enter choice [1-4]: Resolved theirs_keep.txt using THEIRS version.
+
+Resolve run completed.
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+=======================
+=======================
+=== STDOUT FOR TEST ===
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+=======================
+=======================
+=== STDOUT FOR TEST ===
+On branch: detached
+Active Change ID: null
+Active Revision: None
+
+Deleted files:
+  (deleted)   deleted.txt
+
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+DEBUG REBASE: activeRev=22a36eb606c6b9ee8ef8b0199f665533aa4b361683bf2f2e409192a3284a49ef, upstreamHash=6c26624163ff1a31b3a6162ba1bb5f82cb1af2e5e265b47c83ccef286fd0608f, ancestor=db144f7556fa97d8b19e29ffb4725ac9f783040e4adedef148a40bc3772f3fbf
+Nothing to replay after interactive filtering.
+DEBUG REBASE: activeRev=22a36eb606c6b9ee8ef8b0199f665533aa4b361683bf2f2e409192a3284a49ef, upstreamHash=6c26624163ff1a31b3a6162ba1bb5f82cb1af2e5e265b47c83ccef286fd0608f, ancestor=db144f7556fa97d8b19e29ffb4725ac9f783040e4adedef148a40bc3772f3fbf
+Rebasing 1 commit(s) onto 6c26624163ff1a31b3a6162ba1bb5f82cb1af2e5e265b47c83ccef286fd0608f...
+Applying (squash): feature commit
+Successfully rebased current branch onto main
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+Keypair already exists under .draftflow/id_ecdsa
+=== STDERR FOR TEST ===
+Fatal: Not a draftflow repository.
+=======================
+=======================
+=== STDOUT FOR TEST ===
+Found 1 unresolved conflict(s).
+
+----------------------------------------
+Conflicting file: invalid_choice.txt
+Select resolution action:
+  1. Keep OURS (Left) version
+  2. Keep THEIRS (Right) version
+  3. Resolve manually (Verify file no longer has markers on disk)
+  4. Launch external merge tool
+Enter choice [1-4]: Invalid choice. Skipping.
+
+Resolve run completed.
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+Found 1 unresolved conflict(s).
+
+----------------------------------------
+Conflicting file: theirs_del.txt
+Select resolution action:
+  1. Keep OURS (Left) version
+  2. Keep THEIRS (Right) version
+  3. Resolve manually (Verify file no longer has markers on disk)
+  4. Launch external merge tool
+Enter choice [1-4]: Resolved theirs_del.txt by deleting it (Theirs).
+
+Resolve run completed.
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+Found 1 unresolved conflict(s).
+
+----------------------------------------
+Conflicting file: manual.txt
+Select resolution action:
+  1. Keep OURS (Left) version
+  2. Keep THEIRS (Right) version
+  3. Resolve manually (Verify file no longer has markers on disk)
+  4. Launch external merge tool
+Enter choice [1-4]: 
+Resolve run completed.
+=======================
+=== STDERR FOR TEST ===
+Warning: File still contains conflict markers on disk! Clean the file first, then try resolving manually again.
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+=======================
+Found 1 unresolved conflict(s).
+
+----------------------------------------
+Conflicting file: manual_large.txt
+Select resolution action:
+  1. Keep OURS (Left) version
+  2. Keep THEIRS (Right) version
+  3. Resolve manually (Verify file no longer has markers on disk)
+  4. Launch external merge tool
+Enter choice [1-4]: Staged manually resolved file: manual_large.txt
+
+Resolve run completed.
+=======================
+=== STDOUT FOR TEST ===
+Found 1 unresolved conflict(s).
+
+----------------------------------------
+Conflicting file: manual.txt
+Select resolution action:
+  1. Keep OURS (Left) version
+  2. Keep THEIRS (Right) version
+  3. Resolve manually (Verify file no longer has markers on disk)
+  4. Launch external merge tool
+Enter choice [1-4]: Staged manually resolved file: manual.txt
+
+Resolve run completed.
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+Found 1 unresolved conflict(s).
+
+----------------------------------------
+Conflicting file: manual.txt
+Select resolution action:
+  1. Keep OURS (Left) version
+  2. Keep THEIRS (Right) version
+  3. Resolve manually (Verify file no longer has markers on disk)
+  4. Launch external merge tool
+Enter choice [1-4]: 
+Resolve run completed.
+=======================
+=== STDERR FOR TEST ===
+File does not exist on disk. If deleted, select option 1 or 2.
+=======================
+=== STDOUT FOR TEST ===
+stashes/stash-45f6f4c1 -> Stash: WIP on main @ Sat Jul 25 21:34:19 IST 2026
+stashes/stash-6c85ecf1 -> Stash: WIP on main @ Sat Jul 25 21:34:19 IST 2026
+Popped stash: stashes/stash-45f6f4c1 successfully!
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+Packing 4 objects...
+Uploading pack pack-518ad523 to remote...
+Updating remote ref heads/main...
+Upload successful!
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+
+--- Diff for file: corrupt.txt ---
+  (Could not read original content: Object not found: nonexistenthash)
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+=======================
+=== STDERR FOR TEST ===
+Error: Branch is empty.
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+--- .dfignore patterns ---
+(No .dfignore file found)
+
+--- .gitignore patterns ---
+(No .gitignore file found)
+=======================
+Fatal: Not a draftflow repository.
+=======================
+=== STDOUT FOR TEST ===
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+Fatal: Not a draftflow repository.
+=======================
+=======================
+=== STDOUT FOR TEST ===
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+=======================
+=== STDERR FOR TEST ===
+Fatal: Not a draftflow repository.
+Error: File not found: nonexistent.txt
+Error: No commits in this repository.
+=======================
+=== STDOUT FOR TEST ===
+=======================
+=== STDERR FOR TEST ===
+Fatal: Not a draftflow repository.
+Error: Could not resolve upstream target: nonexistent
+Error: No active revision found.
+=======================
+=== STDOUT FOR TEST ===
+No unresolved conflicts.
+=======================
+=== STDERR FOR TEST ===
+=======================
+=== STDOUT FOR TEST ===
+No stashes found.
+=======================
+=== STDERR FOR TEST ===
+Error: No stashes to pop.
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+=======================
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+Found 1 unresolved conflict(s).
+
+----------------------------------------
+Conflicting file: ours_del.txt
+Select resolution action:
+  1. Keep OURS (Left) version
+  2. Keep THEIRS (Right) version
+  3. Resolve manually (Verify file no longer has markers on disk)
+  4. Launch external merge tool
+Enter choice [1-4]: Resolved ours_del.txt by deleting it (Ours).
+
+Resolve run completed.
+=======================
+=======================
+=== STDOUT FOR TEST ===
+=== STDERR FOR TEST ===
+=======================
+Found 1 unresolved conflict(s).
+
+----------------------------------------
+Conflicting file: ours_keep.txt
+Select resolution action:
+  1. Keep OURS (Left) version
+  2. Keep THEIRS (Right) version
+  3. Resolve manually (Verify file no longer has markers on disk)
+  4. Launch external merge tool
+Enter choice [1-4]: Resolved ours_keep.txt using OURS version.
+
+Resolve run completed.
+=======================
+DEBUG REBASE: activeRev=64332e698a783548196b3d7d0212d3a3702eedc62edf4fdc007bcab80af3f513, upstreamHash=5eeebac16d181ecc0408c48db339addd1d9d4f7b9665692b610d66c4cb04ccee, ancestor=5eeebac16d181ecc0408c48db339addd1d9d4f7b9665692b610d66c4cb04ccee
+Current branch is already up to date with main
+DEBUG REBASE: activeRev=64332e698a783548196b3d7d0212d3a3702eedc62edf4fdc007bcab80af3f513, upstreamHash=5eeebac16d181ecc0408c48db339addd1d9d4f7b9665692b610d66c4cb04ccee, ancestor=5eeebac16d181ecc0408c48db339addd1d9d4f7b9665692b610d66c4cb04ccee
+Current branch is already up to date with main
+DEBUG REBASE: activeRev=64332e698a783548196b3d7d0212d3a3702eedc62edf4fdc007bcab80af3f513, upstreamHash=5eeebac16d181ecc0408c48db339addd1d9d4f7b9665692b610d66c4cb04ccee, ancestor=5eeebac16d181ecc0408c48db339addd1d9d4f7b9665692b610d66c4cb04ccee
+Current branch is already up to date with main
+Warning: config.json was corrupted or unparseable. Automatically regenerating it...
+Ambiguous hash: aabbcc matches [aabbcc1111111111111111111111111111111111111111111111111111111111, aabbcc2222222222222222222222222222222222222222222222222222222222]
+=== TEST STDOUT ===
+=== TEST STDERR ===
+===================
+Exporting revision: c1459970310fd50862ca83aedb534413a51c6781d41d9a98274b5ca74ddda8b1
+Exporting revision: 4b3f7054deaa7d771ee7fa1c4e7d2a32cb06c03c12a06ec433836e09889b74cb
+=== EXPORT LOG OUTPUT ===
+d590231 df commit 2
+b808fdc df commit 1
+
+=========================
+===================
+=== TEST STDOUT ===
+Nothing to export (repository is empty).
+===================
+=== TEST STDERR ===
+===================
+=== TEST STDOUT ===
+No commits found to import.
+===================
+=== TEST STDERR ===
+===================
+=== TEST STDOUT ===
+=== TEST STDERR ===
+Created sample shell script: pre-commit
+Created sample shell script: post-commit
+Created sample shell script: pre-rebase
+Created sample shell script: pre-push
+Created sample shell script: post-checkout
+===================
+===================
+=== TEST STDOUT ===
+=== TEST STDERR ===
+*  Revision: 0bad0a11 (DRAFT) [UNSIGNED]
+|  Change ID: 0dafc50e
+|  Author: User
+|  Date: Sat Jul 25 21:34:30 IST 2026
+|  Message: shadow-revision (WIP)
+|
+*  Revision: ebccec77 [SIGNED & VERIFIED]
+|  Change ID: 0dafc50e
+|  Author: Git Author <author@git.com>
+|  Date: Sat Jul 25 21:34:29 IST 2026
+|  Message: commit number two
+|
+*  Revision: 525099a6 [SIGNED & VERIFIED]
+|  Change ID: 0dafc50e
+|  Author: Git Author <author@git.com>
+|  Date: Sat Jul 25 21:34:29 IST 2026
+|  Message: commit number one
+|
+===================
+===================
+=== TEST STDOUT ===
+===================
+=== TEST STDERR ===
+Fatal: Not a draftflow repository.
+===================
+=== TEST STDOUT ===
+Successfully installed script as hook: pre-commit
+===================
+=== TEST STDERR ===
+===================
+=== TEST STDOUT ===
+DraftFlow Repository Hooks Status:
+  pre-commit      : [Not Configured]
+  post-commit     : [Not Configured]
+  pre-rebase      : [Not Configured]
+  pre-push        : [Not Configured]
+  post-checkout   : [Not Configured]
+===================
+=== TEST STDERR ===
+===================
+=== TEST STDOUT ===
+===================
+=== TEST STDERR ===
+===================
+=== TEST STDOUT ===
+===================
+=== TEST STDERR ===
+Fatal: Not a draftflow repository.
+===================
+=== TEST STDOUT ===
+===================
+=== TEST STDERR ===
+Fatal: Not a draftflow repository.
+===================
+=== TEST STDOUT ===
+Created sample batch script: pre-commit.bat
+Created sample batch script: post-commit.bat
+Created sample batch script: pre-rebase.bat
+Created sample batch script: pre-push.bat
+Created sample batch script: post-checkout.bat
+===================
+=== TEST STDERR ===
+===================
+=== TEST STDOUT ===
+=== TEST STDERR ===
+===================
+Fatal: C:\Users\User\AppData\Local\Temp\junit1019973958034910822\not-git-dir is not a valid Git repository.
+===================
+Index rebuilt successfully.
+Index rebuilt successfully.
+Index rebuilt successfully.
+Saved change b9ba187a as revision: b90061c5
+Saved change b9ba187a as revision: 085fe3bc
+Saved change b9ba187a as revision: f2756ec6
+Fatal: pre-commit hook failed. Aborting commit.
+Patching file: new_file.txt
+Hunk 1 of 1:
+-brand new file content
++content trigger hook fail
+Stage this hunk? [y,n,q,a,d,?] Saved change b9ba187a as revision: 276d6e32
+On branch: detached
+Active Change ID: null
+Active Revision: None
+
+Working copy is clean.
+On branch: detached
+Active Change ID: null
+Active Revision: None
+
+Working copy is clean.
+No commits in this branch.
+Unknown options: '-n', '10'
+Usage: draftflow history
+Show DAG commit history
+Unknown option: '--oneline'
+Usage: draftflow history
+Show DAG commit history
+Unknown option: '--graph'
+Usage: draftflow history
+Show DAG commit history
+[36m.[0m
+[36m'--[0m [36mJUnit Jupiter[0m [32m[OK][0m
+[36m  +--[0m [36mCompleteEngineCoverageTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksCmdManagement()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestVerifyCmdRepairRollback()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveFastCDCTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSmallData()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestEmptyData()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDeterminism()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestChunkGettersSetters()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestLargeData()[0m [32m[OK][0m
+[36m  +--[0m [36mDraftFlowCliUnitTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConfigCmdList()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSetupAlreadyExists()[0m [32m[OK][0m
+[36m  | +--[0m [36mtestInvalidSubcommands(String)[0m [32m[OK][0m
+[36m  | | +--[0m [34m[1] invalidcmd1[0m [32m[OK][0m
+[36m  | | +--[0m [34m[2] unknownsubcmd[0m [32m[OK][0m
+[36m  | | +--[0m [34m[3] badcmd[0m [32m[OK][0m
+[36m  | | +--[0m [34m[4] nonexistent[0m [32m[OK][0m
+[36m  | | '--[0m [34m[5] foo-bar[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStashPushPopListClear()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUndoCmdNoParent()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStatusClean()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCleanDryRunAndForce()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestKeysCmd()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConfigCmdGetSet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestVerifyCmd()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSaveAllFlag()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBranchCreate()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBranchDelete()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStatusUntracked()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSaveSimpleCommit()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPruneCmd()[0m [32m[OK][0m
+[36m  | +--[0m [36mtestConfigKeys(String)[0m [32m[OK][0m
+[36m  | | +--[0m [34m[1] user.name[0m [32m[OK][0m
+[36m  | | +--[0m [34m[2] user.email[0m [32m[OK][0m
+[36m  | | +--[0m [34m[3] core.autocrlf[0m [32m[OK][0m
+[36m  | | +--[0m [34m[4] core.editor[0m [32m[OK][0m
+[36m  | | '--[0m [34m[5] diff.tool[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLedgerCmd()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksCmdList()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUndoCmdWithParent()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBranchList()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSaveAmend()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIgnoreCmd()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHistoryLog()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDiffCmd()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksCmdInstall()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestSwitchBranch()[0m [32m[OK][0m
+[36m  +--[0m [36mFinalTargetFullCoverageTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSaveCmdLfsAndSubdirs()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdExternalTool()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRebuildIndexCmdComplex()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveReflogManagerTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLogTransitionAndRetrieve()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMultipleTransitionsOrder()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestParseMalformedLines()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMissingReflogFile()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestNullAndEmptyInputs()[0m [32m[OK][0m
+[36m  +--[0m [36mUltimateFullCoverageGraphAndMergeTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHistoryGraphWithMergeAndSignatures()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestBranchCmdAllOptions()[0m [32m[OK][0m
+[36m  +--[0m [36mFastCDCTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSmallDataChunking()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestEmptyDataChunking()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLargeDataChunking()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestDeduplicationStability()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedFeatureSuite3Test[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTraceCommand()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestInteractiveRebase()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestWorkspaceClean()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCommitHooks()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestLedger()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveCASTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConfigHandling()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDeltaBlobStorage()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestWriteAndReadObjectLifecycle()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveHash()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestInitAndInitialize()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestLockingSystem()[0m [32m[OK][0m
+[36m  +--[0m [36mWorkspaceManagerEdgeCasesTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestWorkspaceManagerConflictErrors()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestWorkspaceManagerChunkTreeDiffAndGetFileBytes()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestWorkspaceManagerCheckoutRollback()[0m [32m[OK][0m
+[36m  +--[0m [36mMergeEdgeCasesTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMergeEngineVariousScenarios()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestAncestorFinderEdgeCases()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeDivergentComplexity()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeVariousEdits()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMergeEngineAdditionalEdgeCases()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestLineMergeAdditionalEdgeCases()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveSignatureHelperTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSignRevisionIfKeyExists()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGenerateKeyPair()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestSignAndVerify()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedRemoteSyncTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestOCCConcurrencyRaceCondition()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMassivePackingAndUnpackingOffsetIntegrity()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestNetworkErrorDuringUnpackingRollback()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveLineMergeTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestOverlappingInsertConflict()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCleanMerges()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeIdenticalOrBaseMatches()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCleanDoubleDeletion()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDiffComplexityLimit()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDeleteVsModifyConflict()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestModifyVsDeleteConflict()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIdenticalInsertion()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestDiffPrefixSuffixTrimming()[0m [32m[OK][0m
+[36m  +--[0m [36mUiServerHandlersUnitTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSyncGet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCommitDiffOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTraceMissingFile()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestProfileGet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSyncPost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPRClosePost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStatusGet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPRCommentOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStatusOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSignupPost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLogoutPost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPullRequestsOptions()[0m [32m[OK][0m
+[36m  | +--[0m [36mtestNonExistentApiRoutes(String)[0m [32m[OK][0m
+[36m  | | +--[0m [34m[1] /api/nonexistent1[0m [32m[OK][0m
+[36m  | | +--[0m [34m[2] /api/invalid-route[0m [32m[OK][0m
+[36m  | | +--[0m [34m[3] /api/unknown/path[0m [32m[OK][0m
+[36m  | | +--[0m [34m[4] /api/v2/foo[0m [32m[OK][0m
+[36m  | | '--[0m [34m[5] /api/bad-request[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLoginPost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPullRequestsPost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLoginGetNotAllowed()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConflictDetailsMissingFile()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionSwitchMissingTarget()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSettingsGet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCreateRepoPost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLoginOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionMissingCmd()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSignupOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIndexPostNotAllowed()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConflictDetailsNonConflict()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTraceOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRepositoriesOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPullRequestsGet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTraceNonExistentFile()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileContentNonExistentHash()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLedgerGet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPRMergePost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIndexOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileContentMissingParams()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPRCommentPost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLogoutOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionRebaseMissingUpstream()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSyncOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileContentOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIndexGet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionUnknownCmd()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionClean()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionStash()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCommitTreeGetMissingHash()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestProfileOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionGetNotAllowed()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionSave()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDagGet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDagOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCommitDiffGetMissingHash()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCreateRepoOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRepositoriesGet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPRCloseOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSettingsPost()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLedgerOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConflictDetailsOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCommitTreeOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSettingsOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionOptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSignupGetNotAllowed()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestPRMergeOptions()[0m [32m[OK][0m
+[36m  +--[0m [36mRemoteClientHttpTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHttpRemoteClientErrorsAndRetries()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestHttpRemoteClientSuccess()[0m [32m[OK][0m
+[36m  +--[0m [36mPrintCoverageTest[0m [32m[OK][0m
+[36m  | '--[0m [34mprintUncovered()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedFeatureSuite2Test[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRebaseLinearization()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCherryPick()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBinaryDeltaCompression()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestIgnoreCLI()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveHooksManagerTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestInvalidRepoRoot()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRunHookSuccess()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRunHookFailure()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRunHookNonexistent()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRunHookNotRegularFile()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveUiServerHandlersTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionHandlerHttpMethods()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileContentHandlerMissingFile()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestIndexHandlerResourceMimeTypesAnd404()[0m [32m[OK][0m
+[36m  +--[0m [36mFSWatcherTest[0m [32m[OK][0m
+[36m  | '--[0m [34mtestWatchEventAndDebounce()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedResilienceTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileLockExclusionAndRelease()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTransactionalRestoreFailureLeavesWorkspaceUntouched()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestVerifyIntegrityAndCorruptedObjectPruning()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCorruptedConfigAutoRecovery()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestScannerGracefullyHandlesUnreadableFile()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedCASTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConcurrentWrites()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestShortHashCollision()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestEmptyBlobStorage()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestCorruptedBlobDetection()[0m [32m[OK][0m
+[36m  +--[0m [36mFullCoverageRebaseAndCherryPickTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRebaseCmdAllBranches()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestCherryPickCmdAllBranches()[0m [32m[OK][0m
+[36m  +--[0m [36mFullUiServerHandlersCoverageTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDagAndStatusHandlers()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLedgerAndTraceHandlers()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestActionHandlerActions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSyncAndLogoutHandlers()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileContentHandlerEdgeCases()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestConflictDetailsHandlerEdgeCases()[0m [32m[OK][0m
+[36m  +--[0m [36mDraftFlowCLITest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCliLifecycle()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestCliExtendedCommands()[0m [32m[OK][0m
+[36m  +--[0m [36mMetadataStoreTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConfigOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileMetadataPersistence()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCorruptionAndFallback()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestChangeHistory()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRefOperations()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveAncestorFinderTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIdentityAndNull()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCrissCrossMergeTopology()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDisconnectedTopology()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDirectAncestor()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestForkTopology()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveCompressorTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCompressDecompressData()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCompressDecompressEmptyData()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDecompressCorruptedDataThrows()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestCompressDecompressLargeData()[0m [32m[OK][0m
+[36m  +--[0m [36mDiffAndMergeUnitTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeConflictThreeWay()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStagedHunkComputation()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestLineMergeCleanThreeWay()[0m [32m[OK][0m
+[36m  +--[0m [36mResidualFullCoverageCleanAndIgnoreTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCleanCmdAllModes()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestIgnoreCmdAllModes()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveFSWatcherTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestWatcherLifecycleAndDebounce()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestWatcherMultipleStarts()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestWatcherExclusion()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveCoreModelsTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestChunkTree()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBlob()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTreeAndTreeEntry()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConflictNode()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRevision()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDeltaBlob()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestHasher()[0m [32m[OK][0m
+[36m  +--[0m [36mMasterFullCoverageAllEndpointsTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRegisteredContextPaths()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestResolveCmdOptions()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedWorkspaceManagerTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileModePreservationInDatabaseAndCAS()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDeepNestedDirectoryTree()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestFastCDCBoundaryAndDeduplication()[0m [32m[OK][0m
+[36m  +--[0m [36mRemoteSyncTest[0m [32m[OK][0m
+[36m  | '--[0m [34mtestEndToEndSync()[0m [32m[OK][0m
+[36m  +--[0m [36mFullCoverageCliDeepBranchTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSaveCmdDeepBranches()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRebuildIndexCmdDeepBranches()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestVerifyCmdDeepBranches()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdDeepBranches()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestKeysCmdDeepBranches()[0m [32m[OK][0m
+[36m  +--[0m [36mCorePrimitivesUnitTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileMetadataSerialization()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHasherHashComputation()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestObjectTypeEnum()[0m [32m[OK][0m
+[36m  +--[0m [36mStagedHunkTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestComputeAndApplyHunks()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestComputeHunksWithConsecutiveDeletesAndInserts()[0m [32m[OK][0m
+[36m  +--[0m [36mTreeDifferTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestEmptyDiff()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTypeChangeDiff()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestTreeDiff()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedFaultToleranceTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestAtomicWriteAndIntegrityCheck()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDatabaseShutdownHookAndAutoRecovery()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGitIgnoreMatcher()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestDFIgnoreMatcher()[0m [32m[OK][0m
+[36m  +--[0m [36mCoreEngineUnitTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasGetters()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestWorkspaceManagerScanAndShadowCommit()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLfsParsePointerInvalid()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSignatureHelperGenerateAndVerify()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasInitTwice()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasWriteAndReadBlob()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasWriteAndReadTree()[0m [32m[OK][0m
+[36m  | +--[0m [36mtestCasWriteBlobs(String)[0m [32m[OK][0m
+[36m  | | +--[0m [34m[1] Payload 1[0m [32m[OK][0m
+[36m  | | +--[0m [34m[2] Payload 2[0m [32m[OK][0m
+[36m  | | +--[0m [34m[3] Payload 3[0m [32m[OK][0m
+[36m  | | +--[0m [34m[4] Payload 4[0m [32m[OK][0m
+[36m  | | '--[0m [34m[5] Payload 5[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasResolveHashShortPrefix()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLfsIsLfsFileByExtension()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFastCDCChunking()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasResolveNonExistentHash()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLfsCreateAndParsePointer()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestFSWatcherLifecycle()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedMergeEngineTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCRLFAgnosticLineMerge()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDisjointDAGMerge()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCrissCrossLCA()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPrefixSuffixTrimmingPerformance()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestAutoChunkingMergedFile()[0m [32m[OK][0m
+[36m  +--[0m [36mCASTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTreeStorage()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestInit()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBlobStorage()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRevisionStorage()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveDraftFlowCLITest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSavePatchMode()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCliExecutionExceptionHandlerDiagnostics()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCliDebugLogsPrint()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCliMainRouting()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestSubcommandsCoverage()[0m [32m[OK][0m
+[36m  +--[0m [36mFullCoverageUiHandlersTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestAuthAndProfileHandlersFullMatrix()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRepositoryAndSyncHandlersFullMatrix()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileContentTraceSettingsHandlersFullMatrix()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCommitAndDiffHandlersFullMatrix()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRemoteHandlersFullMatrix()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestPullRequestHandlersFullMatrix()[0m [32m[OK][0m
+[36m  +--[0m [36mMergeEngineTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLcaResolution()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConflictingThreeWayMerge()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestCleanThreeWayMerge()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveRemoteSyncTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileProtocolPackLifecycle()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileProtocolIndexLifecycle()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLocalPathResolutionWindows()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestFileProtocolRefLifecycle()[0m [32m[OK][0m
+[36m  +--[0m [36mMasterFullCoverageUiServerTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStaticAssetsAndRootEndpoints()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestActionHandlerAllBranches()[0m [32m[OK][0m
+[36m  +--[0m [36mReflogHooksSignatureWatcherTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFSWatcherEdgeCases()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestReflogManagerMalformed()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestReflogManagerBasic()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSignatureHelperSignRevisionIfKeyExists()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksManagerSuccess()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksManagerNoHook()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksManagerFailure()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestSignatureHelperBasic()[0m [32m[OK][0m
+[36m  +--[0m [36mFullCoverageCliExpansionTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConfigCmdFull()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestVerifyCmdFull()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSaveCmdEdgeCases()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestKeysCmdFull()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRebuildIndexCmdFull()[0m [32m[OK][0m
+[36m  +--[0m [36mUiServerIntegrationTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConflictResolutionAndCustomReflog()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUiServerRoutes()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRemainingActionRoutes()[0m [32m[OK][0m
+[36m  +--[0m [36mCoreModelsUnitTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDraftFlowConfigModel()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestExceptionsAndCompressor()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTreeEntryAndTreeModel()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBlobModel()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCASOperations()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRevisionModel()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedFeatureSuiteTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStashPushAndPop()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineDiffTool()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGarbageCollection()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestCryptographicSigning()[0m [32m[OK][0m
+[36m  +--[0m [36mMasterFullCoverageKeysAndDashboardTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestKeysCmdAllBranches()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRemainingUiServerHandlers()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestDashboardCmdExecution()[0m [32m[OK][0m
+[36m  +--[0m [36mDiffMergeUnitTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTreeDifferIdenticalTrees()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeIdenticalInputs()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTreeDifferAddedFile()[0m [32m[OK][0m
+[36m  | +--[0m [36mtestLineMergeDiffVariations(String)[0m [32m[OK][0m
+[36m  | | +--[0m [34m[1] Line variation 1[0m [32m[OK][0m
+[36m  | | +--[0m [34m[2] Line variation 2[0m [32m[OK][0m
+[36m  | | +--[0m [34m[3] Line variation 3[0m [32m[OK][0m
+[36m  | | +--[0m [34m[4] Line variation 4[0m [32m[OK][0m
+[36m  | | '--[0m [34m[5] Line variation 5[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeDiffInsertAndDelete()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeDiffIdentical()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStagedHunkApply()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBinaryDeltaCompressDecompress()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestBinaryDeltaDifferentPayloads()[0m [32m[OK][0m
+[36m  +--[0m [36mExtendedUiServerTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestExtendedEndpoints()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileContentAndConflictDetailsHandlers()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRemoteHandlers()[0m [32m[OK][0m
+[36m  +--[0m [36mFullCoverageCoreEngineTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRemotePackerAndOcc()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMetadataStoreFileMetadataAndHookRegistry()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestFSWatcherLifecycle()[0m [32m[OK][0m
+[36m  +--[0m [36mFullCoverageExceptionsAndDiagnosticsTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCustomExceptionsConstructorsAndGetters()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDiagnosticEngineLoggingAndFormatting()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestHooksManagerLifecycle()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveMetadataStoreTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLifecycleMethods()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRefBranchOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestChangeHistoryTracking()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConfigKeyValueOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUserAndPullRequestOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileMetadataCacheOperations()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestCorruptionRecoveryScenario()[0m [32m[OK][0m
+[36m  +--[0m [36mFullCoverageUiHandlersExpansionTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCommitTreeHandlerDeep()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRemoteIndexHandlerDeep()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCommitDiffHandlerDeep()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSyncHandlerDeep()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRemotePacksHandlerDeep()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRemoteRefsHandlerDeep()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveFileMetadataTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileMetadataInvalidJson()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestFileMetadataAccessorsAndJson()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveMergeEngineTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMergeTreesConflictingModification()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMergeTreesOneSidedChange()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeDeleteConflict()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeClean()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestLineMergeDivergentComplexityGuard()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMergeTreesIdentical()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestLineMergeConflict()[0m [32m[OK][0m
+[36m  +--[0m [36mLfsManagerTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRestoreLfsFile()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCreateAndParsePointer()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPushAndPullLfsObject()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIsLfsFile()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestWorkspaceManagerIntegration()[0m [32m[OK][0m
+[36m  +--[0m [36mDraftFlowSubcommandsCoverageTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHelpAndInvalid()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSubcommandsIntegration()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestPrivateConstructorsAndDataModels()[0m [32m[OK][0m
+[36m  +--[0m [36mFinalMaster100PercentCoverageTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBranchAndHistoryEmptyRepo()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestUiServerStaticAssetsAndPRs()[0m [32m[OK][0m
+[36m  +--[0m [36mStressConcurrencyTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConcurrentUiServerHttpRequests()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConcurrentCasReadWriteStress()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestConcurrentMetadataStoreAccess()[0m [32m[OK][0m
+[36m  +--[0m [36mExtraCoverageTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksManagerOSSpecificAndFailures()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFSWatcherDynamicDirectoryAndEmptyKeys()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMetadataStoreShutdownRegistryException()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGitIgnoreMatcherPatterns()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDraftFlowMainExceptionHandling()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMetadataStoreCorruptionAndLocks()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUiServerExtraCoverage()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestBinaryDeltaOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFSWatcherErrorsAndEvents()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestMetadataStoreCacheNull()[0m [32m[OK][0m
+[36m  +--[0m [36mAdvancedFSWatcherTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDynamicRecursiveRegistration()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestIntenseDebouncingCoalescence()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveWorkspaceManagerTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestApplyRevisionDiffAddedFile()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestApplyRevisionDiffDeletedFile()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestApplyRevisionDiffConflictAndCleanMerge()[0m [32m[OK][0m
+[36m  +--[0m [36mUiServerTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUiServerWithPopulatedData()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestUiServerEndpoints()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveLFSManagerTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRestoreLfsFile()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIsLfsFileByThreshold()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCreateAndParsePointer()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPushAndPullLfsObject()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIsLfsFileByExtension()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRestoreLfsFileMissing()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestParsePointerInvalid()[0m [32m[OK][0m
+[36m  +--[0m [36mMasterFullCoverageAllHandlersTest[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRemoteAndCommitHandlers()[0m [32m[OK][0m
+[36m  +--[0m [36mCoverageExpansionTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDashboardCmdNoRepo()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDownloadCmdEdgeCases()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTreeDifferTypeChanges()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDiffCmdOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdTheirsKeep()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMergeEngineEdgeCases()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCoreTreeAndRevisionGetter()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUiServerHandlersErrorPaths()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStatusCmdDeletedFiles()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRebaseCmdInteractiveAndSquash()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestKeysCmd()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdInvalidChoice()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdTheirsDelete()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdManualMarkers()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdManualCleanLarge()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdManualCleanSmall()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdManualNotExist()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStashCmdPushPopOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUploadCmdSubdirectoryTraversal()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDiffCmdCorruptContent()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUploadCmdEdgeCases()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestIgnoreCmdOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestWorkspaceManagerEdgeCases()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMetadataStoreShortCircuit()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdNoRepo()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRemoteClientEdgeCases()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestUiServerHandlersExtra()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTraceCmdOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRebaseCmdEdgeCases()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdNoConflicts()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestStashCmdOperations()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestTreeGetEntry()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestResolveCmdOursDelete()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestResolveCmdOursKeep()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveGitIgnoreMatcherTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCleanPatternsEmpty()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestDefaultExclusions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConfigExclusions()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestFileBasedExclusions()[0m [32m[OK][0m
+[36m  +--[0m [36mWorkspaceManagerTest[0m [32m[OK][0m
+[36m  | '--[0m [34mtestIncrementalShadowCommitAndRestoration()[0m [32m[OK][0m
+[36m  +--[0m [36mMasterFullCoverageRebaseInteractiveTest[0m [32m[OK][0m
+[36m  | '--[0m [34mtestRebaseInteractiveActions()[0m [32m[OK][0m
+[36m  +--[0m [36mCasEdgeCasesTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasLockTimeout()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasConfigCorrupted()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasIntegrityAndDecompressionErrors()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasResolveHashEdgeCases()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestCasWriteBlobDeltaFallback()[0m [32m[OK][0m
+[36m  +--[0m [36mGitAndHooksCoverageTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGitExportSuccess()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGitExportEmptyDraftflowRepo()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGitImportEmptyGitRepo()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksCreateSampleNonWindows()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGitImportSuccess()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGitImportFatalNotARepo()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksInstallAndFailures()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksListDefault()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksManagerExecution()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksFatalNotARepo()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGitExportFatalNotARepo()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestHooksCreateSampleWindows()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestGitImportFatalNotGitRepo()[0m [32m[OK][0m
+[36m  +--[0m [36mFullCoreDeepCoverageTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestExceptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCompressorAndBinaryDelta()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGitIgnoreMatcherPatterns()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestSignatureHelperKeys()[0m [32m[OK][0m
+[36m  +--[0m [36mMasterFullCoverageSaveAndRebuildTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRebuildIndexCmdAllBranches()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestSaveCmdAllBranches()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestStatusAndHistoryAllBranches()[0m [32m[OK][0m
+[36m  +--[0m [36mMetadataStoreUnitTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestClearIndex()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestGetAllFiles()[0m [32m[OK][0m
+[36m  | +--[0m [36mtestFileMetadataInsertAndFetch(String)[0m [32m[OK][0m
+[36m  | | +--[0m [34m[1] file_1.txt[0m [32m[OK][0m
+[36m  | | +--[0m [34m[2] file_2.txt[0m [32m[OK][0m
+[36m  | | +--[0m [34m[3] file_3.txt[0m [32m[OK][0m
+[36m  | | +--[0m [34m[4] file_4.txt[0m [32m[OK][0m
+[36m  | | '--[0m [34m[5] file_5.txt[0m [32m[OK][0m
+[36m  | +--[0m [34mtestFileMetadataRemove()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestConfigGetAndSet()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestRefGetAndSet()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestFileMetadataPutAndGet()[0m [32m[OK][0m
+[36m  +--[0m [36mFullCoverageCoreAndRemoteTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCasExceptionsAndCorruptData()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestReflogManagerEdgeCases()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestMetadataStoreOperationsAndClose()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveBinaryDeltaTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMalformedDeltaOutOfBounds()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCompressDecompressEmpty()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestCompressDecompressChanges()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestMalformedDeltaInvalidCommand()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestCompressDecompressIdentical()[0m [32m[OK][0m
+[36m  +--[0m [36mComprehensiveRemoteUtilitiesTest[0m [32m[OK][0m
+[36m  | +--[0m [34mtestOCCSuccess()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestOCCExceptions()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPackerLifecycle()[0m [32m[OK][0m
+[36m  | +--[0m [34mtestPackerFileNotFound()[0m [32m[OK][0m
+[36m  | '--[0m [34mtestPackerInvalidHeader()[0m [32m[OK][0m
+[36m  '--[0m [36mAdvancedCoverageTest[0m [32m[OK][0m
+[36m    +--[0m [34mtestTreeDifferCoverage()[0m [32m[OK][0m
+[36m    +--[0m [34mtestCliCommandsAndMain()[0m [32m[OK][0m
+[36m    +--[0m [34mtestRemoteClientHttpAndRetry()[0m [32m[OK][0m
+[36m    +--[0m [34mtestUiServerTraceAndActionHandlers()[0m [32m[OK][0m
+[36m    '--[0m [34mtestUtilityEdgeCases()[0m [32m[OK][0m
+
+Test run finished after 58726 ms
+[        93 containers found      ]
+[         0 containers skipped    ]
+[        93 containers started    ]
+[         0 containers aborted    ]
+[        93 containers successful ]
+[         0 containers failed     ]
+[       495 tests found           ]
+[         0 tests skipped         ]
+[       495 tests started         ]
+[         0 tests aborted         ]
+[       495 tests successful      ]
+[         0 tests failed          ]
+

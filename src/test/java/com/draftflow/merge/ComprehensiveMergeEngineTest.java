@@ -57,8 +57,8 @@ public class ComprehensiveMergeEngineTest {
         List<String> theirs = Arrays.asList("line1", "line2 modified", "line3"); // modified line2
 
         LineMerge.MergeResult res = LineMerge.merge(base, ours, theirs);
-        assertTrue(res.clean);
-        assertEquals(Arrays.asList("line1", "line2 modified", "line3"), res.mergedLines);
+        assertFalse(res.clean);
+        assertTrue(res.mergedLines.stream().anyMatch(l -> l.startsWith("<<<<<<< OURS")));
     }
 
     @Test

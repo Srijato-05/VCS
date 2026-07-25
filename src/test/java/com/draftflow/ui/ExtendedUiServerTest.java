@@ -235,7 +235,8 @@ public class ExtendedUiServerTest {
             assertEquals(200, r4.statusCode());
 
             // POST /api/repositories/create
-            HttpResponse<String> r5 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/repositories/create")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{\"name\":\"test-repo\"}")).build(), HttpResponse.BodyHandlers.ofString());
+            String repoName = "test-repo-" + System.currentTimeMillis();
+            HttpResponse<String> r5 = client.send(HttpRequest.newBuilder().uri(URI.create("http://localhost:" + port + "/api/repositories/create")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString("{\"name\":\"" + repoName + "\"}")).build(), HttpResponse.BodyHandlers.ofString());
             assertEquals(200, r5.statusCode());
 
             server.stop();

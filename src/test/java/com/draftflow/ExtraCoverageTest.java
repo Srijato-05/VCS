@@ -306,11 +306,10 @@ public class ExtraCoverageTest {
     @Test
     public void testHooksManagerOSSpecificAndFailures() throws Exception {
         String originalOs = System.getProperty("os.name");
+        Path hookRoot = Files.createTempDirectory("hook_root_test");
         try {
             // Mock OS to Linux to test non-win path
             System.setProperty("os.name", "Linux");
-            Path hookRoot = tempDir.resolve("hook_root");
-            Files.createDirectories(hookRoot);
             
             // Create a dummy hook script
             Path hooksDir = hookRoot.resolve(".draftflow").resolve("hooks");
@@ -331,6 +330,12 @@ public class ExtraCoverageTest {
 
         } finally {
             System.setProperty("os.name", originalOs);
+            try {
+                Files.walk(hookRoot)
+                     .sorted(Comparator.reverseOrder())
+                     .map(Path::toFile)
+                     .forEach(File::delete);
+            } catch (Exception ignored) {}
         }
     }
 

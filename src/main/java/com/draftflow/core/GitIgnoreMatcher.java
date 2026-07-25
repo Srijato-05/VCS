@@ -24,6 +24,7 @@ public class GitIgnoreMatcher {
     private final Path rootDir;
     private final List<PathMatcher> matchers = new ArrayList<>();
     private final List<String> exactExcludes = new ArrayList<>();
+    private final List<String> negationPatterns = new ArrayList<>();
 
     public GitIgnoreMatcher(Path rootDir, List<String> additionalExcludes) {
         this.rootDir = rootDir;
@@ -64,6 +65,14 @@ public class GitIgnoreMatcher {
     }
 
     private void addPattern(String pattern) {
+        if (pattern.startsWith("#")) {
+            return;
+        }
+        if (pattern.startsWith("!")) {
+            negationPatterns.add(pattern.substring(1).trim());
+            return;
+        }
+
         // Strip trailing slash but keep it as exact exclude prefix
         boolean dirOnly = pattern.endsWith("/");
         String cleaned = dirOnly ? pattern.substring(0, pattern.length() - 1) : pattern;
@@ -109,6 +118,19 @@ public class GitIgnoreMatcher {
 
         if (relStr.isEmpty()) {
             return false;
+        }
+
+        for (String neg : negationPatterns) {
+            String cleanNeg = neg.endsWith("/") ? neg.substring(0, neg.length() - 1) : neg;
+            if (relStr.equals(cleanNeg) || relStr.endsWith("/" + cleanNeg)) {
+                return false;
+            }
+            try {
+                String glob = neg.startsWith("**/") ? neg : "**/" + neg;
+                if (FileSystems.getDefault().getPathMatcher("glob:" + glob).matches(relative)) {
+                    return false;
+                }
+            } catch (Exception ignored) {}
         }
 
         // 1. Exact/prefix match verification

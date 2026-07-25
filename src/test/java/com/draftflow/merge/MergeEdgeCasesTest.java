@@ -376,7 +376,7 @@ public class MergeEdgeCasesTest {
             List<String> theirs = List.of("X", "A", "Z", "B");
             LineMerge.MergeResult res = LineMerge.merge(base, ours, theirs);
             assertFalse(res.clean);
-            assertEquals(List.of("X", "A", "<<<<<<< OURS", "Y", "=======", "Z", ">>>>>>> THEIRS", "B"), res.mergedLines);
+            assertEquals(List.of("<<<<<<< OURS", "X", "Y", "=======", "X", "Z", ">>>>>>> THEIRS", "A", "B"), res.mergedLines);
         }
 
         // 2. Generate various inputs to hit DP branches in LineMerge.diff

@@ -1,0 +1,36 @@
+# run-tests.ps1
+$projectRoot = "E:/backup 7.1.26/user/Downloads/DraftFlow"
+
+$libs = @(
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.11.0/527175ca6d81050b53bdd4c457a6d6e017626b0e/gson-2.11.0.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/info.picocli/picocli/4.7.6/77c2cb87814b6a03d431fc856024a9f8ff605ad4/picocli-4.7.6.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/com.h2database/h2/2.2.224/7bdade27d8cd197d9b5ce9dc251f41d2edc5f7ad/h2-2.2.224.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.10.2/fb55d6e2bce173f35fd28422e7975539621055ef/junit-jupiter-api-5.10.2.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-params/5.10.2/359132c82a9d3fa87a325db6edd33b5fdc67a3d8/junit-jupiter-params-5.10.2.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.10.2/f1f8fe97bd58e85569205f071274d459c2c4f8cd/junit-jupiter-engine-5.10.2.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.10.2/3197154a1f0c88da46c47a9ca27611ac7ec5d797/junit-platform-commons-1.10.2.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.10.2/d53bb4e0ce7f211a498705783440614bfaf0df2e/junit-platform-engine-1.10.2.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.2/a231e0d844d2721b0fa1b238006d15c6ded6842a/apiguardian-api-1.1.2.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.3.0/152ea56b3a72f655d4fd677fc0ef2596c3dd5e6e/opentest4j-1.3.0.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-console/1.10.2/8f206c9d7d715435f868f1bb9747e0d6e5b74619/junit-platform-console-1.10.2.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-launcher/1.10.2/8125dd29e847ca274dd1a7a9ca54859acc284cb3/junit-platform-launcher-1.10.2.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.jacoco/org.jacoco.core/0.8.14/5d317827447ab203bb90ecc7597850baae9c8565/org.jacoco.core-0.8.14.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.jacoco/org.jacoco.report/0.8.14/d25b1c200c0c6e82baac3c0ddb8b9e38f13a5f6c/org.jacoco.report-0.8.14.jar",
+    "C:/Users/User/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.7.1/f0ed132a49244b042cd0e15702ab9f2ce3cc8436/asm-9.7.1.jar"
+)
+
+$classesDir = "$projectRoot/target/classes"
+$testClassesDir = "$projectRoot/target/test-classes"
+
+New-Item -ItemType Directory -Force -Path $classesDir | Out-Null
+$mainFiles = Get-ChildItem -Path "$projectRoot/src/main/java" -Recurse -Filter "*.java" | Select-Object -ExpandProperty FullName
+& javac -encoding UTF-8 -cp ($libs -join ";") -d $classesDir $mainFiles
+
+New-Item -ItemType Directory -Force -Path $testClassesDir | Out-Null
+$testFiles = Get-ChildItem -Path "$projectRoot/src/test/java" -Recurse -Filter "*.java" | Select-Object -ExpandProperty FullName
+& javac -encoding UTF-8 -cp (($libs + $classesDir) -join ";") -d $testClassesDir $testFiles
+
+$runCp = ($libs + $classesDir + $testClassesDir) -join ";"
+
+$res = & java -cp $runCp org.junit.platform.console.ConsoleLauncher execute --scan-classpath --details=tree --details-theme=ascii 2>&1
+$res | Set-Content -Encoding utf8 -Path "$projectRoot/test_results.txt"

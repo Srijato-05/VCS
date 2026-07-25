@@ -272,7 +272,11 @@ public class MetadataStore implements AutoCloseable {
 
     public synchronized void setConfig(String key, String value) {
         ensureOpen();
-        configMap.put(key, value);
+        if (value == null) {
+            configMap.remove(key);
+        } else {
+            configMap.put(key, value);
+        }
     }
 
     public synchronized String getConfig(String key) {

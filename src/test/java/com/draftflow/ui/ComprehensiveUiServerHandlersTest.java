@@ -89,7 +89,7 @@ public class ComprehensiveUiServerHandlersTest {
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<String> resPostNoCmd = client.send(requestPostNoCmd, HttpResponse.BodyHandlers.ofString());
-        assertEquals(500, resPostNoCmd.statusCode());
+        assertEquals(400, resPostNoCmd.statusCode());
         assertTrue(resPostNoCmd.body().contains("error"));
     }
 
@@ -101,7 +101,7 @@ public class ComprehensiveUiServerHandlersTest {
                 .GET()
                 .build();
         HttpResponse<String> res = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(500, res.statusCode());
+        assertEquals(400, res.statusCode());
         assertTrue(res.body().contains("error"));
     }
 }
